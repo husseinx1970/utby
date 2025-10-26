@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="color-scheme" content="dark only" />
   <title>Utby Snabb Bilverkstad — Pålitlig bilservice i Göteborg</title>
-  <meta name="description" content="Utby Snabb Bilverkstad i Göteborg erbjuder professionell service, diagnos, bromsar, däck, AC och kompletta reparationer. Drop-in, söndagsöppet till 18 och däckhotell." />
+  <meta name="description" content="Utby Snabb Bilverkstad i Göteborg: service, bromsar, däck, AC, diagnos och kompletta reparationer. Drop-in, söndagsöppet till 18 och däckhotell." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
@@ -33,9 +33,9 @@
     .nav a{padding:8px 12px;border-radius:999px;font-weight:800;background:#DABD66;color:#111;border:1px solid rgba(0,0,0,.2);font-size:14px}
     .nav a.secondary{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.12)}
 
-    /* Hero (med LOGO i stället för bilder) */
+    /* Hero (logo istället för bilder) */
     .hero{padding:24px 0}
-    .hero-grid{display:grid;grid-template-columns:1fr;gap:18px;align-items:center;min-height:52vh;text-align:center}
+    .hero-grid{display:grid;grid-template-columns:1fr;gap:18px;align-items:center;min-height:46vh;text-align:center}
     h1{
       font-family:Space Grotesk,Inter;font-weight:800;margin:.3em 0;
       font-size:clamp(26px,6vw,42px);
@@ -48,13 +48,7 @@
     .btn.primary{background:#DABD66;color:#111}
     .btn.ghost{background:rgba(255,255,255,.06);color:#fff}
     .btn:hover{transform:translateY(-2px)}
-    .hero-logo{
-      width:min(220px,46vw);
-      height:auto;
-      margin:10px auto 0;
-      filter:drop-shadow(0 8px 24px rgba(218,189,102,.25));
-      opacity:.95;
-    }
+    .hero-logo{width:min(220px,46vw);margin:10px auto 0;filter:drop-shadow(0 8px 24px rgba(218,189,102,.25));opacity:.95}
 
     /* Sections + Cards */
     .section{padding:40px 0}
@@ -78,36 +72,40 @@
     .map-container{margin-top:30px;text-align:center}
     iframe{width:100%;height:260px;border:0;border-radius:12px}
 
-    /* Footer note + Modal (svenska) */
-    .footer-note{margin-top:18px;text-align:center;color:#C9D2DE;font-size:14px}
+    /* Footer note */
+    .footer-note{margin:22px 0 28px;text-align:center;color:#C9D2DE;font-size:14px}
     .footer-note a{font-weight:800;cursor:pointer}
 
+    /* Creator Modal – förbättrad design */
     .modal{
       position:fixed;inset:0;display:none;place-items:center;z-index:1200;
-      background:rgba(10,12,16,.72);backdrop-filter:blur(10px)
+      background:rgba(8,10,14,.55);backdrop-filter:blur(14px)
     }
     .modal.show{display:grid}
     .modal-card{
-      width:min(520px,92vw);
-      background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:16px;padding:18px;
-      box-shadow:0 24px 60px rgba(0,0,0,.45)
+      width:min(600px,92vw);
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:18px;padding:18px 18px 14px;
+      box-shadow:0 28px 80px rgba(0,0,0,.5)
     }
-    .modal-card h3{margin:.2em 0 .4em;font:800 20px/1.2 Inter;text-align:center}
-    .modal-card p{margin:0 0 12px;text-align:center;color:#C9D2DE}
-    .modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-    .modal-actions a{
-      display:inline-block;text-align:center;padding:12px;border-radius:12px;font-weight:900;border:1px solid rgba(255,255,255,.12)
+    .modal-header{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:8px}
+    .modal-header img{width:46px;height:46px;border-radius:10px;object-fit:contain;filter:drop-shadow(0 6px 18px rgba(218,189,102,.35))}
+    .modal-card h3{margin:.1em 0 .2em;font:800 20px/1.2 Inter;text-align:center}
+    .modal-card p{margin:0 0 10px;text-align:center;color:#C9D2DE}
+    .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0 12px}
+    .action{
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      padding:12px;border-radius:14px;font-weight:900;border:1px solid rgba(255,255,255,.12);
+      text-align:center
     }
-    .modal-actions .call{background:#111;color:#DABD66}
-    .modal-actions .mail{background:#DABD66;color:#111}
+    .action svg{width:18px;height:18px}
+    .action.call{background:#111;color:#DABD66}
+    .action.mail{background:#DABD66;color:#111}
+    .meta{display:grid;gap:6px;margin-top:6px;color:#D7DEEA;font-size:14px}
+    .meta strong{color:#fff}
     .modal-close{display:block;margin:12px auto 0;text-align:center;color:#9fb0c0}
-
-    @media (max-width:820px){
-      .brand img{width:48px;height:48px}
-      .hero-logo{width:min(180px,58vw)}
-    }
+    @media (max-width:820px){ .brand img{width:48px;height:48px} .hero-logo{width:min(180px,58vw)} .modal-grid{grid-template-columns:1fr} }
   </style>
 </head>
 <body>
@@ -123,7 +121,7 @@
     </div>
   </header>
 
-  <!-- Hero med LOGO -->
+  <!-- Hero -->
   <section class="hero" id="start">
     <div class="container hero-grid">
       <div>
@@ -136,20 +134,18 @@
           <a class="btn primary" href="#boka">Boka tid</a>
           <a class="btn ghost" href="tel:+46720040936">Ring 072-004 09 36</a>
         </div>
-        <!-- LOGO i مكان الصور المحذوفة -->
         <img class="hero-logo" src="assets/logo.png" alt="Utby Snabb Bilverkstad logotyp">
       </div>
     </div>
   </section>
 
-  <!-- Tjänster (med bilder inne i korten حسب طلبك السابق) -->
+  <!-- Tjänster (صور داخل البطاقات كما اتفقنا) -->
   <section class="section" id="tjanster">
     <div class="container">
       <h2>Våra tjänster</h2>
       <p class="muted">Vi utför allt från motor till växellåda och minsta detalj. Du får alltid prisförslag innan åtgärd och tydlig återkoppling efter avslutat arbete.</p>
 
       <div class="services">
-        <!-- Service + photo1 -->
         <div class="card">
           <h3>Service</h3>
           <p>Oljebyte, filter och genomgång av vitala system. Servicehistorik uppdateras där det är möjligt.</p>
@@ -161,7 +157,6 @@
           <img src="assets/photo1.jpg" alt="Service och oljebyte">
         </div>
 
-        <!-- Bromsar -->
         <div class="card">
           <h3>Bromsar</h3>
           <p>Kontroll och byte av belägg, skivor och bromsvätska för säker och jämn bromsverkan.</p>
@@ -172,7 +167,6 @@
           </ul>
         </div>
 
-        <!-- Däck & hjul + photo3 -->
         <div class="card">
           <h3>Däck & hjul</h3>
           <p>Skifte, balansering och kontroll inför säsong. Vi erbjuder även däckhotell.</p>
@@ -184,7 +178,6 @@
           <img src="assets/photo3.jpg" alt="Däckhotell och hjulservice">
         </div>
 
-        <!-- Diagnos & el -->
         <div class="card">
           <h3>Diagnos & el</h3>
           <p>Systematisk felsökning med rapport och rekommendationer innan beslut.</p>
@@ -195,7 +188,6 @@
           </ul>
         </div>
 
-        <!-- AC -->
         <div class="card">
           <h3>AC & klimatanläggning</h3>
           <p>Service av klimatsystem samt åtgärd av läckage eller svag kylning.</p>
@@ -206,7 +198,6 @@
           </ul>
         </div>
 
-        <!-- Kompletta reparationer + photo2 -->
         <div class="card">
           <h3>Kompletta reparationer</h3>
           <p>Från motor och växellåda till minsta komponent – med tydlig uppföljning.</p>
@@ -224,7 +215,7 @@
   <!-- Boka + Karta -->
   <section class="section" id="boka">
     <div class="container">
-      <h2>Boka tid</h2>
+      <h2>Kontakt & bokning</h2>
       <form class="booking" action="https://formsubmit.co/Husseinmormor@gmail.com" method="POST">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_subject" value="Ny bokning — Utby Snabb Bilverkstad">
@@ -235,30 +226,50 @@
         <button type="submit">Skicka förfrågan</button>
       </form>
 
-      <div class="map-container">
+      <div class="map-container" id="kontakt">
         <h3>Här hittar du oss</h3>
         <p>Vagnmakaregatan 2, 415 72 Göteborg</p>
-        <iframe src="https://www.google.com/maps?q=57.74025,12.07864&hl=sv&z=15&output=embed"></iframe>
+        <iframe src="https://www.google.com/maps?q=57.74025,12.07864&hl=sv&z=15&output=embed" loading="lazy"></iframe>
       </div>
     </div>
   </section>
 
-  <!-- Sidfot – notis + Hussein-länk -->
+  <!-- Sidfot – النص المطلوب فقط -->
   <div class="container">
-    <p class="footer-note">
-      Sidan är skapad av <a id="openCreator">Hussein</a>
-    </p>
+    <p class="footer-note" dir="rtl">تم إنشاؤها من قبل <a id="openCreator">حسين</a></p>
   </div>
 
-  <!-- Modal: Kontakta Hussein -->
+  <!-- Modal: Kontakta Hussein (أجمل + معلومات أكثر) -->
   <div class="modal" id="creatorModal" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="creatorTitle">
-      <h3 id="creatorTitle">Kontakta Hussein</h3>
-      <p>Välj hur du vill komma i kontakt.</p>
-      <div class="modal-actions">
-        <a class="call" href="tel:+46790574975">Ring: 0790574975</a>
-        <a class="mail" href="mailto:husseinmormor@gmail.com">Skicka e-post: husseinmormor@gmail.com</a>
+      <div class="modal-header">
+        <img src="assets/logo.png" alt="Logo">
+        <div>
+          <h3 id="creatorTitle">Kontakta Hussein</h3>
+          <p>Välj hur du vill komma i kontakt.</p>
+        </div>
       </div>
+
+      <div class="modal-grid">
+        <a class="action call" href="tel:+46790574975" aria-label="Ring Hussein">
+          <!-- phone icon -->
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.9 15.9 0 006.6 6.6l2.2-2.2a1.4 1.4 0 011.5-.33c1.6.6 3.4.94 5.2 1.01.77.03 1.4.65 1.4 1.42V21a1 1 0 01-1 1C12.4 22 2 11.6 2 1a1 1 0 011-1h2.7c.77 0 1.39.63 1.42 1.4.07 1.8.41 3.6 1.01 5.2.2.52.08 1.1-.33 1.5L6.6 10.8z"/></svg>
+          Ring: 0790574975
+        </a>
+        <a class="action mail" href="mailto:husseinmormor@gmail.com" aria-label="Skicka e-post till Hussein">
+          <!-- mail icon -->
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Skicka e-post: husseinmormor@gmail.com
+        </a>
+      </div>
+
+      <div class="meta">
+        <div><strong>Utby Snabb Bilverkstad</strong></div>
+        <div>Adress: Vagnmakaregatan 2, 415 72 Göteborg</div>
+        <div>Öppettider: Mån–Fre 08:00–17:00, Sön 10:00–18:00</div>
+        <div>Drop-in välkommen · Däckhotell · Komplett verkstad</div>
+      </div>
+
       <a href="#" class="modal-close" id="closeCreator">Stäng</a>
     </div>
   </div>

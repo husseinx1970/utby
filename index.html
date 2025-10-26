@@ -33,8 +33,9 @@
     .nav a{padding:8px 12px;border-radius:999px;font-weight:800;background:#DABD66;color:#111;border:1px solid rgba(0,0,0,.2);font-size:14px}
     .nav a.secondary{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.12)}
 
-    /* Hero (بدون صور) */
-    .hero-grid{display:grid;grid-template-columns:1fr;gap:18px;align-items:center;min-height:52vh;padding:24px 0;text-align:center}
+    /* Hero (med LOGO i stället för bilder) */
+    .hero{padding:24px 0}
+    .hero-grid{display:grid;grid-template-columns:1fr;gap:18px;align-items:center;min-height:52vh;text-align:center}
     h1{
       font-family:Space Grotesk,Inter;font-weight:800;margin:.3em 0;
       font-size:clamp(26px,6vw,42px);
@@ -47,6 +48,13 @@
     .btn.primary{background:#DABD66;color:#111}
     .btn.ghost{background:rgba(255,255,255,.06);color:#fff}
     .btn:hover{transform:translateY(-2px)}
+    .hero-logo{
+      width:min(220px,46vw);
+      height:auto;
+      margin:10px auto 0;
+      filter:drop-shadow(0 8px 24px rgba(218,189,102,.25));
+      opacity:.95;
+    }
 
     /* Sections + Cards */
     .section{padding:40px 0}
@@ -70,11 +78,10 @@
     .map-container{margin-top:30px;text-align:center}
     iframe{width:100%;height:260px;border:0;border-radius:12px}
 
-    /* Footer */
+    /* Footer note + Modal (svenska) */
     .footer-note{margin-top:18px;text-align:center;color:#C9D2DE;font-size:14px}
     .footer-note a{font-weight:800;cursor:pointer}
 
-    /* Creator Modal (بنفس روح التصميم) */
     .modal{
       position:fixed;inset:0;display:none;place-items:center;z-index:1200;
       background:rgba(10,12,16,.72);backdrop-filter:blur(10px)
@@ -97,9 +104,9 @@
     .modal-actions .mail{background:#DABD66;color:#111}
     .modal-close{display:block;margin:12px auto 0;text-align:center;color:#9fb0c0}
 
-    /* Mobile tweaks */
     @media (max-width:820px){
       .brand img{width:48px;height:48px}
+      .hero-logo{width:min(180px,58vw)}
     }
   </style>
 </head>
@@ -107,7 +114,7 @@
   <!-- Header -->
   <header class="header">
     <div class="container header-inner">
-      <a class="brand" href="#start"><img src="assets/logo.png" alt="Logo"/><span class="brand-name">Utby Snabb Bilverkstad</span></a>
+      <a class="brand" href="#start"><img src="assets/logo.png" alt="Logotyp"/><span class="brand-name">Utby Snabb Bilverkstad</span></a>
       <nav class="nav">
         <a class="secondary" href="#tjanster">Tjänster</a>
         <a class="secondary" href="#kontakt">Kontakt</a>
@@ -116,7 +123,7 @@
     </div>
   </header>
 
-  <!-- Hero (بدون صور) -->
+  <!-- Hero med LOGO -->
   <section class="hero" id="start">
     <div class="container hero-grid">
       <div>
@@ -129,11 +136,13 @@
           <a class="btn primary" href="#boka">Boka tid</a>
           <a class="btn ghost" href="tel:+46720040936">Ring 072-004 09 36</a>
         </div>
+        <!-- LOGO i مكان الصور المحذوفة -->
+        <img class="hero-logo" src="assets/logo.png" alt="Utby Snabb Bilverkstad logotyp">
       </div>
     </div>
   </section>
 
-  <!-- Tjänster (مع الصور داخل البطاقات حسب طلبك السابق) -->
+  <!-- Tjänster (med bilder inne i korten حسب طلبك السابق) -->
   <section class="section" id="tjanster">
     <div class="container">
       <h2>Våra tjänster</h2>
@@ -234,29 +243,28 @@
     </div>
   </section>
 
-  <!-- ملاحظة في نهاية الصفحة + رابط حسين -->
+  <!-- Sidfot – notis + Hussein-länk -->
   <div class="container">
-    <p class="footer-note" dir="rtl">
-      تم إنشاء الصفحة من قبل
-      <a id="openCreator">Hussein</a>
+    <p class="footer-note">
+      Sidan är skapad av <a id="openCreator">Hussein</a>
     </p>
   </div>
 
-  <!-- نافذة خيارات التواصل مع حسين (Call / Email) -->
+  <!-- Modal: Kontakta Hussein -->
   <div class="modal" id="creatorModal" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="creatorTitle">
-      <h3 id="creatorTitle">التواصل مع Hussein</h3>
-      <p>اختر طريقة التواصل المفضلة لديك.</p>
+      <h3 id="creatorTitle">Kontakta Hussein</h3>
+      <p>Välj hur du vill komma i kontakt.</p>
       <div class="modal-actions">
-        <a class="call" href="tel:+46790574975">اتصل: 0790574975</a>
-        <a class="mail" href="mailto:husseinmormor@gmail.com">إرسال بريد: husseinmormor@gmail.com</a>
+        <a class="call" href="tel:+46790574975">Ring: 0790574975</a>
+        <a class="mail" href="mailto:husseinmormor@gmail.com">Skicka e-post: husseinmormor@gmail.com</a>
       </div>
-      <a href="#" class="modal-close" id="closeCreator">إغلاق</a>
+      <a href="#" class="modal-close" id="closeCreator">Stäng</a>
     </div>
   </div>
 
   <script>
-    // فتح/إغلاق نافذة حسين
+    // Modal: öppna/stäng
     const openCreator = document.getElementById('openCreator');
     const modal = document.getElementById('creatorModal');
     const closeCreator = document.getElementById('closeCreator');

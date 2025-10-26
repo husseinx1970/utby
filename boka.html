@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark only">
+  <title>Utby Snabb Bilverkstad — Bilservice i Utby</title>
+  <meta name="description" content="Utby Snabb Bilverkstad i Göteborg/Utby. Snabb och tydlig bilservice." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header class="nav container">
+    <a class="logo" href="index.html" aria-label="Hem">
+      <img src="assets/logo.svg" alt="Logo" />
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="priser.html">Priser</a></li>
+        <li><a href="boka.html">Boka tid</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+
+<main class="container section">
+  <h1>Boka tid</h1>
+  <p class="lead">Fyll i uppgifterna och skicka. Vi återkommer snabbt med bekräftelse.</p>
+  <form class="card booking" id="bookingForm" method="POST" action="https://formsubmit.co/info@utbysnabbbilservice.se">
+    <input type="hidden" name="_subject" value="Bokningsförfrågan från hemsidan">
+    <input type="hidden" name="_captcha" value="false">
+    <label>För- och efternamn
+      <input name="Namn" required placeholder="Förnamn Efternamn" />
+    </label>
+    <label>Telefon (ditt nummer)
+      <input name="Telefon" required placeholder="072-004 09 36" />
+    </label>
+    <label>E‑post
+      <input name="Epost" type="email" placeholder="namn@exempel.se" />
+    </label>
+    <label>Regnr
+      <input name="Regnr" placeholder="ABC123" />
+    </label>
+    <label>Tjänst
+      <select name="Tjänst">
+        <option>Basservice</option>
+        <option>Diagnos</option>
+        <option>Bromsar</option>
+        <option>Däck & hjul</option>
+        <option>AC & el</option>
+      </select>
+    </label>
+    <label>Önskat datum
+      <input name="Datum" type="date" />
+    </label>
+    <label>Beskrivning
+      <textarea name="Meddelande" placeholder="Berätta kort vad du vill ha hjälp med…"></textarea>
+    </label>
+    <div class="actions">
+      <button type="submit" class="btn-primary">Skicka förfrågan</button>
+      <button type="button" class="btn-ghost" id="whatsBtn">Skicka via WhatsApp</button>
+    </div>
+    <p class="help">Du kan också ringa oss direkt.</p>
+  </form>
+</main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="brand">
+        <img src="assets/logo.svg" alt="Logo liten" />
+        <div>
+          <strong>Utby Snabb Bilverkstad</strong>
+          <p>Snabb, tydlig & pålitlig bilservice</p>
+        </div>
+      </div>
+      <div class="links">
+        <a href="index.html">Hem</a>
+        <a href="priser.html">Priser</a>
+        <a href="boka.html">Boka</a>
+        <a href="kontakt.html">Kontakt</a>
+      </div>
+    </div>
+    <div class="legal">© <span id="year"></span> Utby Snabb Bilverkstad — Göteborg, Sweden</div>
+  </footer>
+  <div class="mobile-cta">
+    <a class="m-btn call" href="tel:+46720040936">Ring 072-004 09 36</a>
+    <a class="m-btn book" href="boka.html">Boka tid</a>
+  </div>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

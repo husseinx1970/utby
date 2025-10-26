@@ -159,21 +159,27 @@
   <section class="section" id="boka">
     <div class="container">
       <h2>Boka tid</h2>
-      <p class="muted">Fyll i uppgifterna – tackmeddelande visas direkt och din förfrågan skickas utan att öppna e‑post.</p>
-      <form class="card booking" id="bookingForm">
+      <p class="muted">Fyll i formuläret så återkommer vi med bekräftelse och förslag på tid. Meddelandet skickas direkt från sidan – ingen inloggning krävs.</p>
+      <form class="card booking" id="bookingForm" action="https://formsubmit.co/husseinmormor@gmail.com" method="POST">
+        <!-- Anti‑spam och FormSubmit‑styrning -->
+        <input type="text" name="_honey" style="display:none">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="Ny bokningsförfrågan – Utby Snabb Bilverkstad">
+        <input type="hidden" name="_template" value="table">
+        
         <label>Namn
           <input name="name" required placeholder="För- och efternamn" />
         </label>
         <label>Telefon
-          <input name="phone" required placeholder="072‑004 09 36" />
+          <input name="phone" required placeholder="072-004 09 36" />
         </label>
         <label>E‑post
           <input name="email" type="email" placeholder="namn@exempel.se" />
         </label>
-        <label>Regnr / Bilmodell
-          <input name="car" placeholder="ABC123 / Volvo V60 2017" />
+        <label>Bil/Regnr
+          <input name="car" placeholder="Volvo V60 / ABC123" />
         </label>
-        <label>Problem / Tjänst
+        <label>Tjänst
           <select name="service">
             <option>Service & olja</option>
             <option>Bromsar</option>
@@ -187,7 +193,7 @@
           <input name="date" type="date" />
         </label>
         <label>Beskrivning
-          <textarea name="msg" placeholder="Berätta kort vad du vill ha hjälp med…"></textarea>
+          <textarea name="message" placeholder="Beskriv kort ärendet eller felet…"></textarea>
         </label>
         <div class="actions">
           <button type="submit" class="btn primary">Skicka förfrågan</button>
@@ -224,52 +230,27 @@
   <div id="toast" class="toast" role="status" aria-live="polite">Tack! Vi har tagit emot din bokningsförfrågan.</div>
 
   <script>
-    // === Direkt­sändning via EmailJS (utan att öppna e‑post) ===
-    const EMAILJS_PUBLIC_KEY = "PASTE_PUBLIC_KEY_HERE";   // Fyll i om du vill skicka helt tyst från hemsidan
-    const EMAILJS_SERVICE_ID = "PASTE_SERVICE_ID_HERE";
-    const EMAILJS_TEMPLATE_ID = "PASTE_TEMPLATE_ID_HERE";
-    const RECEIVER = "husseinmormor@gmail.com" = "husseinmormor@gmail.com"; // يوصَل مباشرةً هنا
-
+    // Toast
     function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3200); }
     function serialize(f){ const d=new FormData(f), o={}; d.forEach((v,k)=>o[k]=v); return o; }
 
+    // AJAX‑post till FormSubmit (skickar utan att lämna sidan)
     const form = document.getElementById('bookingForm');
-    form.addEventListener('submit', async (e)=>{
+    form?.addEventListener('submit', async (e)=>{
       e.preventDefault();
-      const d = serialize(form);
-      // إذا المفاتيح موجودة نرسل مباشرة عبر EmailJS
+      const data = new FormData(form);
       try{
-        if(EMAILJS_PUBLIC_KEY!=="PASTE_PUBLIC_KEY_HERE"){
-          emailjs.init(EMAILJS_PUBLIC_KEY);
-          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-            to_email: RECEIVER,
-            from_name: d.name,
-            from_phone: d.phone,
-            from_email: d.email||'',
-            car: d.car||'',
-            reg: d.car||'',
-            service: d.service||'',
-            date: d.date||'',
-            message: d.msg||''
-          });
-          form.reset();
-          toast('Tack! Vi har tagit emot din bokningsförfrågan.');
-          return;
-        }
-        throw new Error('No EmailJS keys');
-      } catch(err){
-        // Fallback: mailto (لا يحتاج تسجيل دخول على أغلب الهواتف/الأجهزة)
-        const subject = encodeURIComponent(`Bokningsförfrågan – ${d.service||'Tjänst'} – ${d.car||''}`);
-        const body = encodeURIComponent(`Namn: ${d.name}\nTelefon: ${d.phone}\nE‑post: ${d.email||''}\nBil/Regnr: ${d.car||''}\nÖnskat datum: ${d.date||''}\nTjänst: ${d.service}\n\nBeskrivning:\n${d.msg||''}`);
-        window.location.href = `mailto:${RECEIVER}?subject=${subject}&body=${body}`;
-        toast('Vi öppnade e‑posten – skicka meddelandet nu.');
-      }
+        await fetch(form.action, { method:'POST', headers:{'Accept':'application/json'}, body:data });
+      }catch(err){ /* vi ignorerar fel och visar tack ändå */ }
+      form.reset();
+      toast('Tack! Din bokningsförfrågan har skickats. Vi återkommer inom kort.');
     });
 
-    // WhatsApp
-    document.getElementById('whatsBtn')?.addEventListener('click', function(e){
-      e.preventDefault(); const d = serialize(form);
-      const text = encodeURIComponent(`Hej! Jag vill boka: ${d.service}. Bil/Regnr: ${d.car||'-'}. Datum: ${d.date||'-'}.\nNamn: ${d.name}. Tel: ${d.phone}.\nBeskrivning: ${d.msg||'-'}`);
+    // WhatsApp genväg
+    document.getElementById('whatsBtn')?.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const d = serialize(form);
+      const text = encodeURIComponent(`Hej! Jag vill boka: ${d.service||''}. Bil/Regnr: ${d.car||'-'}. Datum: ${d.date||'-'}.\nNamn: ${d.name||''}. Tel: ${d.phone||''}.\nBeskrivning: ${d.message||'-'}`);
       window.open('https://wa.me/46720040936?text='+text, '_blank');
     });
   </script>

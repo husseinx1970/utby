@@ -6,17 +6,16 @@
   <meta name="color-scheme" content="dark only" />
   <title>Utby Snabb Bilverkstad — Pålitlig bilservice i Göteborg</title>
   <meta name="description" content="Utby Snabb Bilverkstad i Göteborg erbjuder professionell service, diagnos, bromsar, däck, AC och kompletta reparationer. Drop-in, söndagsöppet till 18 och däckhotell." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet" />
   <style>
-    /* === Reset / Base === */
+    /* ===== Reset / Base ===== */
     *,*::before,*::after{box-sizing:border-box}
     html{height:100%;scroll-behavior:smooth}
     body{
       margin:0;min-height:100%;
       font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
       color:#f6f7fb;background:#0B0C10;overflow-x:hidden;
+      /* خلفية معدنية بزيت خفيف */
       background-image:
         radial-gradient(1000px 520px at 85% -10%, rgba(150,120,50,.18), transparent 60%),
         radial-gradient(800px 440px at 10% 8%, rgba(100,110,130,.14), transparent 60%),
@@ -28,9 +27,10 @@
       outline:2px solid rgba(218,189,102,.7);outline-offset:2px}
     .container{width:min(1120px,100%);margin-inline:auto;padding-inline:clamp(14px,4vw,24px)}
     .section{padding:clamp(32px,7vw,80px) 0}
+    .muted{color:#C9D2DE}
 
-    /* === Header / Nav === */
-    .header{position:sticky;top:0;z-index:1000;background:rgba(12,13,18,.72);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid rgba(255,255,255,.10)}
+    /* ===== Header / Nav ===== */
+    .header{position:sticky;top:0;z-index:1000;background:rgba(12,13,18,.78);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid rgba(255,255,255,.10)}
     .header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
     .brand{display:flex;align-items:center;gap:10px}
     .brand img{width:56px;height:56px;object-fit:contain;border-radius:10px;filter:drop-shadow(0 0 10px rgba(218,189,102,.35))}
@@ -43,89 +43,52 @@
     }
     .nav a.secondary{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.12);font-weight:700}
 
-    /* === Hero === */
-    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center;min-height:60vh;padding:clamp(14px,3vw,20px) 0}
-    .eyebrow{display:inline-block;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);padding:6px 10px;border-radius:999px;color:#dbe2ee;font-size:12px;letter-spacing:.2px}
-    h1{
-      font-family:Space Grotesk,Inter;font-weight:800;letter-spacing:.2px;margin:.3em 0 .2em;
-      font-size:clamp(24px,5.8vw,44px);line-height:1.08;
-      background:linear-gradient(90deg,#fff,#DABD66);-webkit-background-clip:text;background-clip:text;color:transparent
-    }
+    /* ===== Hero ===== */
+    .hero{padding:clamp(20px,5vw,40px) 0}
+    h1{font-family:Space Grotesk,Inter;font-weight:800;letter-spacing:.2px;margin:.3em 0 .2em;
+        font-size:clamp(24px,5.6vw,44px);line-height:1.08;
+        background:linear-gradient(90deg,#fff,#DABD66);-webkit-background-clip:text;background-clip:text;color:transparent}
     .lead{color:#C9D2DE;max-width:70ch;margin:0 0 14px;font-size:clamp(14px,3.8vw,16px)}
     .cta{display:flex;gap:8px;flex-wrap:wrap}
-    .btn{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);font-weight:800;transition:transform .2s ease, box-shadow .2s ease;font-size:14px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);font-weight:800;font-size:14px;
+         transition:transform .2s ease, box-shadow .2s ease}
     .btn.primary{background:#DABD66;color:#111}
     .btn.ghost{background:rgba(255,255,255,.06);color:#fff}
     .btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.28)}
 
-    /* === Gallery === */
-    .gallery{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:10px;
-    }
-    .gallery img{
-      width:100%;
-      height:280px;             /* desktop height */
-      object-fit:cover;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow:0 14px 36px rgba(0,0,0,.28);
-    }
-
-    /* === Services === */
-    .section h2{font:800 clamp(18px,3vw,28px)/1.2 Space Grotesk,Inter;margin:0 0 14px}
-    .muted{color:#C9D2DE;margin:0 0 18px}
-    .services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:16px}
+    /* ===== Cards / Services ===== */
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:16px}
     .card h3{margin:.15em 0 .35em;font:800 clamp(15px,2.2vw,18px)/1.2 Inter}
 
-    /* === Booking === */
-    .booking{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .booking label{display:grid;gap:6px;font-weight:700;font-size:14px}
-    .booking input,.booking select,.booking textarea{
+    /* ===== Narrative Images (distributed) ===== */
+    .photo-full{margin:18px 0;border-radius:12px;border:1px solid rgba(255,255,255,.12);box-shadow:0 14px 36px rgba(0,0,0,.28)}
+    .photo-band{padding:20px 0}
+
+    /* ===== Booking ===== */
+    .booking{display:grid;gap:12px}
+    .booking input,.booking textarea,.booking select{
       width:100%;padding:12px 11px;border-radius:12px;border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.06);color:#fff;font-size:15px
-    }
-    .booking textarea{min-height:140px;grid-column:1/-1}
-    .booking .actions{grid-column:1/-1;display:flex;gap:8px;justify-content:flex-end}
+      background:rgba(255,255,255,.06);color:#fff;font-size:15px}
+    .booking textarea{min-height:140px}
 
-    /* === Map + Advantages === */
-    .map-container iframe{width:100%;height:320px;border:0;border-radius:12px;margin-top:14px}
-    .advantages{margin-top:16px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-    .adv{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:14px}
-    .adv h3{margin:.1em 0 .3em;font:800 16px/1.2 Inter}
+    /* ===== Map ===== */
+    iframe{width:100%;height:320px;border:0;border-radius:12px;margin-top:14px}
 
-    /* === Toast === */
+    /* ===== Footer ===== */
+    footer{border-top:1px solid rgba(255,255,255,.12);padding:20px 0 60px}
+
+    /* ===== Toast ===== */
     .toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%) translateY(26px);background:#101214;border:1px solid rgba(113,255,178,.3);color:#fff;padding:10px 14px;border-radius:12px;box-shadow:0 18px 44px rgba(0,0,0,.34);opacity:0;transition:.3s ease;z-index:60;pointer-events:none;font-size:14px}
     .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-    /* === Footer + Mobile bar === */
-    .footer{border-top:1px solid rgba(255,255,255,.10);padding:16px 0 76px;margin-top:18px}
-    .footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;align-items:center}
-    .mobile-bar{display:none}
-
-    /* === Responsive tweaks === */
+    /* ===== Responsive ===== */
     @media (max-width: 820px){
       .brand img{width:44px;height:44px}
       .brand-name{font-size:16px}
-      .nav{gap:6px}
       .nav a{font-size:13px;padding:8px 10px}
-      .hero-grid{grid-template-columns:1fr;gap:16px;min-height:unset}
-      .gallery{grid-template-columns:1fr;gap:8px}     /* single column on mobile */
-      .gallery img{height:200px;border-radius:10px}
-      .services{grid-template-columns:1fr}
-      .booking{grid-template-columns:1fr}
-      .footer-grid{grid-template-columns:1fr}
-      .advantages{grid-template-columns:1fr}
-      .mobile-bar{
-        position:fixed;left:0;right:0;bottom:0;z-index:70;display:grid;grid-template-columns:1fr 1fr;gap:8px;
-        padding:10px 12px;background:rgba(15,16,22,.92);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.12)
-      }
-      .mobile-bar a{display:inline-block;text-align:center;padding:12px 10px;border-radius:12px;font-weight:900;font-size:14px}
-      .mobile-bar .call{background:#111;color:#DABD66;border:1px solid rgba(255,255,255,.12)}
-      .mobile-bar .book{background:#DABD66;color:#111}
-      body{padding-bottom:76px}
+      .cards{grid-template-columns:1fr}
+      .photo-full{margin:12px 0}
     }
   </style>
 </head>
@@ -133,11 +96,11 @@
   <!-- Header -->
   <header class="header">
     <div class="container header-inner">
-      <a class="brand" href="#start" aria-label="Utby Snabb Bilverkstad">
+      <div class="brand">
         <img src="assets/logo.png" alt="Utby Snabb Bilverkstad logotyp" />
         <span class="brand-name">Utby Snabb Bilverkstad</span>
-      </a>
-      <nav class="nav" aria-label="Huvudnavigation">
+      </div>
+      <nav class="nav">
         <a class="secondary" href="#tjanster">Tjänster</a>
         <a class="secondary" href="#kontakt">Kontakt</a>
         <a href="#boka">Boka tid</a>
@@ -146,159 +109,96 @@
   </header>
 
   <!-- Hero -->
-  <section class="hero" id="start">
-    <div class="container hero-grid">
-      <div>
-        <span class="eyebrow">Göteborg • Utby</span>
-        <h1>Professionell bilservice med fokus på kvalitet och trygghet</h1>
-        <p class="lead">
-          Komplett service, reparation och diagnostik för person- och transportbilar.
-          Tydlig kommunikation, rimliga tider och arbete som håller över tid.
-        </p>
-        <div class="cta">
-          <a class="btn primary" href="#boka">Boka tid</a>
-          <a class="btn ghost" href="tel:+46720040936">Ring 072-004 09 36</a>
-        </div>
-      </div>
-      <div>
-        <div class="gallery">
-          <img src="assets/photo1.jpg" alt="Verkstaden" loading="lazy" />
-          <img src="assets/photo2.jpg" alt="Bilservice" loading="lazy" />
-          <img src="assets/photo3.jpg" alt="Kundbil efter service" loading="lazy" />
-        </div>
-      </div>
+  <section class="hero container">
+    <h1>Professionell bilservice med fokus på kvalitet och trygghet</h1>
+    <p class="lead">Komplett service, reparation och diagnostik för person- och transportbilar. Tydlig kommunikation, rimliga tider och arbete som håller över tid.</p>
+    <div class="cta">
+      <a class="btn primary" href="#boka">Boka tid</a>
+      <a class="btn ghost" href="tel:+46720040936">Ring 072-004 09 36</a>
     </div>
   </section>
 
-  <!-- Services -->
-  <section class="section" id="tjanster">
-    <div class="container">
-      <h2>Våra tjänster</h2>
-      <p class="muted">Arbete enligt tillverkarens rekommendationer. Du får alltid prisförslag innan åtgärd.</p>
-      <div class="services">
-        <article class="card"><h3>Service</h3><p>Oljebyte, filter, kontroll av vitala system och uppdatering av servicehistorik där möjligt.</p></article>
-        <article class="card"><h3>Bromsar</h3><p>Kontroll och byte av belägg, skivor och bromsvätska för säker och jämn bromsverkan.</p></article>
-        <article class="card"><h3>Diagnos & OBD</h3><p>Systematisk felsökning med rapport och rekommendationer innan beslut.</p></article>
-        <article class="card"><h3>Däck & hjul</h3><p>Skifte, balansering och kontroll inför säsong. Vi erbjuder även däckhotell.</p></article>
-        <article class="card"><h3>AC & el</h3><p>Service av klimatanläggning samt felsökning/åtgärd av elektriska fel.</p></article>
-        <article class="card"><h3>Kompletta reparationer</h3><p>Från motor och växellåda till minsta del – med tydlig status och uppföljning.</p></article>
-      </div>
+  <!-- Tjänster -->
+  <section class="section container" id="tjanster">
+    <h2>Våra tjänster</h2>
+    <p class="muted">Arbete enligt tillverkarens rekommendationer. Du får alltid ett prisförslag innan åtgärd.</p>
+    <div class="cards">
+      <div class="card"><h3>Service</h3><p>Oljebyte, filter och kontroll av vitala system. Uppdatering av servicehistorik där möjligt.</p></div>
+      <div class="card"><h3>Bromsar</h3><p>Kontroll och byte av belägg, skivor och bromsvätska för säker bromsverkan.</p></div>
+      <div class="card"><h3>Däck & hjul</h3><p>Skifte, balansering och kontroll inför säsong. Vi erbjuder även däckhotell.</p></div>
+      <div class="card"><h3>Diagnos & OBD</h3><p>Systematisk felsökning med rapport och rekommendationer innan beslut.</p></div>
+      <div class="card"><h3>AC & el</h3><p>Service av klimatanläggning samt felsökning/åtgärd av elektriska fel.</p></div>
+      <div class="card"><h3>Kompletta reparationer</h3><p>Från motor och växellåda till minsta del – med tydlig status och uppföljning.</p></div>
     </div>
+
+    <!-- 📸 Bild 1: مباشرة بعد tjänster -->
+    <img class="photo-full" src="assets/photo1.jpg" alt="Verkstadsarbete" loading="lazy" />
   </section>
 
-  <!-- Booking + Map + Advantages -->
-  <section class="section" id="boka">
-    <div class="container">
-      <h2>Boka tid</h2>
-      <p class="muted">Fyll i formuläret så återkommer vi med bekräftelse och förslag på tid. Meddelandet skickas direkt från sidan utan inloggning.</p>
+  <!-- 📸 Bild 2: فاصل بصري قبل الحجز -->
+  <section class="photo-band container">
+    <img class="photo-full" src="assets/photo2.jpg" alt="Bilservice på gång" loading="lazy" />
+  </section>
 
-      <form class="card booking" id="bookingForm" action="https://formsubmit.co/Husseinmormor@gmail.com" method="POST">
-        <!-- FormSubmit control -->
-        <input type="text" name="_honey" style="display:none">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_subject" value="Ny bokningsförfrågan – Utby Snabb Bilverkstad">
-        <input type="hidden" name="_template" value="table">
+  <!-- Boka tid + Karta -->
+  <section class="section container" id="boka">
+    <h2>Boka tid</h2>
+    <p class="muted">Fyll i formuläret så återkommer vi med bekräftelse och förslag på tid. Meddelandet skickas direkt utan inloggning.</p>
 
-        <label>Namn
-          <input name="name" required placeholder="För- och efternamn" />
-        </label>
-        <label>Telefon
-          <input name="phone" required placeholder="072-004 09 36" />
-        </label>
-        <label>E-post
-          <input name="email" type="email" placeholder="namn@exempel.se" />
-        </label>
-        <label>Bil / Regnr
-          <input name="car" placeholder="Volvo V60 / ABC123" />
-        </label>
-        <label>Tjänst
-          <select name="service">
-            <option>Service & olja</option>
-            <option>Bromsar</option>
-            <option>Däck & hjul</option>
-            <option>Diagnos & OBD</option>
-            <option>AC & el</option>
-            <option>Annan fråga</option>
-          </select>
-        </label>
-        <label>Önskat datum
-          <input name="date" type="date" />
-        </label>
-        <label>Beskrivning
-          <textarea name="message" placeholder="Beskriv kort vad du vill ha hjälp med…"></textarea>
-        </label>
-        <div class="actions">
-          <button type="submit" class="btn primary">Skicka förfrågan</button>
-          <a class="btn ghost" id="whatsBtn" href="#">WhatsApp</a>
-        </div>
-      </form>
+    <form class="booking" id="bookingForm" action="https://formsubmit.co/Husseinmormor@gmail.com" method="POST">
+      <input type="text" name="_honey" style="display:none">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="Ny bokningsförfrågan – Utby Snabb Bilverkstad">
+      <input type="hidden" name="_template" value="table">
 
-      <!-- Map -->
-      <div class="map-container">
-        <h3 style="font:800 16px/1.2 Inter;margin:16px 0 6px">Här hittar du oss</h3>
-        <p class="muted" style="margin:0 0 8px">Vagnmakaregatan 2, 415 72 Göteborg</p>
-        <iframe
-          title="Karta till Utby Snabb Bilverkstad"
-          src="https://www.google.com/maps?q=57.74025,12.07864&hl=sv&z=15&output=embed"
-          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
+      <label>Namn<input name="name" required placeholder="För- och efternamn" /></label>
+      <label>Telefon<input name="phone" required placeholder="072-004 09 36" /></label>
+      <label>E-post<input name="email" type="email" placeholder="namn@exempel.se" /></label>
+      <label>Bil / Regnr<input name="car" placeholder="Volvo V60 / ABC123" /></label>
+      <label>Tjänst
+        <select name="service">
+          <option>Service & olja</option><option>Bromsar</option>
+          <option>Däck & hjul</option><option>Diagnos & OBD</option>
+          <option>AC & el</option><option>Annan fråga</option>
+        </select>
+      </label>
+      <label>Önskat datum<input name="date" type="date" /></label>
+      <label>Beskrivning<textarea name="message" placeholder="Beskriv kort vad du vill ha hjälp med…"></textarea></label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
+        <button type="submit">Skicka förfrågan</button>
       </div>
+    </form>
 
-      <!-- Advantages -->
-      <div class="advantages" aria-label="Våra fördelar">
-        <div class="adv">
-          <h3>Drop-in välkommen</h3>
-          <p class="muted">Kom förbi utan tidsbokning. Vi försöker hjälpa direkt eller ger snabb tidsplan.</p>
-        </div>
-        <div class="adv">
-          <h3>Öppet söndag till 18</h3>
-          <p class="muted">Praktiskt när veckans tid inte räcker. Vi finns på plats även söndagar.</p>
-        </div>
-        <div class="adv">
-          <h3>Däckhotell</h3>
-          <p class="muted">Säker förvaring och byte av däck. Kontroll av mönsterdjup, tryck och skick inför säsong.</p>
-        </div>
-        <div class="adv">
-          <h3>Komplett verkstad</h3>
-          <p class="muted">Från motor och växellåda till minsta del – vi hanterar hela bilen.</p>
-        </div>
-      </div>
-    </div>
+    <h3 style="margin-top:26px">Här hittar du oss</h3>
+    <p class="muted">Vagnmakaregatan 2, 415 72 Göteborg</p>
+    <iframe title="Karta till Utby Snabb Bilverkstad"
+            src="https://www.google.com/maps?q=57.74025,12.07864&hl=sv&z=15&output=embed"
+            allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </section>
+
+  <!-- 📸 Bild 3: قبل الفوتر -->
+  <section class="photo-band container">
+    <img class="photo-full" src="assets/photo3.jpg" alt="Kundbil efter service" loading="lazy" />
   </section>
 
   <!-- Footer -->
-  <footer class="footer" id="kontakt">
-    <div class="container footer-grid">
-      <div>
-        <div class="brand" style="margin-bottom:6px;display:flex;align-items:center;gap:8px">
-          <img src="assets/logo.png" alt="Logo" style="width:40px;height:40px" />
-          <span class="brand-name">Utby Snabb Bilverkstad</span>
-        </div>
-        <p>Vagnmakaregatan 2, 415 72 Göteborg</p>
-        <p>Tel: <a href="tel:+46720040936">072-004 09 36</a> · E-post: <a href="mailto:Husseinmormor@gmail.com">Husseinmormor@gmail.com</a></p>
-      </div>
-      <div>
-        <p><strong>Öppettider</strong><br/>Mån–Fre 08:00–17:00<br/>Sön 10:00–18:00</p>
-      </div>
-      <div>
-        <a class="btn primary" href="#boka">Boka tid</a>
-      </div>
-    </div>
-    <div class="mobile-bar">
-      <a class="call" href="tel:+46720040936">Ring 072-004 09 36</a>
-      <a class="book" href="#boka">Boka nu</a>
+  <footer id="kontakt">
+    <div class="container">
+      <p><strong>Utby Snabb Bilverkstad</strong><br>
+      Vagnmakaregatan 2, 415 72 Göteborg<br>
+      Tel: <a href="tel:+46720040936">072-004 09 36</a><br>
+      E-post: <a href="mailto:Husseinmormor@gmail.com">Husseinmormor@gmail.com</a></p>
+      <p><strong>Öppettider:</strong> Mån–Fre 08:00–17:00 · Sön 10:00–18:00</p>
     </div>
   </footer>
 
-  <!-- Toast -->
+  <!-- Toast (رسالة الشكر) -->
   <div id="toast" class="toast" role="status" aria-live="polite">Tack! Din bokningsförfrågan har skickats.</div>
 
-  <!-- Minimal JS: AJAX Form + WhatsApp + Toast -->
   <script>
-    function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3000); }
-    function serialize(f){ const d=new FormData(f), o={}; d.forEach((v,k)=>o[k]=v); return o; }
-
+    // عرض رسالة شكر بدون مغادرة الصفحة، مع إرسال فعلي لـ FormSubmit
     const form = document.getElementById('bookingForm');
+    function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3000); }
     form?.addEventListener('submit', async (e)=>{
       e.preventDefault();
       const data = new FormData(form);
@@ -307,13 +207,6 @@
       }catch(err){}
       form.reset();
       toast('Tack! Din bokningsförfrågan har skickats. Vi kontaktar dig inom kort.');
-    });
-
-    document.getElementById('whatsBtn')?.addEventListener('click', (e)=>{
-      e.preventDefault();
-      const d = serialize(form);
-      const text = encodeURIComponent(`Hej! Jag vill boka: ${d.service||''}. Bil/Regnr: ${d.car||'-'}. Datum: ${d.date||'-'}.\nNamn: ${d.name||''}. Tel: ${d.phone||''}.\nBeskrivning: ${d.message||'-'}`);
-      window.open('https://wa.me/46720040936?text='+text, '_blank');
     });
   </script>
 </body>

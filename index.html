@@ -22,7 +22,7 @@
     img{max-width:100%;display:block}
     .container{width:min(1120px,100%);margin-inline:auto;padding-inline:clamp(14px,4vw,24px)}
 
-    /* === Header / Nav === */
+    /* === Header === */
     .header{position:sticky;top:0;z-index:1000;background:rgba(12,13,18,.72);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.1)}
     .header-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
     .brand{display:flex;align-items:center;gap:10px}
@@ -51,7 +51,7 @@
     .gallery{display:grid;grid-template-columns:1fr;gap:10px;margin-top:16px}
     .gallery img{
       width:100%;
-      height:220px;              /* smaller desktop height */
+      height:220px;
       object-fit:cover;
       border-radius:12px;
       border:1px solid rgba(255,255,255,.12);
@@ -65,6 +65,7 @@
     .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
     .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:16px}
     .card h3{margin:.1em 0 .3em;font:800 17px/1.2 Inter}
+    .card img{margin-top:10px;border-radius:10px;width:100%;height:180px;object-fit:cover;border:1px solid rgba(255,255,255,.12);box-shadow:0 10px 24px rgba(0,0,0,.25)}
 
     /* === Booking === */
     .booking{display:grid;grid-template-columns:1fr;gap:10px;max-width:700px;margin:auto}
@@ -82,7 +83,8 @@
     /* === Mobile === */
     @media (max-width:820px){
       .brand img{width:48px;height:48px}
-      .gallery img{height:160px} /* smaller images on mobile */
+      .gallery img{height:160px}
+      .card img{height:160px}
     }
   </style>
 </head>
@@ -121,10 +123,35 @@
       <h2>Våra tjänster</h2>
       <p class="muted">Vi utför allt från motor till växellåda och minsta detalj.</p>
       <div class="services">
-        <div class="card"><h3>Service & olja</h3><p>Oljebyte, filter och säkerhetskontroll.</p></div>
-        <div class="card"><h3>Bromsar</h3><p>Byte av belägg och skivor.</p></div>
-        <div class="card"><h3>Däckhotell</h3><p>Förvaring och byte av däck med kontroll.</p></div>
-        <div class="card"><h3>Diagnos & el</h3><p>Felsökning av motor, elektronik och AC.</p></div>
+
+        <div class="card">
+          <h3>Service</h3>
+          <p>Oljebyte, filter och genomgång av vitala system. Servicehistorik uppdateras där det är möjligt.</p>
+          <img src="assets/photo1.jpg" alt="Servicearbete" loading="lazy">
+        </div>
+
+        <div class="card">
+          <h3>Bromsar</h3>
+          <p>Byte av belägg och skivor för säker körning.</p>
+        </div>
+
+        <div class="card">
+          <h3>Däck & hjul</h3>
+          <p>Skifte, balansering och kontroll inför säsong. Vi erbjuder även däckhotell.</p>
+          <img src="assets/photo3.jpg" alt="Däck och hjul" loading="lazy">
+        </div>
+
+        <div class="card">
+          <h3>Diagnos & el</h3>
+          <p>Felsökning av motor, elektronik och AC med professionell utrustning.</p>
+        </div>
+
+        <div class="card">
+          <h3>Kompletta reparationer</h3>
+          <p>Från motor och växellåda till minsta komponent – med tydlig uppföljning.</p>
+          <img src="assets/photo2.jpg" alt="Reparation" loading="lazy">
+        </div>
+
       </div>
     </div>
   </section>

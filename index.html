@@ -3,117 +3,240 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="color-scheme" content="dark only">
+  <meta name="color-scheme" content="dark only" />
   <title>Utby Snabb Bilverkstad — Snabb, tydlig & pålitlig bilservice</title>
   <meta name="description" content="Utby Snabb Bilverkstad i Göteborg/Utby. Snabb och tydlig bilservice: service, bromsar, däck, diagnos, AC & el. Boka tid online." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-  <script defer src="script.js"></script>
+  <style>
+    /* ===== Reset & base ===== */
+    *,*::before,*::after{box-sizing:border-box}
+    html{height:100%;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+    body{margin:0;min-height:100%;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#f6f7fb;background:#0B0C10;overflow-x:hidden}
+    img{max-width:100%;height:auto;display:block}
+    a{color:#FFE55E;text-decoration:none}
+    a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid rgba(255,214,0,.7);outline-offset:2px}
+    
+    /* ===== Layout ===== */
+    .container{width:min(1200px,100%);margin-inline:auto;padding-inline:clamp(16px,4vw,28px)}
+    .section{padding:clamp(40px,8vw,96px) 0}
+
+    /* ===== Header (Squarespace‑like) ===== */
+    .header{position:sticky;top:0;z-index:1000;background:rgba(12,13,18,.7);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid rgba(255,255,255,.12)}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:36px;height:36px;filter:drop-shadow(0 0 10px rgba(255,214,0,.45))}
+    .brand-name{font:800 18px/1 Space Grotesk,Inter,system-ui;color:#fff;letter-spacing:.3px}
+    .nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .nav a{display:inline-block;padding:10px 14px;border-radius:999px;background:#FFD600;color:#111;font-weight:700}
+    .nav a.secondary{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.14)}
+
+    /* ===== Hero ===== */
+    .hero{position:relative;isolation:isolate}
+    .bg{position:absolute;inset:0;z-index:-1;background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(255,214,0,.22), transparent 60%),
+      radial-gradient(1000px 500px at 10% 10%, rgba(141,162,255,.18), transparent 60%),
+      linear-gradient(180deg,#0B0C10,#0C0F18)}
+    .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;min-height:68vh;padding:clamp(18px,3vw,24px) 0}
+    .eyebrow{display:inline-block;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);padding:6px 10px;border-radius:999px;color:#dbe2ee;font-size:12px;letter-spacing:.3px}
+    h1{font-family:Space Grotesk,Inter,system-ui;font-weight:800;letter-spacing:.4px;margin:.3em 0 .2em;font-size:clamp(32px,6.5vw,64px);line-height:1.05;background:linear-gradient(90deg,#fff,#FFD600);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{color:#C9D2DE;max-width:70ch;margin:0 0 18px}
+    .cta{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{display:inline-block;padding:12px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.14);font-weight:800;transition:transform .2s ease, box-shadow .2s ease}
+    .btn.primary{background:#FFD600;color:#111}
+    .btn.ghost{background:rgba(255,255,255,.06);color:#fff}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .showcase{border:1px solid rgba(255,255,255,.14);border-radius:18px;background:rgba(255,255,255,.03);aspect-ratio:16/10;box-shadow:0 22px 60px rgba(0,0,0,.45)}
+
+    /* ===== Services ===== */
+    .section h2{font:700 clamp(20px,3.2vw,34px)/1.2 Space Grotesk,Inter;margin:0 0 18px}
+    .muted{color:#C9D2DE;margin:0 0 24px}
+    .services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:18px}
+    .card h3{margin:.2em 0 .4em;font:700 clamp(16px,2.2vw,22px)/1.2 Inter}
+
+    /* ===== Booking ===== */
+    .booking{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .booking label{display:grid;gap:6px;font-weight:600}
+    .booking input,.booking select,.booking textarea{width:100%;padding:14px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;font-size:16px}
+    .booking textarea{min-height:160px;grid-column:1/-1}
+    .booking .actions{grid-column:1/-1;display:flex;gap:10px;justify-content:flex-end}
+
+    /* ===== Testimonials (simple) ===== */
+    .testi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .quote{padding:18px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.16)}
+    .quote p{margin:0}
+
+    /* ===== Footer + Mobile Bar ===== */
+    .footer{border-top:1px solid rgba(255,255,255,.12);padding:20px 0 84px;margin-top:20px}
+    .footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px;align-items:center}
+    .mobile-bar{display:none}
+
+    /* ===== Mobile ===== */
+    @media (max-width: 820px){
+      .nav{gap:6px}
+      .hero-grid{grid-template-columns:1fr;gap:18px}
+      .services,.testi{grid-template-columns:1fr}
+      .booking{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr}
+      .showcase{aspect-ratio:16/11}
+      /* Sticky bottom actions */
+      .mobile-bar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 14px;background:rgba(15,16,22,.9);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.14)}
+      .mobile-bar a{display:inline-block;text-align:center;padding:14px 12px;border-radius:12px;font-weight:800}
+      .mobile-bar .call{background:#111;color:#FFD600;border:1px solid rgba(255,255,255,.18)}
+      .mobile-bar .book{background:#FFD600;color:#111}
+      body{padding-bottom:84px}
+    }
+  </style>
 </head>
 <body>
-  <canvas id="bgGL" aria-hidden="true"></canvas>
-
-  <header class="nav container">
-    <a class="logo" href="index.html" aria-label="Utby Snabb Bilverkstad">
-      <img src="assets/logo.svg" alt="Logotyp" />
-      <span class="brandword">Utby Snabb Bilverkstad</span>
-    </a>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="priser.html">Priser</a></li>
-        <li><a href="boka.html">Boka tid</a></li>
-        <li><a href="kontakt.html">Kontakt</a></li>
-      </ul>
-    </nav>
+  <!-- ===== Header ===== -->
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Utby Snabb Bilverkstad">
+        <img src="assets/logo.svg" alt="Logo" />
+        <span class="brand-name">Utby Snabb Bilverkstad</span>
+      </a>
+      <nav class="nav" aria-label="Huvudnavigation">
+        <a class="secondary" href="#tjanster">Tjänster</a>
+        <a class="secondary" href="#kontakt">Kontakt</a>
+        <a class="" href="#boka">Boka tid</a>
+      </nav>
+    </div>
   </header>
 
-  <main class="container hero">
-    <section class="hero-left">
-      <h1 class="brandline"><span>Utby Snabb Bilverkstad</span></h1>
-      <p class="lead">Vi gör det enkelt: välgjort arbete, tydlig dialog och snabb återkoppling. Välj tjänst, boka tid — klart.</p>
-      <ul class="bullets">
-        <li>Service & olja • Bromsar • Däck • Diagnos & OBD • AC & el</li>
-        <li>OE-spec eller bättre delar. Inget börjar utan ditt OK.</li>
-      </ul>
-      <div class="cta">
-        <a class="btn-primary" href="boka.html">Boka tid</a>
-        <a class="btn-ghost" href="priser.html">Se priser</a>
-        <a class="btn-ghost" href="tel:+46720040936">Ring: 072-004 09 36</a>
-      </div>
-    </section>
-    <section class="hero-right">
-      <canvas id="playground" width="860" height="520" aria-label="Energi i rörelse"></canvas>
-      <p class="play-hint">Rör musen eller dubbelklicka för en liten effekt.</p>
-    </section>
-  </main>
-
-  <section class="container section">
-    <h2>Boka direkt här</h2>
-    <form class="card booking glossy" id="bookingFormHome">
-      <label>För- och efternamn
-        <input name="name" required placeholder="Förnamn Efternamn" />
-      </label>
-      <label>Telefon
-        <input name="phone" required placeholder="072-004 09 36" />
-      </label>
-      <label>E-post
-        <input name="email" type="email" placeholder="namn@exempel.se" />
-      </label>
-      <label>Regnr
-        <input name="reg" placeholder="ABC123" />
-      </label>
-      <label>Tjänst
-        <select name="service">
-          <option>Basservice</option>
-          <option>Diagnos</option>
-          <option>Bromsar</option>
-          <option>Däck & hjul</option>
-          <option>AC & el</option>
-        </select>
-      </label>
-      <label>Önskat datum
-        <input name="date" type="date" />
-      </label>
-      <label>Beskrivning
-        <textarea name="msg" placeholder="Berätta kort vad du vill ha hjälp med…"></textarea>
-      </label>
-      <div class="actions">
-        <button type="submit" class="btn-primary">Skicka förfrågan</button>
-        <button type="button" class="btn-ghost" data-whatsapp>WhatsApp</button>
-      </div>
-      <p class="help">Skickas direkt till info@utbysnabbbilservice.se. Inget arbete påbörjas utan ditt OK.</p>
-    </form>
-  </section>
-
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div class="brand">
-        <img src="assets/logo.svg" alt="Logo liten" />
-        <div>
-          <strong>Utby Snabb Bilverkstad</strong>
-          <p>Snabb, tydlig & pålitlig bilservice</p>
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="top">
+    <div class="bg" aria-hidden="true"></div>
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Göteborg • Utby</span>
+        <h1>Bilservice som känns trygg från första samtalet</h1>
+        <p class="lead">Snabb återkoppling, tydlig offert och arbete som håller. Vi hjälper med service, bromsar, däck, diagnos, AC & el.</p>
+        <div class="cta">
+          <a class="btn primary" href="#boka">Boka tid</a>
+          <a class="btn ghost" href="tel:+46720040936">Ring 072‑004 09 36</a>
         </div>
       </div>
-      <div class="links">
-        <a href="index.html">Hem</a>
-        <a href="priser.html">Priser</a>
-        <a href="boka.html">Boka</a>
-        <a href="kontakt.html">Kontakt</a>
+      <div>
+        <div class="showcase" aria-hidden="true"></div>
       </div>
     </div>
-    <div class="legal">© <span id="year"></span> Utby Snabb Bilverkstad — Göteborg, Sweden</div>
+  </section>
+
+  <!-- ===== Services ===== -->
+  <section class="section" id="tjanster">
+    <div class="container">
+      <h2>Tjänster</h2>
+      <p class="muted">Vi lämnar prisförslag efter kort genomgång eller diagnos. Inget arbete påbörjas utan ditt OK.</p>
+      <div class="services">
+        <article class="card"><h3>Basservice</h3><p>Oljebyte, filter och säkerhetskontroll. Digital servicebok där det går.</p></article>
+        <article class="card"><h3>Bromsar</h3><p>Belägg/skivor med korrekt moment & inkörning. Bromsvätska vid behov.</p></article>
+        <article class="card"><h3>Diagnos & OBD</h3><p>Felsökning med tydlig rapport och förslag. Du bestämmer nästa steg.</p></article>
+        <article class="card"><h3>Däck & hjul</h3><p>Däckbyte, balansering och förvaring vid önskemål.</p></article>
+        <article class="card"><h3>AC & el</h3><p>AC‑service och elektriska fel – vi hittar orsaken och åtgärdar.</p></article>
+        <article class="card"><h3>Övrigt</h3><p>Fråga gärna! Vi samarbetar med specialister för större jobb.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Booking ===== -->
+  <section class="section" id="boka">
+    <div class="container">
+      <h2>Boka tid</h2>
+      <p class="muted">Fyll i uppgifterna nedan – vi återkommer snabbt med tider och bekräftelse.</p>
+      <form class="card booking" id="bookingForm">
+        <label>Namn
+          <input name="name" required placeholder="För- och efternamn" />
+        </label>
+        <label>Telefon
+          <input name="phone" required placeholder="072‑004 09 36" />
+        </label>
+        <label>E‑post
+          <input name="email" type="email" placeholder="namn@exempel.se" />
+        </label>
+        <label>Regnr
+          <input name="reg" placeholder="ABC123" />
+        </label>
+        <label>Tjänst
+          <select name="service">
+            <option>Basservice</option>
+            <option>Diagnos</option>
+            <option>Bromsar</option>
+            <option>Däck & hjul</option>
+            <option>AC & el</option>
+          </select>
+        </label>
+        <label>Önskat datum
+          <input name="date" type="date" />
+        </label>
+        <label>Beskrivning
+          <textarea name="msg" placeholder="Berätta kort vad du vill ha hjälp med…"></textarea>
+        </label>
+        <div class="actions">
+          <button type="submit" class="btn primary">Skicka förfrågan</button>
+          <a class="btn ghost" id="whatsBtn" href="#">WhatsApp</a>
+        </div>
+        <p class="muted" style="margin:6px 0 0">Skickas till <strong>info@utbysnabbbilservice.se</strong>.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== Testimonials ===== -->
+  <section class="section" aria-labelledby="rubrik-omdomen">
+    <div class="container">
+      <h2 id="rubrik-omdomen">Kunderna säger</h2>
+      <div class="testi">
+        <div class="quote"><p>“Snabbt svar och tydlig offert. Bilen känns som ny.”</p></div>
+        <div class="quote"><p>“Fick tid samma dag för diagnos. Inga överraskningar.”</p></div>
+        <div class="quote"><p>“Proffsigt bemötande och bra garanti på jobbet.”</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Kontakt / Footer ===== -->
+  <footer class="footer" id="kontakt">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:8px">
+          <img src="assets/logo.svg" alt="Logo" style="width:32px;height:32px" />
+          <span class="brand-name">Utby Snabb Bilverkstad</span>
+        </div>
+        <p>Vagnmakaregatan 2, 415 07 Göteborg</p>
+        <p>Tel: <a href="tel:+46720040936">072‑004 09 36</a> · E‑post: <a href="mailto:info@utbysnabbbilservice.se">info@utbysnabbbilservice.se</a></p>
+      </div>
+      <div>
+        <p><strong>Öppettider</strong><br/>Mån–Fre 08:00–17:00<br/>Lör enligt överenskommelse</p>
+      </div>
+      <div>
+        <a class="btn primary" href="#boka">Boka tid</a>
+      </div>
+    </div>
+    <div class="mobile-bar">
+      <a class="call" href="tel:+46720040936">Ring</a>
+      <a class="book" href="#boka">Boka tid</a>
+    </div>
   </footer>
 
-  <div class="mobile-cta">
-    <a class="m-btn call" href="tel:+46720040936">Ring 072-004 09 36</a>
-    <a class="m-btn book" href="boka.html">Boka tid</a>
-  </div>
+  <script>
+    // Ingen sidledes scroll: säkerställ inga misstag från JS
+    document.addEventListener('touchmove', function(e){ const moveX = Math.abs(e.changedTouches?.[0]?.clientX - (e.touches?.[0]?.clientX||0)); if(moveX>30) return; }, {passive:true});
 
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+    // E-post (mailto) + enkel WhatsApp
+    const form = document.getElementById('bookingForm');
+    function serialize(f){ const d=new FormData(f), o={}; d.forEach((v,k)=>o[k]=v); return o; }
+    form.addEventListener('submit', function(e){
+      e.preventDefault(); const d = serialize(form);
+      const subject = encodeURIComponent(`Bokningsförfrågan – ${d.service||'Tjänst'} – ${d.reg||''}`);
+      const body = encodeURIComponent(`Namn: ${d.name}\nTelefon: ${d.phone}\nE‑post: ${d.email||''}\nRegnr: ${d.reg||''}\nÖnskat datum: ${d.date||''}\nTjänst: ${d.service}\n\nBeskrivning:\n${d.msg||''}`);
+      window.location.href = `mailto:info@utbysnabbbilservice.se?subject=${subject}&body=${body}`;
+    });
+    document.getElementById('whatsBtn').addEventListener('click', function(e){
+      e.preventDefault(); const d = serialize(form);
+      const text = encodeURIComponent(`Hej! Jag vill boka: ${d.service}. Regnr: ${d.reg||'-'}. Datum: ${d.date||'-'}.\nNamn: ${d.name}. Tel: ${d.phone}.\nBeskrivning: ${d.msg||'-'}`);
+      window.open('https://wa.me/46720040936?text='+text, '_blank');
+    });
+  </script>
 </body>
 </html>

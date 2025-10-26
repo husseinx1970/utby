@@ -27,14 +27,14 @@
     .header{position:sticky;top:0;z-index:1000;background:rgba(12,13,18,.72);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.1)}
     .header-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
     .brand{display:flex;align-items:center;gap:10px}
-    /* أكبر (ضعف تقريبًا) */
-    .brand img{width:68px;height:68px;object-fit:contain;border-radius:12px;filter:drop-shadow(0 0 12px rgba(218,189,102,.30))}
+    /* أصغر 25% */
+    .brand img{width:51px;height:51px;object-fit:contain;border-radius:12px;filter:drop-shadow(0 0 12px rgba(218,189,102,.30))}
     .brand-name{font:800 18px/1 Space Grotesk,Inter;color:#fff}
     .nav{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
     .nav a{padding:8px 12px;border-radius:999px;font-weight:800;background:#DABD66;color:#111;border:1px solid rgba(0,0,0,.2);font-size:14px}
     .nav a.secondary{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.12)}
 
-    /* ===== Hero (LOGO أكبر) ===== */
+    /* ===== Hero (LOGO أصغر 25%) ===== */
     .hero{padding:24px 0}
     .hero-grid{display:grid;grid-template-columns:1fr;gap:18px;align-items:center;min-height:46vh;text-align:center}
     h1{
@@ -49,8 +49,8 @@
     .btn.primary{background:#DABD66;color:#111}
     .btn.ghost{background:rgba(255,255,255,.06);color:#fff}
     .btn:hover{transform:translateY(-2px)}
-    /* شعار الهيرو أكبر للضعف تقريبًا */
-    .hero-logo{width:min(440px,68vw);margin:14px auto 0;filter:drop-shadow(0 10px 28px rgba(218,189,102,.32));opacity:.98}
+    /* كان 440px/68vw -> نقصنا 25% */
+    .hero-logo{width:min(330px,51vw);margin:14px auto 0;filter:drop-shadow(0 10px 28px rgba(218,189,102,.32));opacity:.98}
 
     /* ===== Sections + Cards ===== */
     .section{padding:40px 0}
@@ -74,11 +74,29 @@
     .map-container{margin-top:30px;text-align:center}
     iframe{width:100%;height:260px;border:0;border-radius:12px}
 
+    /* ===== Reklam/annons-kort ===== */
+    .ad-card{
+      margin:28px auto 8px;
+      width:min(960px,100%);
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:18px;
+      padding:18px;
+      text-align:center;
+      box-shadow:0 24px 64px rgba(0,0,0,.45);
+    }
+    .ad-card h3{margin:0 0 6px;font:800 20px/1.2 Space Grotesk}
+    .ad-card p{margin:0 auto 12px;color:#D7DEEA;max-width:70ch}
+    .ad-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+    .ad-actions a{padding:12px 16px;border-radius:14px;font-weight:900;border:1px solid rgba(255,255,255,.12)}
+    .ad-actions .call{background:#111;color:#DABD66}
+    .ad-actions .mail{background:#DABD66;color:#111}
+
     /* ===== Footer note ===== */
     .footer-note{margin:22px 0 28px;text-align:center;color:#C9D2DE;font-size:14px}
     .footer-note a{font-weight:800;cursor:pointer}
 
-    /* ===== Creator Modal (أكثر أناقة + معلومات أكثر) ===== */
+    /* ===== Creator Modal ===== */
     .modal{
       position:fixed;inset:0;display:none;place-items:center;z-index:1200;
       background:rgba(8,10,14,.55);backdrop-filter:blur(14px)
@@ -92,24 +110,22 @@
       box-shadow:0 32px 90px rgba(0,0,0,.52)
     }
     .modal-header{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:10px}
-    .modal-header img{width:56px;height:56px;border-radius:12px;object-fit:contain;filter:drop-shadow(0 6px 18px rgba(218,189,102,.35))}
+    /* كان 56px -> 42px (−25%) */
+    .modal-header img{width:42px;height:42px;border-radius:12px;object-fit:contain;filter:drop-shadow(0 6px 18px rgba(218,189,102,.35))}
     .modal-card h3{margin:.1em 0 .2em;font:800 22px/1.2 Inter;text-align:center}
     .modal-card p{margin:0 0 12px;text-align:center;color:#C9D2DE}
     .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
-    .action{
-      display:flex;align-items:center;justify-content:center;gap:10px;
-      padding:12px;border-radius:14px;font-weight:900;border:1px solid rgba(255,255,255,.12);
-      text-align:center
-    }
+    .action{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;border-radius:14px;font-weight:900;border:1px solid rgba(255,255,255,.12);text-align:center}
     .action svg{width:18px;height:18px}
     .action.call{background:#111;color:#DABD66}
     .action.mail{background:#DABD66;color:#111}
     .meta{display:grid;gap:6px;margin-top:8px;color:#D7DEEA;font-size:14px}
     .meta strong{color:#fff}
     .modal-close{display:block;margin:12px auto 0;text-align:center;color:#9fb0c0}
+
     @media (max-width:820px){
-      .brand img{width:60px;height:60px}
-      .hero-logo{width:min(360px,76vw)}
+      .brand img{width:45px;height:45px}          /* أصغر في الجوال أيضًا */
+      .hero-logo{width:min(270px,57vw)}
       .modal-grid{grid-template-columns:1fr}
     }
   </style>
@@ -140,13 +156,12 @@
           <a class="btn primary" href="#boka">Boka tid</a>
           <a class="btn ghost" href="tel:+46720040936">Ring 072-004 09 36</a>
         </div>
-        <!-- LOGO أكبر في بداية الصفحة -->
         <img class="hero-logo" src="assets/logo.png" alt="Utby Snabb Bilverkstad logotyp">
       </div>
     </div>
   </section>
 
-  <!-- Tjänster -->
+  <!-- Tjänster (مختصرة كما هي لديك) -->
   <section class="section" id="tjanster">
     <div class="container">
       <h2>Våra tjänster</h2>
@@ -167,52 +182,27 @@
         <div class="card">
           <h3>Bromsar</h3>
           <p>Kontroll och byte av belägg, skivor och bromsvätska för säker och jämn bromsverkan.</p>
-          <ul style="margin:8px 0 0 18px; color:#C9D2DE">
-            <li>Mätning av skivor/belägg och bedömning av slitage.</li>
-            <li>Provkörning och inbromsningsrutin efter arbete.</li>
-            <li>Genomgång av parkeringsbroms vid behov.</li>
-          </ul>
         </div>
 
         <div class="card">
           <h3>Däck & hjul</h3>
           <p>Skifte, balansering och kontroll inför säsong. Vi erbjuder även däckhotell.</p>
-          <ul style="margin:8px 0 0 18px; color:#C9D2DE">
-            <li>Mönsterdjup, tryck och skick kontrolleras.</li>
-            <li>Balansering för komfort och minskat slitage.</li>
-            <li>Däckhotell med spårbar förvaring.</li>
-          </ul>
           <img src="assets/photo3.jpg" alt="Däckhotell och hjulservice">
         </div>
 
         <div class="card">
           <h3>Diagnos & el</h3>
           <p>Systematisk felsökning med rapport och rekommendationer innan beslut.</p>
-          <ul style="margin:8px 0 0 18px; color:#C9D2DE">
-            <li>OBD-avläsning och tolkning av felkoder.</li>
-            <li>Kontroll av batteri, laddning och start.</li>
-            <li>Stegvis felsökning för att undvika onödiga kostnader.</li>
-          </ul>
         </div>
 
         <div class="card">
           <h3>AC & klimatanläggning</h3>
           <p>Service av klimatsystem samt åtgärd av läckage eller svag kylning.</p>
-          <ul style="margin:8px 0 0 18px; color:#C9D2DE">
-            <li>Täthetskontroll, vakuumtest och påfyllning.</li>
-            <li>Byte av torkfilter/kupefilter vid behov.</li>
-            <li>Funktionsprov efter åtgärd.</li>
-          </ul>
         </div>
 
         <div class="card">
           <h3>Kompletta reparationer</h3>
           <p>Från motor och växellåda till minsta komponent – med tydlig uppföljning.</p>
-          <ul style="margin:8px 0 0 18px; color:#C9D2DE">
-            <li>Motorarbete (t.ex. packningar, kylsystem, remmar).</li>
-            <li>Växellåda/koppling och drivlina.</li>
-            <li>Styrning, fjädring och hjulupphängning.</li>
-          </ul>
           <img src="assets/photo2.jpg" alt="Kompletta reparationer">
         </div>
       </div>
@@ -238,43 +228,56 @@
         <p>Vagnmakaregatan 2, 415 72 Göteborg</p>
         <iframe src="https://www.google.com/maps?q=57.74025,12.07864&hl=sv&z=15&output=embed" loading="lazy"></iframe>
       </div>
+
+      <!-- ===== Annons / Reklam (احترافية وجذابة) ===== -->
+      <div class="ad-card" id="annons">
+        <h3>Behöver du en modern hemsida för ditt företag?</h3>
+        <p>
+          Jag bygger snabba, säkra och mobilanpassade webbplatser med tydlig struktur och stilren design.
+          Tveka inte att kontakta mig – jag hjälper gärna till från idé till färdig hemsida.
+        </p>
+        <div class="ad-actions">
+          <a class="call" href="tel:+46790574975">Ring Hussein: 0790574975</a>
+          <a class="mail" href="mailto:husseinmormor@gmail.com">Skicka e-post: husseinmormor@gmail.com</a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Sidfot: النص المطلوب فقط بالسويدية -->
+  <!-- Sidfot -->
   <div class="container">
     <p class="footer-note">Skapad av <a id="openCreator">Hussein</a></p>
   </div>
 
-  <!-- Modal: Kontakta Hussein (معلومات أكثر وعبارة مهنية) -->
+  <!-- Modal: Kontakta Hussein (نفس المعلومة وبشكل أنيق) -->
   <div class="modal" id="creatorModal" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="creatorTitle">
       <div class="modal-header">
         <img src="assets/logo.png" alt="Logotyp">
         <div>
           <h3 id="creatorTitle">Kontakta Hussein</h3>
-          <p>Via den här hemsidan kan ni nå mig direkt – antingen per e-post eller mobil. Jag återkommer så snart som möjligt.</p>
+          <p>Via denna hemsida kan ni nå mig direkt – antingen via e-post eller mobil. Jag återkommer så snart som möjligt.</p>
         </div>
       </div>
 
       <div class="modal-grid">
         <a class="action call" href="tel:+46790574975" aria-label="Ring Hussein">
-          <!-- phone -->
+          <!-- phone icon -->
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.9 15.9 0 006.6 6.6l2.2-2.2a1.4 1.4 0 011.5-.33c1.6.6 3.4.94 5.2 1.01.77.03 1.4.65 1.4 1.42V21a1 1 0 01-1 1C12.4 22 2 11.6 2 1a1 1 0 011-1h2.7c.77 0 1.39.63 1.42 1.4.07 1.8.41 3.6 1.01 5.2.2.52.08 1.1-.33 1.5L6.6 10.8z"/></svg>
           Ring: 0790574975
         </a>
         <a class="action mail" href="mailto:husseinmormor@gmail.com" aria-label="Skicka e-post till Hussein">
-          <!-- mail -->
+          <!-- mail icon -->
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
           Skicka e-post: husseinmormor@gmail.com
         </a>
       </div>
 
       <div class="meta">
-        <div><strong>Om kontakten</strong></div>
-        <div>Syfte: Support kring hemsidan eller samarbete.</div>
-        <div>Kontaktvägar: E-post eller direkt samtal från mobilen.</div>
-        <div>Respons: Vi försöker återkomma samma dag.</div>
+        <div><strong>Webbutveckling & design</strong></div>
+        <div>Snabba, säkra och mobilanpassade hemsidor.</div>
+        <div>Tydlig process: idé → design → lansering.</div>
+        <div>Support och uppföljning ingår vid behov.</div>
       </div>
 
       <a href="#" class="modal-close" id="closeCreator">Stäng</a>

@@ -8,86 +8,111 @@
   <meta name="description" content="Utby Snabb Bilverkstad i Göteborg erbjuder professionell service, diagnos, bromsar, däck och AC. Trygghet, kvalitet och punktlighet i varje uppdrag." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
   <style>
+    /* ===== Reset / Base ===== */
     *,*::before,*::after{box-sizing:border-box}
     html{height:100%;scroll-behavior:smooth}
-    body{margin:0;min-height:100%;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#f6f7fb;background:#0B0C10;overflow-x:hidden}
+    body{
+      margin:0;min-height:100%;
+      font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
+      color:#f6f7fb;background:#0B0C10;overflow-x:hidden;
+      background-image:
+        radial-gradient(1200px 600px at 80% -10%, rgba(194,165,69,.22), transparent 60%),
+        radial-gradient(900px 500px at 10% 10%, rgba(95,110,140,.18), transparent 60%),
+        linear-gradient(180deg,#0B0C10,#0C1016);
+    }
     img{max-width:100%;height:auto;display:block}
-    a{color:#FFE55E;text-decoration:none}
-    a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid rgba(255,214,0,.7);outline-offset:2px}
+    a{color:#E2C26B;text-decoration:none}
+    a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+      outline:2px solid rgba(226,194,107,.7);outline-offset:2px}
     .container{width:min(1200px,100%);margin-inline:auto;padding-inline:clamp(16px,4vw,28px)}
     .section{padding:clamp(40px,7vw,96px) 0}
 
-    .header{position:sticky;top:0;z-index:1000;background:rgba(12,13,18,.7);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid rgba(255,255,255,.12)}
+    /* ===== Header ===== */
+    .header{position:sticky;top:0;z-index:1000;background:rgba(12,13,18,.72);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid rgba(255,255,255,.12)}
     .header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
     .brand{display:flex;align-items:center;gap:12px}
-    .brand img{width:40px;height:40px;object-fit:contain;border-radius:8px;filter:drop-shadow(0 0 12px rgba(255,214,0,.5))}
-    .brand-name{font:900 18px/1 Space Grotesk,Inter,system-ui;color:#fff;letter-spacing:.3px}
+    .brand img{width:40px;height:40px;object-fit:contain;border-radius:8px;filter:drop-shadow(0 0 12px rgba(226,194,107,.4))}
+    .brand-name{font:800 18px/1 Space Grotesk,Inter;color:#fff;letter-spacing:.3px}
     .nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-    .nav a{display:inline-block;padding:10px 14px;border-radius:999px;background:#FFD600;color:#111;font-weight:800}
+    .nav a{display:inline-block;padding:10px 14px;border-radius:999px;background:#E2C26B;color:#111;font-weight:800;border:1px solid rgba(0,0,0,.2)}
     .nav a.secondary{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.14)}
 
-    .hero{position:relative;isolation:isolate}
-    .bg{position:absolute;inset:0;z-index:-1;background:
-      radial-gradient(1200px 600px at 80% -10%, rgba(255,214,0,.22), transparent 60%),
-      radial-gradient(1000px 500px at 10% 10%, rgba(141,162,255,.18), transparent 60%),
-      linear-gradient(180deg,#0B0C10,#0C0F18)}
+    /* ===== Hero ===== */
     .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center;min-height:66vh;padding:clamp(18px,3vw,24px) 0}
     .eyebrow{display:inline-block;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);padding:6px 10px;border-radius:999px;color:#dbe2ee;font-size:12px;letter-spacing:.3px}
-    h1{font-family:Space Grotesk,Inter,system-ui;font-weight:900;letter-spacing:.4px;margin:.35em 0 .2em;font-size:clamp(32px,6.5vw,64px);line-height:1.05;background:linear-gradient(90deg,#fff,#FFD600);-webkit-background-clip:text;background-clip:text;color:transparent}
+    h1{font-family:Space Grotesk,Inter;font-weight:800;letter-spacing:.3px;margin:.35em 0 .2em;font-size:clamp(30px,6.3vw,60px);line-height:1.05;
+      background:linear-gradient(90deg,#fff,#E2C26B);-webkit-background-clip:text;background-clip:text;color:transparent}
     .lead{color:#C9D2DE;max-width:70ch;margin:0 0 18px}
     .cta{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{display:inline-block;padding:12px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.14);font-weight:800;transition:transform .2s ease, box-shadow .2s ease}
-    .btn.primary{background:#FFD600;color:#111}
+    .btn{display:inline-block;padding:12px 18px;border-radius:14px;border:1px solid rgba(255,255,255,.14);font-weight:800;transition:transform .2s ease, box-shadow .2s ease}
+    .btn.primary{background:#E2C26B;color:#111}
     .btn.ghost{background:rgba(255,255,255,.06);color:#fff}
     .btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
 
+    /* ===== Gallery ===== */
     .gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
     .gallery img{border-radius:14px;border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 48px rgba(0,0,0,.35)}
 
+    /* ===== Services ===== */
     .section h2{font:800 clamp(20px,3.2vw,34px)/1.2 Space Grotesk,Inter;margin:0 0 18px}
     .muted{color:#C9D2DE;margin:0 0 24px}
     .services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
     .card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:18px}
     .card h3{margin:.2em 0 .4em;font:800 clamp(16px,2.2vw,22px)/1.2 Inter}
 
+    /* ===== Booking ===== */
     .booking{display:grid;grid-template-columns:1fr 1fr;gap:14px}
     .booking label{display:grid;gap:6px;font-weight:700}
-    .booking input,.booking select,.booking textarea{width:100%;padding:14px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;font-size:16px}
+    .booking input,.booking select,.booking textarea{
+      width:100%;padding:14px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.06);color:#fff;font-size:16px}
     .booking textarea{min-height:160px;grid-column:1/-1}
     .booking .actions{grid-column:1/-1;display:flex;gap:10px;justify-content:flex-end}
 
+    /* ===== Map + Advantages ===== */
     .map-container iframe{width:100%;height:340px;border:0;border-radius:14px;margin-top:20px}
+    .advantages{margin-top:18px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .adv{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:16px}
+    .adv h3{margin:.1em 0 .4em;font:800 18px/1.2 Inter}
 
-    .toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%) translateY(30px);background:#111;border:1px solid rgba(113,255,178,.35);color:#fff;padding:12px 16px;border-radius:12px;box-shadow:0 22px 60px rgba(0,0,0,.45);opacity:0;transition:.35s ease;z-index:60;pointer-events:none}
+    /* ===== Toast ===== */
+    .toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%) translateY(30px);background:#101214;border:1px solid rgba(113,255,178,.35);color:#fff;padding:12px 16px;border-radius:12px;box-shadow:0 22px 60px rgba(0,0,0,.45);opacity:0;transition:.35s ease;z-index:60;pointer-events:none}
     .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
+    /* ===== Footer + Mobile bar ===== */
     .footer{border-top:1px solid rgba(255,255,255,.12);padding:20px 0 84px;margin-top:20px}
     .footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px;align-items:center}
     .mobile-bar{display:none}
 
+    /* ===== Responsive ===== */
     @media (max-width: 820px){
       .hero-grid{grid-template-columns:1fr;gap:18px}
       .services,.gallery{grid-template-columns:1fr}
       .booking{grid-template-columns:1fr}
       .footer-grid{grid-template-columns:1fr}
-      .mobile-bar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 14px;background:rgba(15,16,22,.92);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.14)}
+      .advantages{grid-template-columns:1fr}
+      .mobile-bar{
+        position:fixed;left:0;right:0;bottom:0;z-index:70;display:grid;grid-template-columns:1fr 1fr;gap:8px;
+        padding:10px 14px;background:rgba(15,16,22,.92);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.14)
+      }
       .mobile-bar a{display:inline-block;text-align:center;padding:14px 12px;border-radius:12px;font-weight:900}
-      .mobile-bar .call{background:#111;color:#FFD600;border:1px solid rgba(255,255,255,.18)}
-      .mobile-bar .book{background:#FFD600;color:#111}
+      .mobile-bar .call{background:#111;color:#E2C26B;border:1px solid rgba(255,255,255,.18)}
+      .mobile-bar .book{background:#E2C26B;color:#111}
       body{padding-bottom:84px}
     }
   </style>
 </head>
 <body>
+  <!-- ===== Header ===== -->
   <header class="header">
     <div class="container header-inner">
-      <a class="brand" href="#start">
+      <a class="brand" href="#start" aria-label="Utby Snabb Bilverkstad">
         <img src="assets/logo.png" alt="Utby Snabb Bilverkstad logotyp" />
         <span class="brand-name">Utby Snabb Bilverkstad</span>
       </a>
-      <nav class="nav">
+      <nav class="nav" aria-label="Huvudnavigation">
         <a class="secondary" href="#tjanster">Tjänster</a>
         <a class="secondary" href="#kontakt">Kontakt</a>
         <a href="#boka">Boka tid</a>
@@ -95,13 +120,16 @@
     </div>
   </header>
 
+  <!-- ===== Hero ===== -->
   <section class="hero" id="start">
-    <div class="bg" aria-hidden="true"></div>
     <div class="container hero-grid">
       <div>
         <span class="eyebrow">Göteborg • Utby</span>
         <h1>Professionell bilservice med fokus på kvalitet och trygghet</h1>
-        <p class="lead">Vi erbjuder komplett bilservice, reparationer och diagnostik för både privatpersoner och företag. Hos oss möts du av tydlig kommunikation, rimliga tider och resultat som håller över tid.</p>
+        <p class="lead">
+          Vi erbjuder komplett service, reparation och diagnostik för personbilar och transportbilar.
+          Hos oss får du tydlig kommunikation, rimliga tider och arbete som håller över tid.
+        </p>
         <div class="cta">
           <a class="btn primary" href="#boka">Boka tid</a>
           <a class="btn ghost" href="tel:+46720040936">Ring 072-004 09 36</a>
@@ -111,55 +139,109 @@
         <div class="gallery">
           <img src="assets/photo1.jpg" alt="Verkstaden" />
           <img src="assets/photo2.jpg" alt="Bilservice" />
-          <img src="assets/photo3.jpg" alt="Kundbil" />
+          <img src="assets/photo3.jpg" alt="Kundbil efter service" />
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ===== Services ===== -->
   <section class="section" id="tjanster">
     <div class="container">
       <h2>Våra tjänster</h2>
-      <p class="muted">Vi utför service, felsökning och reparationer enligt tillverkarens rekommendationer. Du får alltid prisförslag innan arbetet påbörjas.</p>
+      <p class="muted">Vi arbetar enligt tillverkarens rekommendationer och lämnar alltid prisförslag innan åtgärd.</p>
       <div class="services">
-        <article class="card"><h3>Basservice</h3><p>Oljebyte, filter, genomgång av vitala delar och säkerhetskontroll.</p></article>
-        <article class="card"><h3>Bromsar</h3><p>Kontroll och byte av bromsbelägg, skivor och vätska för optimal prestanda.</p></article>
-        <article class="card"><h3>Diagnos & OBD</h3><p>Avancerad felsökning med rapport och rådgivning innan åtgärd.</p></article>
-        <article class="card"><h3>Däck & hjul</h3><p>Byte, balansering och kontroll av däck och hjul inför varje säsong.</p></article>
-        <article class="card"><h3>AC & el</h3><p>Service av klimatanläggning och elfel – snabbt och säkert.</p></article>
-        <article class="card"><h3>Övrigt</h3><p>Kontakta oss för specialarbeten eller samarbeten – vi hjälper dig gärna.</p></article>
+        <article class="card"><h3>Service</h3><p>Oljebyte, filter, kontroll av vitala system och uppdatering av servicehistorik där det är möjligt.</p></article>
+        <article class="card"><h3>Bromsar</h3><p>Kontroll och byte av belägg, skivor och bromsvätska för säker och jämn bromsverkan.</p></article>
+        <article class="card"><h3>Diagnos & OBD</h3><p>Systematisk felsökning med rapport och rekommendationer innan beslut.</p></article>
+        <article class="card"><h3>Däck & hjul</h3><p>Skifte, balansering och kontroll inför säsong. Vi erbjuder även däckhotell.</p></article>
+        <article class="card"><h3>AC & el</h3><p>Service av klimatanläggning samt felsökning/åtgärd av elektriska fel.</p></article>
+        <article class="card"><h3>Kompletta reparationer</h3><p>Vi byter allt från motor och växellåda till minsta komponent – med tydlig status och uppföljning.</p></article>
       </div>
     </div>
   </section>
 
+  <!-- ===== Booking + Map ===== -->
   <section class="section" id="boka">
     <div class="container">
       <h2>Boka tid</h2>
-      <p class="muted">Fyll i formuläret nedan så återkommer vi med bekräftelse och förslag på tid. Meddelandet skickas direkt från sidan utan att du behöver logga in.</p>
+      <p class="muted">Fyll i formuläret så återkommer vi med bekräftelse och förslag på tid. Meddelandet skickas direkt från sidan utan inloggning.</p>
+
       <form class="card booking" id="bookingForm" action="https://formsubmit.co/husseinmormor@gmail.com" method="POST">
+        <!-- FormSubmit control -->
         <input type="text" name="_honey" style="display:none">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_subject" value="Ny bokningsförfrågan – Utby Snabb Bilverkstad">
         <input type="hidden" name="_template" value="table">
 
-        <label>Namn<input name="name" required placeholder="För- och efternamn" /></label>
-        <label>Telefon<input name="phone" required placeholder="072-004 09 36" /></label>
-        <label>E-post<input name="email" type="email" placeholder="namn@exempel.se" /></label>
-        <label>Bil / Regnr<input name="car" placeholder="Volvo V60 / ABC123" /></label>
-        <label>Tjänst<select name="service"><option>Service & olja</option><option>Bromsar</option><option>Däck & hjul</option><option>Diagnos & OBD</option><option>AC & el</option><option>Annan fråga</option></select></label>
-        <label>Önskat datum<input name="date" type="date" /></label>
-        <label>Beskrivning<textarea name="message" placeholder="Beskriv kort vad du vill ha hjälp med…"></textarea></label>
+        <label>Namn
+          <input name="name" required placeholder="För- och efternamn" />
+        </label>
+        <label>Telefon
+          <input name="phone" required placeholder="072-004 09 36" />
+        </label>
+        <label>E-post
+          <input name="email" type="email" placeholder="namn@exempel.se" />
+        </label>
+        <label>Bil / Regnr
+          <input name="car" placeholder="Volvo V60 / ABC123" />
+        </label>
+        <label>Tjänst
+          <select name="service">
+            <option>Service & olja</option>
+            <option>Bromsar</option>
+            <option>Däck & hjul</option>
+            <option>Diagnos & OBD</option>
+            <option>AC & el</option>
+            <option>Annan fråga</option>
+          </select>
+        </label>
+        <label>Önskat datum
+          <input name="date" type="date" />
+        </label>
+        <label>Beskrivning
+          <textarea name="message" placeholder="Beskriv kort vad du vill ha hjälp med…"></textarea>
+        </label>
         <div class="actions">
           <button type="submit" class="btn primary">Skicka förfrågan</button>
           <a class="btn ghost" id="whatsBtn" href="#">WhatsApp</a>
         </div>
       </form>
+
+      <!-- Map -->
       <div class="map-container">
-        <iframe src="https://www.google.com/maps?q=57.74025,12.07864&hl=sv&z=15&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <h3 style="font:800 18px/1.2 Inter;margin:20px 0 6px">Här hittar du oss</h3>
+        <p class="muted" style="margin:0 0 8px">Vagnmakaregatan 2, 415 72 Göteborg</p>
+        <iframe
+          title="Karta till Utby Snabb Bilverkstad"
+          src="https://www.google.com/maps?q=57.74025,12.07864&hl=sv&z=15&output=embed"
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+      <!-- Advantages -->
+      <div class="advantages" aria-label="Våra fördelar">
+        <div class="adv">
+          <h3>Drop-in välkommen</h3>
+          <p class="muted">Kom förbi utan tidsbokning när det passar. Vi försöker hjälpa direkt eller ger snabb tidsplan.</p>
+        </div>
+        <div class="adv">
+          <h3>Öppet även söndag</h3>
+          <p class="muted">Vi har öppet på söndagar till kl. 18. Praktiskt när tiden i veckan inte räcker.</p>
+        </div>
+        <div class="adv">
+          <h3>Däckhotell</h3>
+          <p class="muted">Säker förvaring och byte av däck. Vi kontrollerar mönsterdjup, tryck och skick inför säsong.</p>
+        </div>
+        <div class="adv">
+          <h3>Komplett verkstad</h3>
+          <p class="muted">Från motor och växellåda till minsta del. Vi arbetar strukturerat och återkopplar löpande.</p>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ===== Footer ===== -->
   <footer class="footer" id="kontakt">
     <div class="container footer-grid">
       <div>
@@ -171,7 +253,7 @@
         <p>Tel: <a href="tel:+46720040936">072-004 09 36</a> · E-post: <a href="mailto:husseinmormor@gmail.com">husseinmormor@gmail.com</a></p>
       </div>
       <div>
-        <p><strong>Öppettider</strong><br/>Mån–Fre 08:00–17:00<br/>Lör enligt överenskommelse</p>
+        <p><strong>Öppettider</strong><br/>Mån–Fre 08:00–17:00<br/>Sön 10:00–18:00</p>
       </div>
       <div>
         <a class="btn primary" href="#boka">Boka tid</a>
@@ -183,13 +265,31 @@
     </div>
   </footer>
 
+  <!-- Toast -->
   <div id="toast" class="toast" role="status" aria-live="polite">Tack! Din bokningsförfrågan har skickats.</div>
 
+  <!-- Minimal JS: AJAX Form + WhatsApp + Toast -->
   <script>
     function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3200); }
     function serialize(f){ const d=new FormData(f), o={}; d.forEach((v,k)=>o[k]=v); return o; }
 
-    const form=document.getElementById('bookingForm');
-    form?.addEventListener('submit',async(e)=>{e.preventDefault();const data=new FormData(form);try{await fetch(form.action,{method:'POST',headers:{'Accept':'application/json'},body:data});}catch(err){}form.reset();toast('Tack! Din bokningsförfrågan har skickats. Vi kontaktar dig inom kort.');});
+    const form = document.getElementById('bookingForm');
+    form?.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const data = new FormData(form);
+      try{
+        await fetch(form.action, { method:'POST', headers:{'Accept':'application/json'}, body:data });
+      }catch(err){}
+      form.reset();
+      toast('Tack! Din bokningsförfrågan har skickats. Vi kontaktar dig inom kort.');
+    });
 
-    document.getElementBy
+    document.getElementById('whatsBtn')?.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const d = serialize(form);
+      const text = encodeURIComponent(`Hej! Jag vill boka: ${d.service||''}. Bil/Regnr: ${d.car||'-'}. Datum: ${d.date||'-'}.\nNamn: ${d.name||''}. Tel: ${d.phone||''}.\nBeskrivning: ${d.message||'-'}`);
+      window.open('https://wa.me/46720040936?text='+text, '_blank');
+    });
+  </script>
+</body>
+</html>

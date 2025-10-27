@@ -82,7 +82,7 @@
     .copyright-bar a{color:#DABD66;font-weight:700}
     .copyright-bar a:hover{color:#fff}
 
-    /* Modal */
+    /* Modal (Bild-style) */
     .modal{position:fixed;inset:0;display:none;place-items:center;z-index:20;background:rgba(8,10,14,.55);backdrop-filter:blur(14px)}
     .modal.show{display:grid}
     .modal-card{width:min(620px,92vw);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px;box-shadow:0 32px 90px rgba(0,0,0,.52)}
@@ -97,9 +97,10 @@
     .modal .meta strong{color:#fff}
     .modal-close{display:block;margin:14px auto 2px;text-align:center;color:#9fb0c0}
 
+    /* lock scroll when modal open */
     body.scroll-lock{overflow:hidden}
 
-    /* SMS FAB (draggable) */
+    /* SMS FAB draggable */
     .sms-fab{
       position:fixed;right:14px;bottom:14px;width:54px;height:54px;border-radius:50%;
       display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;
@@ -113,7 +114,7 @@
       .nav{flex-wrap:wrap}
     }
 
-    /* Datum & tid inline */
+    /* datum & tid side-by-side small */
     .booking .inline-dt{display:grid;grid-template-columns:repeat(2,minmax(140px,1fr));gap:8px;align-items:end;margin-top:4px}
     .booking .inline-dt .field{display:flex;flex-direction:column;gap:4px}
     .booking .inline-dt label{font-size:12px}
@@ -128,9 +129,18 @@
     <div class="container header-inner">
       <a class="brand" href="#start"><img src="assets/logo.png" alt="logo"/><span class="brand-name">Utby Snabb Bilverkstad</span></a>
       <nav class="nav">
-        <a class="secondary" href="#tjanster"><span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.7 19.3l-6.4-6.4a6 6 0 01-7.6-7.6l3.1 3.1 2.1-.7.7-2.1-3.1-3.1a6 6 0 007.6 7.6l6.4 6.4-2.8 2.8zM4 20a2 2 0 110-4 2 2 0 010 4z"/></svg></span><span>Tjänster</span></a>
-        <a class="secondary" href="#kontakt"><span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.24 11.6 11.6 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.6 11.6 0 00.57 3.6 1 1 0 01-.24 1l-2.23 2.2z"/></svg></span><span>Kontakt</span></a>
-        <a href="#boka"><span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h2v2h6V2h2v2h3a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h3V2zm14 8H3v8a1 1 0 001 1h16a1 1 0 001-1v-8z"/></svg></span><span>Boka tid</span></a>
+        <a class="secondary" href="#tjanster">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.7 19.3l-6.4-6.4a6 6 0 01-7.6-7.6l3.1 3.1 2.1-.7.7-2.1-3.1-3.1a6 6 0 007.6 7.6l6.4 6.4-2.8 2.8zM4 20a2 2 0 110-4 2 2 0 010 4z"/></svg></span>
+          <span>Tjänster</span>
+        </a>
+        <a class="secondary" href="#kontakt">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.24 11.6 11.6 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.6 11.6 0 00.57 3.6 1 1 0 01-.24 1l-2.23 2.2z"/></svg></span>
+          <span>Kontakt</span>
+        </a>
+        <a href="#boka">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h2v2h6V2h2v2h3a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h3V2zm14 8H3v8a1 1 0 001 1h16a1 1 0 001-1v-8z"/></svg></span>
+          <span>Boka tid</span>
+        </a>
       </nav>
     </div>
   </header>
@@ -212,13 +222,15 @@
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_subject" value="Ny bokning — Utby Snabb Bilverkstad">
         <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_next" value="https://utbysnabbbilservice.se/thank-you">
         <input type="hidden" name="_autoresponse" value="Tack! Vi har mottagit din bokningsförfrågan och återkommer så snart som möjligt. Med vänlig hälsning, Utby Snabb Bilverkstad.">
         <!-- Honeypot -->
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 
         <label for="name">Namn</label>
-        <input id="name" name="Namn" placeholder="För- och efternamn" required>
+        <input id="name" name="name" placeholder="För- och efternamn" required>
+
+        <label for="email">E-post</label>
+        <input id="email" name="email" type="email" placeholder="din@epost.se" required>
 
         <label for="car">Bil/Regnr</label>
         <input id="car" name="Bil/Regnr" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
@@ -237,6 +249,7 @@
           <option>Annan åtgärd</option>
         </select>
 
+        <!-- Datum & Tid små وجنب بعض -->
         <div class="inline-dt">
           <div class="field">
             <label for="date">Önskat datum</label>
@@ -343,7 +356,7 @@
   </a>
 
   <script>
-    // Min date
+    // Min date = today
     (function(){
       const dateInput=document.getElementById('date');
       if(dateInput){
@@ -352,7 +365,7 @@
       }
     })();
 
-    // Creator modal (instant open)
+    // Open Hussein modal instantly
     (function(){
       const modal=document.getElementById('creatorModal');
       const open =document.getElementById('openCreator2');
@@ -365,7 +378,7 @@
       modal?.addEventListener('click',e=>{if(e.target===modal)hide();});
     })();
 
-    // Submit: show thanks immediately, send in background, prevent double-submit
+    // Submit: show thanks immediately; send in background; prevent double-submit
     (function(){
       const form=document.getElementById('bookingForm');
       const submitBtn=document.getElementById('submitBtn');
@@ -406,7 +419,7 @@
       });
     })();
 
-    // SMS default text + debounce
+    // SMS: default text + debounce clicks
     (function(){
       const link=document.getElementById('smsFab'); if(!link) return;
       const base='sms:+46790574975';
@@ -423,7 +436,7 @@
       },true);
     })();
 
-    // Draggable SMS + snap
+    // Draggable SMS + snap to edges + remember position
     (function(){
       const el=document.getElementById('smsFab'); if(!el) return;
       const MARGIN_X=14,MARGIN_Y=8,CLICK_TOL=6;

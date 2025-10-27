@@ -383,7 +383,113 @@
         thanks.style.display='block';
       });
     })();
+// --- Gör SMS-knappen flyttbar (touch + mouse) ---
+// Klistra in detta precis före slutet av din <script> (innan </script>)
+(function(){
+  const el = document.getElementById('smsFab');
+  if(!el) return;
+  // tillåt pekdragning
+  el.style.touchAction = 'none';
+  el.style.transition = 'none';
 
+  let dragging = false;
+  let startX = 0, startY = 0;
+  let startLeft = 0, startTop = 0;
+  let pointerId = null;
+  const clickTolerance = 6; // px — om färre än detta räknas som klick
+
+  function getRect() { return el.getBoundingClientRect(); }
+
+  function setPos(left, top){
+    // sätt position i px (behåll position:fixed)
+    el.style.left = Math.round(left) + 'px';
+    el.style.top  = Math.round(top) + 'px';
+    // ta bort 'right'/'bottom' om de finns så 'left/top' används
+    el.style.right = 'auto';
+    el.style.bottom = 'auto';
+  }
+
+  function onPointerDown(e){
+    // acceptera bara primär pekare
+    if (pointerId !== null && e.pointerId !== pointerId) return;
+    pointerId = e.pointerId;
+    (e.target).setPointerCapture(pointerId);
+    dragging = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    const r = getRect();
+    // om elementet använder 'right' i stilar, konvertera till left
+    if (!el.style.left) {
+      // beräkna nuvarande left från rect
+      setPos(r.left, r.top);
+    }
+    startLeft = parseFloat(el.style.left || r.left);
+    startTop  = parseFloat(el.style.top  || r.top);
+    e.preventDefault();
+  }
+
+  function onPointerMove(e){
+    if(!dragging || e.pointerId !== pointerId) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    setPos(startLeft + dx, startTop + dy);
+    e.preventDefault();
+  }
+
+  function onPointerUp(e){
+    if(e.pointerId !== pointerId) return;
+    try{ (e.target).releasePointerCapture(pointerId); }catch(err){}
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    // om det var en "klick" (nära noll förflyttning) — låt standard klick/href fungera
+    const moved = Math.hypot(dx, dy);
+    dragging = false;
+    pointerId = null;
+    // valfritt: spara position i localStorage för att behålla mellan laddningar
+    try{
+      localStorage.setItem('smsFabPos', JSON.stringify({left: parseFloat(el.style.left), top: parseFloat(el.style.top)}));
+    }catch(err){}
+    // Om flyttat mycket, förhindra "klick" som följd av touchend
+    if(moved > clickTolerance){
+      // skapa en liten fördröjning för att blockera följande klick
+      el.addEventListener('click', preventOnce, {once:true, capture:true});
+    }
+  }
+
+  function preventOnce(ev){
+    ev.stopImmediatePropagation();
+    ev.preventDefault();
+  }
+
+  // ladda tidigare sparad position om finns
+  try{
+    const pos = JSON.parse(localStorage.getItem('smsFabPos'));
+    if(pos && typeof pos.left === 'number' && typeof pos.top === 'number'){
+      setPos(pos.left, pos.top);
+    }
+  }catch(err){}
+
+  // Använd pointer events (fungerar för touch + mus + stylus)
+  el.addEventListener('pointerdown', onPointerDown, {passive:false});
+  window.addEventListener('pointermove', onPointerMove, {passive:false});
+  window.addEventListener('pointerup', onPointerUp, {passive:false});
+  window.addEventListener('pointercancel', onPointerUp, {passive:false});
+
+  // För bättre mobil-UX: se till att knappen kan hamna inom viewport
+  window.addEventListener('resize', ()=>{
+    const r = getRect();
+    const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    let left = parseFloat(el.style.left || r.left);
+    let top  = parseFloat(el.style.top  || r.top);
+    // justera om utanför
+    if(left + r.width > vw) left = vw - r.width - 8;
+    if(left < 8) left = 8;
+    if(top + r.height > vh) top = vh - r.height - 8;
+    if(top < 8) top = 8;
+    setPos(left, top);
+  });
+})();
     // Modal open/close
     const modal=document.getElementById('creatorModal');
     document.getElementById('openCreator2')?.addEventListener('click',e=>{e.preventDefault();modal.classList.add('show');});

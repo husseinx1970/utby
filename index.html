@@ -82,7 +82,7 @@
     .copyright-bar a{color:#DABD66;font-weight:700}
     .copyright-bar a:hover{color:#fff}
 
-    /* Modal (same style as Hussein modal) */
+    /* Modal (Bild-style) */
     .modal{position:fixed;inset:0;display:none;place-items:center;z-index:20;background:rgba(8,10,14,.55);backdrop-filter:blur(14px)}
     .modal.show{display:grid}
     .modal-card{width:min(620px,92vw);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px;box-shadow:0 32px 90px rgba(0,0,0,.52)}
@@ -149,7 +149,7 @@
   <section class="hero" id="start">
     <div class="container">
       <h1>Professionell bilservice i Göteborg</h1>
-      <p class="lead">Komplett service, reparation och diagnos för alla bilmärken. Drop-in välkommen — vardagar 09:00–18:00. Vi erbjuder däckhotell och full bilservice.</p>
+      <p class="lead">Komplett service، reparation och diagnos för alla bilmärken. Drop-in välkommen — vardagar 09:00–18:00. Vi erbjuder däckhotell och full bilservice.</p>
       <div class="cta">
         <a class="btn primary" href="#boka">Boka tid</a>
         <a class="btn ghost" href="tel:+46720040936">Ring 072-004 09 36</a>
@@ -167,7 +167,7 @@
       <div class="services">
         <div class="card">
           <h3>Service</h3>
-          <p>Planerad service enligt tillverkarens intervall: byte av motorolja och filter, kontroll av vätskor، bromsar، batteri، belysning och drivlina. Vi uppdaterar digital servicebok där det är möjligt (Volvo, BMW, VAG m.fl.).</p>
+          <p>Planerad service enligt tillverkarens intervall: byte av motorolja och filter، kontroll av vätskor، bromsar، batteri، belysning och drivlina. Vi uppdaterar digital servicebok där det är möjligt (Volvo، BMW، VAG m.fl.).</p>
           <ul style="margin:6px 0 8px 18px">
             <li>30–40 punkters säkerhetskontroll</li>
             <li>Provkörning och felkodsavläsning</li>
@@ -179,9 +179,9 @@
 
         <div class="card">
           <h3>Däck & hjul</h3>
-          <p>Skifte sommar/vinter, balansering och kontroll av mönsterdjup och lufttryck. Vi programmerar och kalibrerar även TPMS vid behov.</p>
+          <p>Skifte sommar/vinter، balansering och kontroll av mönsterdjup och lufttryck. Vi programmerar och kalibrerar även TPMS vid behov.</p>
           <ul style="margin:6px 0 8px 18px">
-            <li>Däckhotell: torrt, säkert och försäkrat</li>
+            <li>Däckhotell: torrt، säkert och försäkrat</li>
             <li>Snabbt skifte med momentkontroll</li>
             <li>Rådgivning om rätt dimension och lastindex</li>
           </ul>
@@ -191,10 +191,10 @@
 
         <div class="card">
           <h3>Kompletta reparationer</h3>
-          <p>Från bromsar, avgassystem och fjädring till motor, koppling/växellåda och el. Vi felsöker systematiskt med moderna diagnosverktyg.</p>
+          <p>Från bromsar، avgassystem och fjädring till motor، koppling/växellåda och el. Vi felsöker systematiskt med moderna diagnosverktyg.</p>
           <ul style="margin:6px 0 8px 18px">
-            <li>Kamrem/kedja, vattenpump och packningar</li>
-            <li>Bromsskivor/-belägg, ok & handbroms</li>
+            <li>Kamrem/kedja، vattenpump och packningar</li>
+            <li>Bromsskivor/-belägg، ok & handbroms</li>
             <li>AC-service: läcktest & påfyllning</li>
           </ul>
           <p>Du får alltid prisförslag innan åtgärd och dokumentation efter utfört arbete.</p>
@@ -205,9 +205,9 @@
       <div class="card" style="margin-top:14px">
         <h3>Vanliga frågor (FAQ)</h3>
         <p><strong>Behöver jag boka tid?</strong> Drop-in vardagar 09:00–18:00. För större jobb rekommenderar vi bokning.</p>
-        <p><strong>Uppdaterar ni servicehistorik?</strong> Ja, där digital bok finns uppdaterar vi den. Annars får du underlag/stämpel.</p>
+        <p><strong>Uppdaterar ni servicehistorik?</strong> Ja، där digital bok finns uppdaterar vi den. Annars får du underlag/stämpel.</p>
         <p><strong>Vilka delar använder ni?</strong> Original eller OEM-kvalitet enligt tillverkarens specifikationer.</p>
-        <p><strong>Garanti på arbete?</strong> Ja, vi lämnar garanti på både delar och arbete enligt branschpraxis.</p>
+        <p><strong>Garanti på arbete?</strong> Ja، vi lämnar garanti på både delar och arbete enligt branschpraxis.</p>
       </div>
     </div>
   </section>
@@ -217,12 +217,18 @@
     <div class="container">
       <h2>Kontakt & bokning</h2>
 
-      <form class="booking" id="bookingForm" action="https://formsubmit.co/utbysnabbservice@gmail.com" method="POST" novalidate>
+      <!-- iframe مخفي للإرسال بدون تنقل -->
+      <iframe name="hidden_iframe" id="hidden_iframe" style="display:none"></iframe>
+
+      <form class="booking" id="bookingForm" action="https://formsubmit.co/Husseinmormor@gmail.com" method="POST" target="hidden_iframe">
         <!-- FormSubmit settings -->
         <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_subject" value="Ny bokning — Utby Snabb Bilverkstad">
         <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_subject" value="Ny bokning — Utby Snabb Bilverkstad">
         <input type="hidden" name="_autoresponse" value="Tack! Vi har mottagit din bokningsförfrågan och återkommer så snart som möjligt. Med vänlig hälsning, Utby Snabb Bilverkstad.">
+        <!-- يمكنك أيضًا استقبال نسخة على بريد آخر:
+        <input type="hidden" name="_cc" value="utbysnabbservice@gmail.com">
+        -->
         <!-- Honeypot -->
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 
@@ -285,7 +291,7 @@
         <p><strong>Utby Snabb Bilverkstad</strong></p>
         <p>Vagnmakaregatan 2, 415 72 Göteborg</p>
         <p>Telefon: <a href="tel:+46720040936">072-004 09 36</a></p>
-        <p>E-post: <a href="mailto:utbysnabbservice@gmail.com">utbysnabbservice@gmail.com</a></p>
+        <p>E-post: <a href="mailto:Husseinmormor@gmail.com">Husseinmormor@gmail.com</a></p>
       </div>
       <div>
         <h4>Öppettider</h4>
@@ -325,7 +331,7 @@
         </div>
       </div>
       <a class="action call" href="tel:+46790574975">Ring: 0790574975</a>
-      <a class="action mail" href="mailto:utbysnabbservice@gmail.com">Skicka e-post</a>
+      <a class="action mail" href="mailto:Husseinmormor@gmail.com">Skicka e-post</a>
       <div class="meta">
         <strong>Vill du ha en professionell hemsida?</strong>
         <p>Jag bygger snabba، säkra och mobilanpassade webbplatser för företag och privatpersoner. Från idé till färdig sida — enkelt، tydligt och snyggt.</p>
@@ -378,7 +384,7 @@
       modal?.addEventListener('click',e=>{if(e.target===modal)hide();});
     })();
 
-    // Submit: show thanks immediately; send in background; prevent double-submit
+    // Native submit to hidden iframe + show thanks instantly + prevent double-submit
     (function(){
       const form=document.getElementById('bookingForm');
       const submitBtn=document.getElementById('submitBtn');
@@ -387,25 +393,20 @@
       let isSubmitting=false;
 
       form?.addEventListener('submit',(e)=>{
-        e.preventDefault();
         if(!form.checkValidity()){form.reportValidity();return;}
-        if(isSubmitting) return;
+        if(isSubmitting){e.preventDefault();return;}
         isSubmitting=true;
 
+        // UI lock + thanks popup
         submitBtn.disabled=true;
         const oldLabel=submitBtn.textContent;
         submitBtn.textContent='Skickar…';
-
         const y=window.scrollY||window.pageYOffset||0;
         document.body.classList.add('scroll-lock');
         thanksModal?.classList.add('show');
 
-        const data=new FormData(form);
-        try{ fetch(form.action,{method:'POST',headers:{'Accept':'application/json'},body:data}); }catch{}
-
-        form.reset();
-        document.documentElement.style.scrollBehavior='auto';
-        window.scrollTo(0,y);
+        // بعد إرسال المتصفح للنموذج إلى iframe، نظّف الحقول بهدوء
+        setTimeout(()=>{ try{form.reset();}catch(_){} document.documentElement.style.scrollBehavior='auto'; window.scrollTo(0,y); }, 200);
 
         function closeThanks(){
           thanksModal?.classList.remove('show');

@@ -65,28 +65,57 @@
     }
 
     /* ===== Booking (compact & pro) ===== */
-    .booking{
-      display:grid;grid-template-columns:1fr;gap:8px;
-      max-width:560px;margin:0 auto
-    }
-    .booking label{font-weight:600;font-size:13px;color:#e6e8ef;margin-top:2px}
-    .booking input,.booking select,.booking textarea{
-      width:100%;padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.05);color:#fff;font-size:13px;
-      transition:border-color .2s ease, box-shadow .2s ease
-    }
-    .booking input:focus,.booking select:focus,.booking textarea:focus{
-      border-color:#d9b954;box-shadow:0 0 0 2px rgba(218,189,102,.25);outline:none
-    }
-    .booking textarea{min-height:84px;resize:vertical}
-    .booking button{
-      margin-top:4px;padding:9px 14px;border-radius:999px;background:linear-gradient(180deg,#e9cf6e,#d4b848);
-      color:#111;font-weight:800;font-size:14px;border:none;cursor:pointer;
-      transition:all .25s ease;box-shadow:0 4px 16px rgba(218,189,102,.25)
-    }
-    .booking button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(218,189,102,.35)}
-    .booking input::placeholder,.booking textarea::placeholder{color:#a5a8b1;opacity:.85}
-
+/* ===== Booking (uniform fields) ===== */
+.booking{
+  display:grid;grid-template-columns:1fr;gap:10px;
+  max-width:560px;margin:0 auto
+}
+.booking label{
+  font-weight:600;font-size:13px;color:#e6e8ef;margin-top:2px
+}
+.booking input,
+.booking select,
+.booking textarea{
+  width:100%;
+  height:42px; /* يجعل كل المربعات متساوية */
+  padding:8px 12px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);
+  color:#fff;
+  font-size:14px;
+  transition:border-color .2s ease, box-shadow .2s ease;
+  box-sizing:border-box;
+}
+.booking textarea{
+  height:auto;
+  min-height:100px;
+  resize:vertical;
+}
+.booking input:focus,
+.booking select:focus,
+.booking textarea:focus{
+  border-color:#d9b954;
+  box-shadow:0 0 0 2px rgba(218,189,102,.25);
+  outline:none;
+}
+.booking button{
+  margin-top:6px;
+  padding:11px 16px;
+  border-radius:999px;
+  background:linear-gradient(180deg,#e9cf6e,#d4b848);
+  color:#111;
+  font-weight:800;
+  font-size:14px;
+  border:none;
+  cursor:pointer;
+  transition:all .25s ease;
+  box-shadow:0 4px 16px rgba(218,189,102,.25);
+}
+.booking button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(218,189,102,.35);
+}
     /* Success message */
     #bookThanks{
       display:none;text-align:center;margin-top:12px;font-weight:700;font-size:14px;line-height:1.5;

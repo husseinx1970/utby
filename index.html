@@ -10,7 +10,7 @@
   <style>
     *,*::before,*::after{box-sizing:border-box}
     html,body{margin:0;padding:0;height:100%;background:#0b0c10;color:#f6f7fb;font-family:Inter,system-ui,Segoe UI,Roboto,Arial}
-    html,body{overflow-x:hidden} /* لا تمرير أفقي */
+    html,body{overflow-x:hidden}
     img{max-width:100%;display:block}
     a{color:#DABD66;text-decoration:none}
     .container{width:min(1100px,100%);margin:auto;padding:0 18px}
@@ -82,7 +82,7 @@
     .copyright-bar a{color:#DABD66;font-weight:700}
     .copyright-bar a:hover{color:#fff}
 
-    /* Modal (مطابق للصورة) */
+    /* Modal */
     .modal{position:fixed;inset:0;display:none;place-items:center;z-index:20;background:rgba(8,10,14,.55);backdrop-filter:blur(14px)}
     .modal.show{display:grid}
     .modal-card{width:min(620px,92vw);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px;box-shadow:0 32px 90px rgba(0,0,0,.52)}
@@ -90,7 +90,6 @@
     .modal-header img{width:40px;height:40px;border-radius:10px;object-fit:contain;filter:drop-shadow(0 6px 18px rgba(218,189,102,.35))}
     .modal-card h3{font:800 20px/1.2 Inter;margin:.1em 0;text-align:left}
     .modal-card p{color:#C9D2DE;margin:4px 0 10px;text-align:left}
-    /* أزرار المودال كالصورة */
     .action{display:block;width:100%;text-align:center;font-weight:900;border-radius:12px;padding:12px;margin:10px 0}
     .action.call{background:#111;color:#DABD66;border:1px solid rgba(255,255,255,.08)}
     .action.mail{background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;border:none}
@@ -98,10 +97,9 @@
     .modal .meta strong{color:#fff}
     .modal-close{display:block;margin:14px auto 2px;text-align:center;color:#9fb0c0}
 
-    /* قفل تمرير مؤقت أثناء المودالات */
     body.scroll-lock{overflow:hidden}
 
-    /* SMS floating button (draggable + snap) */
+    /* SMS FAB (draggable) */
     .sms-fab{
       position:fixed;right:14px;bottom:14px;width:54px;height:54px;border-radius:50%;
       display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;
@@ -111,12 +109,11 @@
 
     @media(max-width:520px){
       .footer-top{grid-template-columns:1fr}
-      .modal-grid{grid-template-columns:1fr}
       .brand img{width:54px;height:54px}
       .nav{flex-wrap:wrap}
     }
 
-    /* تاريخ/وقت جنب بعض */
+    /* Datum & tid inline */
     .booking .inline-dt{display:grid;grid-template-columns:repeat(2,minmax(140px,1fr));gap:8px;align-items:end;margin-top:4px}
     .booking .inline-dt .field{display:flex;flex-direction:column;gap:4px}
     .booking .inline-dt label{font-size:12px}
@@ -211,9 +208,14 @@
       <h2>Kontakt & bokning</h2>
 
       <form class="booking" id="bookingForm" action="https://formsubmit.co/info@utbysnabbbilservice.se" method="POST" novalidate>
+        <!-- FormSubmit settings -->
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_subject" value="Ny bokning — Utby Snabb Bilverkstad">
         <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://utbysnabbbilservice.se/thank-you">
+        <input type="hidden" name="_autoresponse" value="Tack! Vi har mottagit din bokningsförfrågan och återkommer så snart som möjligt. Med vänlig hälsning, Utby Snabb Bilverkstad.">
+        <!-- Honeypot -->
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 
         <label for="name">Namn</label>
         <input id="name" name="Namn" placeholder="För- och efternamn" required>
@@ -235,7 +237,6 @@
           <option>Annan åtgärd</option>
         </select>
 
-        <!-- Datum & Tid små وجنب بعض -->
         <div class="inline-dt">
           <div class="field">
             <label for="date">Önskat datum</label>
@@ -271,7 +272,7 @@
         <p><strong>Utby Snabb Bilverkstad</strong></p>
         <p>Vagnmakaregatan 2, 415 72 Göteborg</p>
         <p>Telefon: <a href="tel:+46720040936">072-004 09 36</a></p>
-        <p>E-post: <a href="mailto:info@utbysnabbbilservice.se"> kontakt@utbysnabbbilservice.se</a></p>
+        <p>E-post: <a href="mailto:info@utbysnabbbilservice.se">info@utbysnabbbilservice.se</a></p>
       </div>
       <div>
         <h4>Öppettider</h4>
@@ -300,7 +301,7 @@
     </div>
   </footer>
 
-  <!-- Modal: Kontakta Hussein (مطابق للصورة) -->
+  <!-- Modal: Kontakta Hussein -->
   <div class="modal" id="creatorModal" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="creatorTitle">
       <div class="modal-header">
@@ -320,7 +321,7 @@
     </div>
   </div>
 
-  <!-- Modal: Tack (efter formulär) — نفس ستايل حسين -->
+  <!-- Modal: Tack -->
   <div class="modal" id="thanksModal" aria-hidden="true">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="thanksTitle">
       <div class="modal-header">
@@ -351,7 +352,7 @@
       }
     })();
 
-    // فتح مودال حسين لحظيًا (pointerdown) وإغلاقه كما بالصورة
+    // Creator modal (instant open)
     (function(){
       const modal=document.getElementById('creatorModal');
       const open =document.getElementById('openCreator2');
@@ -364,7 +365,7 @@
       modal?.addEventListener('click',e=>{if(e.target===modal)hide();});
     })();
 
-    // إرسال فوري + شكر فوري + منع تعدد الإرسال
+    // Submit: show thanks immediately, send in background, prevent double-submit
     (function(){
       const form=document.getElementById('bookingForm');
       const submitBtn=document.getElementById('submitBtn');
@@ -378,21 +379,17 @@
         if(isSubmitting) return;
         isSubmitting=true;
 
-        // عطل الزر فورًا
         submitBtn.disabled=true;
         const oldLabel=submitBtn.textContent;
         submitBtn.textContent='Skickar…';
 
-        // قفل تمرير مؤقت وعرض الشكر فوريًا
         const y=window.scrollY||window.pageYOffset||0;
         document.body.classList.add('scroll-lock');
         thanksModal?.classList.add('show');
 
-        // إرسال "fire-and-forget"
         const data=new FormData(form);
         try{ fetch(form.action,{method:'POST',headers:{'Accept':'application/json'},body:data}); }catch{}
 
-        // تنظيف وإرجاع الموضع
         form.reset();
         document.documentElement.style.scrollBehavior='auto';
         window.scrollTo(0,y);
@@ -409,10 +406,10 @@
       });
     })();
 
-    // SMS default text + منع النقرات المتتالية
+    // SMS default text + debounce
     (function(){
       const link=document.getElementById('smsFab'); if(!link) return;
-      const base='sms:+46720040936';
+      const base='sms:+46790574975';
       const body=encodeURIComponent('Hej! Jag behöver rådgivning om bilen.');
       const ua=navigator.userAgent.toLowerCase();
       const href=(ua.includes('iphone')||ua.includes('ipad'))?`${base}&body=${body}`:`${base}?body=${body}`;
@@ -426,7 +423,7 @@
       },true);
     })();
 
-    /* Draggable SMS + snap */
+    // Draggable SMS + snap
     (function(){
       const el=document.getElementById('smsFab'); if(!el) return;
       const MARGIN_X=14,MARGIN_Y=8,CLICK_TOL=6;

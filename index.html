@@ -10,6 +10,10 @@
   <style>
     *,*::before,*::after{box-sizing:border-box}
     html,body{margin:0;padding:0;height:100%;background:#0b0c10;color:#f6f7fb;font-family:Inter,system-ui,Segoe UI,Roboto,Arial}
+
+    /* لا تمرير أفقي إطلاقًا */
+    html, body { overflow-x: hidden; }
+
     img{max-width:100%;display:block}
     a{color:#DABD66;text-decoration:none}
     .container{width:min(1100px,100%);margin:auto;padding:0 18px}
@@ -66,9 +70,9 @@
       color:#111;font-weight:800;font-size:14px;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(218,189,102,.25)
     }
     .booking button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(218,189,102,.35)}
-    #bookThanks{display:none;text-align:center;margin-top:12px;font-weight:700;font-size:14px;color:#f3e6b3;background:rgba(255,255,255,.06);padding:12px;border-radius:10px}
+    #bookThanks{display:none;text-align:center;margin-top:12px;font-weight:700;font-size:14px;color:#f3e6b3;background:rgba(255,255,255,.06);padding:12px;border-radius:10px;overflow-wrap:anywhere;word-wrap:break-word}
 
-    /* Compact date/time fields (original hint) */
+    /* Compact date/time fields (hint baseline) */
     #date, #time {max-width:220px;height:36px;font-size:13px;padding:6px 8px}
     @media(max-width:520px){#date,#time{max-width:100%;height:34px}}
 
@@ -102,6 +106,9 @@
     .meta{color:#D7DEEA;font-size:14px;text-align:center;margin-top:6px}
     .meta strong{color:#fff}
     .modal-close{display:block;margin:10px auto 0;text-align:center;color:#9fb0c0}
+
+    /* قفل تمرير مؤقت لمنع قفز iOS */
+    body.scroll-lock { overflow: hidden; }
 
     /* SMS floating button */
     .sms-fab{
@@ -168,7 +175,7 @@
   <section class="hero" id="start">
     <div class="container">
       <h1>Professionell bilservice i Göteborg</h1>
-      <p class="lead">Komplett service، reparation och diagnos för alla bilmärken. Drop-in välkommen — vardagar 09:00–18:00. Vi erbjuder däckhotell och full bilservice.</p>
+      <p class="lead">Komplett service, reparation och diagnos för alla bilmärken. Drop-in välkommen — vardagar 09:00–18:00. Vi erbjuder däckhotell och full bilservice.</p>
       <div class="cta">
         <a class="btn primary" href="#boka">Boka tid</a>
         <a class="btn ghost" href="tel:+46720040936">Ring 072-004 09 36</a>
@@ -342,7 +349,7 @@
       </div>
       <div class="meta">
         <strong>Vill du ha en professionell hemsida?</strong>
-        <p>Jag bygger snabba, säkra och mobilanpassade webbplatser för företag och privatpersoner. Från idé till färdig sida — enkelt, tydligt och snyggt.</p>
+        <p>Jag bygger snabba، säkra och mobilanpassade webbplatser för företag och privatpersoner. Från idé till färdig sida — enkelt، tydligt och snyggt.</p>
       </div>
       <a href="#" class="modal-close" id="closeCreator">Stäng</a>
     </div>
@@ -356,22 +363,54 @@
   </a>
 
   <script>
-    // min date = today + thank-you inline
+    // min date = today + thank-you inline (مع تثبيت التخطيط بعد الإرسال)
     (function(){
       const dateInput=document.getElementById('date');
       if(dateInput){
         const t=new Date(),y=t.getFullYear(),m=String(t.getMonth()+1).padStart(2,'0'),d=String(t.getDate()).padStart(2,'0');
         dateInput.min=`${y}-${m}-${d}`;
       }
-      const form=document.getElementById('bookingForm'),thanks=document.getElementById('bookThanks');
-      form?.addEventListener('submit',async e=>{
+
+      const form=document.getElementById('bookingForm'),
+            thanks=document.getElementById('bookThanks');
+
+      form?.addEventListener('submit', async e=>{
         e.preventDefault();
         if(!form.checkValidity()){form.reportValidity();return;}
+
+        // 1) أمسك موضع التمرير الحالي
+        const y = window.scrollY || window.pageYOffset || 0;
+
+        // 2) احجز ارتفاع النموذج حتى لا تهبط الصفحة فجأة
+        const reservedHeight = Math.max(form.getBoundingClientRect().height, 220);
+        thanks.style.minHeight = reservedHeight + 'px';
+
+        // 3) قفل تمرير مؤقت (يعالج اندفاعة iOS)
+        document.body.classList.add('scroll-lock');
+
+        // 4) أرسل الطلب
         const data=new FormData(form);
         try{await fetch(form.action,{method:'POST',headers:{'Accept':'application/json'},body:data});}catch{}
-        form.reset(); form.style.display='none';
+
+        // 5) اخفِ النموذج بدون انهيار التخطيط
+        form.style.visibility='hidden';
+        form.style.position='absolute';
+        form.style.pointerEvents='none';
+
+        // 6) أظهر رسالة الشكر
         thanks.innerHTML="<strong>Tack!</strong> Din bokningsförfrågan har skickats.<br>Vi återkommer till dig så snart som möjligt.";
         thanks.style.display='block';
+
+        // 7) ثبّت موضع الصفحة بالضبط حيث كان
+        document.documentElement.style.scrollBehavior='auto';
+        window.scrollTo(0, y);
+
+        // 8) بعد لحظات، فك القفل ونظّف النموذج
+        setTimeout(()=>{
+          document.body.classList.remove('scroll-lock');
+          form.style.display='none';
+          form.reset();
+        },400);
       });
     })();
 

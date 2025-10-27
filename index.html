@@ -150,6 +150,31 @@
     .meta strong{color:#fff}
     .modal-close{display:block;margin:10px auto 0;text-align:center;color:#9fb0c0}
 
+    /* ===== SMS Floating Button ===== */
+    .sms-fab{
+      position:fixed; right:14px; bottom:14px; z-index:1300;
+      width:54px; height:54px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(180deg,#e9cf6e,#d4b848);
+      color:#111; border:1px solid rgba(0,0,0,.2);
+      box-shadow:0 10px 28px rgba(218,189,102,.35);
+      text-decoration:none; transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .sms-fab:hover{ transform:translateY(-2px); box-shadow:0 14px 34px rgba(218,189,102,.45) }
+    .sms-fab svg{ width:24px; height:24px; display:block }
+    .sms-fab::after{
+      content:"SMS direkt";
+      position:absolute; right:62px; bottom:50%; transform:translateY(50%);
+      background:rgba(15,16,22,.95); color:#fff; font:600 12px/1 Inter,system-ui;
+      padding:6px 8px; border-radius:8px; border:1px solid rgba(255,255,255,.12);
+      opacity:0; pointer-events:none; transition:.2s ease; white-space:nowrap;
+    }
+    .sms-fab:hover::after{ opacity:1 }
+    @media (max-width:480px){
+      .sms-fab{ width:50px; height:50px; right:12px; bottom:12px }
+      .sms-fab::after{ display:none }
+    }
+
     /* ===== Responsive ===== */
     @media (max-width:480px){
       .hero-logo{width:min(260px,62vw)}
@@ -192,7 +217,7 @@
     </div>
   </section>
 
-  <!-- ===== Tjänster (med bilder i أماكنها) ===== -->
+  <!-- ===== Tjänster ===== -->
   <section class="section" id="tjanster">
     <div class="container">
       <h2>Våra tjänster</h2>
@@ -201,27 +226,20 @@
       </p>
 
       <div class="services">
-        <!-- Service → photo1 -->
         <div class="card">
           <h3>Service</h3>
           <p>Oljebyte, filter och genomgång av vitala system. Servicehistorik uppdateras där det är möjligt.</p>
           <img src="assets/photo1.jpg" loading="lazy" alt="Service och oljebyte">
         </div>
-
-        <!-- Bromsar (بدون صورة) -->
         <div class="card">
           <h3>Bromsar</h3>
           <p>Kontroll och byte av belägg, skivor och bromsvätska för säker och jämn bromsverkan.</p>
         </div>
-
-        <!-- Däck & hjul → photo3 -->
         <div class="card">
           <h3>Däck & hjul</h3>
           <p>Skifte, balansering och kontroll inför säsong. Vi erbjuder även däckhotell.</p>
           <img src="assets/photo3.jpg" loading="lazy" alt="Däckhotell och hjulservice">
         </div>
-
-        <!-- Kompletta reparationer → photo2 -->
         <div class="card">
           <h3>Kompletta reparationer</h3>
           <p>Från motor och växellåda till minsta komponent — med tydlig uppföljning.</p>
@@ -286,7 +304,6 @@
   <!-- ===== Footer ===== -->
   <footer class="site-footer" id="sidfot">
     <div class="container footer-top">
-      <!-- Kontakt -->
       <div>
         <h4>Kontakt</h4>
         <p><strong>Utby Snabb Bilverkstad</strong></p>
@@ -295,8 +312,6 @@
         <p>E-post: <a href="mailto:Husseinmormor@gmail.com">Husseinmormor@gmail.com</a></p>
         <p><a href="#boka">Boka tid online</a> · <a href="#tjanster">Våra tjänster</a></p>
       </div>
-
-      <!-- Öppettider -->
       <div>
         <h4>Öppettider</h4>
         <ul>
@@ -305,8 +320,6 @@
         </ul>
         <p style="margin-top:6px">Drop-in välkommen · <strong>Däckhotell</strong> finns</p>
       </div>
-
-      <!-- Om oss -->
       <div>
         <h4>Om verkstaden</h4>
         <ul>
@@ -338,21 +351,25 @@
           <p>Via denna hemsida kan du nå mig direkt — via e-post eller mobil. Jag återkommer så snart som möjligt.</p>
         </div>
       </div>
-
       <div class="modal-grid">
         <a class="action call" href="tel:+46790574975">Ring: 0790574975</a>
         <a class="action mail" href="mailto:husseinmormor@gmail.com">Skicka e-post</a>
       </div>
-
       <div class="meta">
         <strong>Vill du ha en professionell hemsida?</strong>
         <p>Jag bygger snabba, säkra och mobilanpassade webbplatser för företag och privatpersoner. Från idé till färdig sida — enkelt, tydligt och snyggt.</p>
         <p style="font-weight:700;color:#DABD66;margin-top:4px;">Telefon: 0790574975 · E-post: husseinmormor@gmail.com</p>
       </div>
-
       <a href="#" class="modal-close" id="closeCreator">Stäng</a>
     </div>
   </div>
+
+  <!-- زر SMS مباشر للإرشادات -->
+  <a id="smsFab" class="sms-fab" href="sms:+46790574975" aria-label="Skicka SMS till Hussein">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M20 2H4a2 2 0 00-2 2v16l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2zM6 9h8v2H6V9zm0-4h12v2H6V5z"/>
+    </svg>
+  </a>
 
   <script>
     // Minsta datum = idag + visa tack-meddelande på samma sida
@@ -391,6 +408,17 @@
       e.preventDefault();
       document.getElementById('creatorModal')?.classList.add('show');
     });
+
+    // ضبط نص افتراضي لـ SMS حسب النظام
+    (function(){
+      const link = document.getElementById('smsFab');
+      if(!link) return;
+      const base = 'sms:+46790574975';
+      const body = encodeURIComponent('Hej! Jag behöver rådgivning om bilen.');
+      const ua = navigator.userAgent.toLowerCase();
+      const href = ua.includes('iphone') || ua.includes('ipad') ? `${base}&body=${body}` : `${base}?body=${body}`;
+      link.setAttribute('href', href);
+    })();
   </script>
 </body>
 </html>

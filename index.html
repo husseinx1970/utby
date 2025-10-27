@@ -15,16 +15,25 @@
     .container{width:min(1100px,100%);margin:auto;padding:0 18px}
 
     /* Header */
-    .header{position:sticky;top:0;z-index:10;background:rgba(12,13,18,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.1)}
-    .header-inner{display:flex;justify-content:space-between;align-items:center;padding:10px 0}
-    .brand{display:flex;align-items:center;gap:10px}
-    .brand img{width:64px;height:64px;border-radius:12px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(218,189,102,.3))}
-    .brand-name{font:800 18px/1 Space Grotesk;color:#fff}
-    .nav{display:flex;gap:8px}
-    .nav a{padding:8px 12px;border-radius:999px;font-weight:700;font-size:14px;border:1px solid rgba(255,255,255,.12)}
-    .nav a.secondary{background:rgba(255,255,255,.06);color:#fff}
-    .nav a:not(.secondary){background:#DABD66;color:#111}
+ <header class="header">
+  <div class="container header-inner">
+    <!-- يسار: الشعار -->
+    <a class="brand" href="#start" aria-label="Hem">
+      <img src="assets/logo.png" alt="Logotyp"/>
+      <span class="brand-name">Utby Snabb Bilverkstad</span>
+    </a>
 
+    <!-- وسط: مجموعة الأزرار -->
+    <nav class="nav nav-center" aria-label="Huvudnavigation">
+      <a class="chip" href="#tjanster">Tjänster</a>
+      <a class="chip" href="#kontakt">Kontakt</a>
+      <a class="chip primary" href="#boka">Boka tid</a>
+    </nav>
+
+    <!-- يمين: مُباعد فارغ لضبط التمركز -->
+    <div class="header-spacer" aria-hidden="true"></div>
+  </div>
+</header>
     /* Hero */
     .hero{text-align:center;padding:30px 0}
     h1{font-family:Space Grotesk,Inter;font-weight:800;font-size:clamp(26px,6vw,40px);background:linear-gradient(90deg,#fff,#DABD66);-webkit-background-clip:text;color:transparent;margin:.3em 0}

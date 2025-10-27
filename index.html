@@ -68,9 +68,32 @@
     .booking button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(218,189,102,.35)}
     #bookThanks{display:none;text-align:center;margin-top:12px;font-weight:700;font-size:14px;color:#f3e6b3;background:rgba(255,255,255,.06);padding:12px;border-radius:10px}
 
-    /* Compact date/time fields */
-    #date, #time {max-width:220px;height:36px;font-size:13px;padding:6px 8px}
-    @media(max-width:520px){#date,#time{max-width:100%;height:34px}}
+    /* Date/Time fields side by side */
+    .datetime-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .datetime-field {
+      display: flex;
+      flex-direction: column;
+    }
+    .datetime-field input {
+      width: 100%;
+      height: 42px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: #fff;
+      font-size: 14px;
+    }
+    @media (max-width: 520px) {
+      .datetime-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+    }
 
     /* Map */
     .map-container{text-align:center;margin-top:22px}
@@ -103,14 +126,18 @@
     .meta strong{color:#fff}
     .modal-close{display:block;margin:10px auto 0;text-align:center;color:#9fb0c0}
 
-    /* SMS floating button (no shadow) */
+    /* SMS floating button - draggable */
     .sms-fab{
       position:fixed;right:14px;bottom:14px;width:54px;height:54px;border-radius:50%;
       display:flex;align-items:center;justify-content:center;
       background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;
       border:1px solid rgba(0,0,0,.2);
-      text-decoration:none;transition:.2s;
+      text-decoration:none;transition:none;
       box-shadow:none !important;
+      cursor:move;
+      z-index:1000;
+      user-select:none;
+      touch-action:none;
     }
     .sms-fab:hover{transform:none !important;box-shadow:none !important}
     .sms-fab svg{width:24px;height:24px}
@@ -139,7 +166,7 @@
           <span>Kontakt</span>
         </a>
         <a href="#boka">
-          <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h2v2h6V2h2v2h3a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h3V2zm14 8H3v8a1 1 0 001 1h16a1 1 0 001-1v-8z"/></svg></span>
+          <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h2v2h6V2h2v2h3a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h3V2z"/></svg></span>
           <span>Boka tid</span>
         </a>
       </nav>
@@ -243,11 +270,17 @@
           <option>Annan åtgärd</option>
         </select>
 
-        <label for="date">Önskat datum</label>
-        <input id="date" name="Datum" type="date" required>
-
-        <label for="time">Önskad tid</label>
-        <input id="time" name="Tid" type="time" required>
+        <!-- Date and Time side by side -->
+        <div class="datetime-row">
+          <div class="datetime-field">
+            <label for="date">Önskat datum</label>
+            <input id="date" name="Datum" type="date" required>
+          </div>
+          <div class="datetime-field">
+            <label for="time">Önskad tid</label>
+            <input id="time" name="Tid" type="time" required>
+          </div>
+        </div>
 
         <label for="msg">Beskrivning (valfritt)</label>
         <textarea id="msg" name="Beskrivning" placeholder="Kort beskrivning eller andra önskemål…"></textarea>
@@ -325,11 +358,11 @@
   </div>
 
   <!-- SMS floating button -->
-  <a id="smsFab" class="sms-fab" href="sms:+46790574975" aria-label="Skicka SMS till Hussein">
+  <div id="smsFab" class="sms-fab" aria-label="Skicka SMS till Hussein">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M20 2H4a2 2 0 00-2 2v16l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2zM6 9h8v2H6V9zm0-4h12v2H6V5z"/>
     </svg>
-  </a>
+  </div>
 
   <script>
     // min date = today + thank-you inline
@@ -357,14 +390,78 @@
     document.getElementById('closeCreator')?.addEventListener('click',e=>{e.preventDefault();modal.classList.remove('show');});
     modal?.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('show');});
 
-    // SMS default text (iOS/Android)
-    (function(){
-      const link=document.getElementById('smsFab'); if(!link) return;
-      const base='sms:+46790574975';
-      const body=encodeURIComponent('Hej! Jag behöver rådgivning om bilen.');
-      const ua=navigator.userAgent.toLowerCase();
-      const href=(ua.includes('iphone')||ua.includes('ipad'))?`${base}&body=${body}`:`${base}?body=${body}`;
-      link.setAttribute('href',href);
+    // Draggable SMS button
+    (function() {
+      const smsFab = document.getElementById('smsFab');
+      if (!smsFab) return;
+      
+      let isDragging = false;
+      let currentX;
+      let currentY;
+      let initialX;
+      let initialY;
+      let xOffset = 0;
+      let yOffset = 0;
+      
+      smsFab.addEventListener('mousedown', dragStart);
+      smsFab.addEventListener('touchstart', dragStart);
+      
+      function dragStart(e) {
+        if (e.type === 'touchstart') {
+          initialX = e.touches[0].clientX - xOffset;
+          initialY = e.touches[0].clientY - yOffset;
+        } else {
+          initialX = e.clientX - xOffset;
+          initialY = e.clientY - yOffset;
+        }
+        
+        if (e.target === smsFab || e.target.parentNode === smsFab) {
+          isDragging = true;
+        }
+      }
+      
+      function dragEnd(e) {
+        initialX = currentX;
+        initialY = currentY;
+        isDragging = false;
+        
+        // Add SMS link functionality when not dragging
+        if (!isDragging && Math.abs(xOffset) < 5 && Math.abs(yOffset) < 5) {
+          const base = 'sms:+46790574975';
+          const body = encodeURIComponent('Hej! Jag behöver rådgivning om bilen.');
+          const ua = navigator.userAgent.toLowerCase();
+          const href = (ua.includes('iphone') || ua.includes('ipad')) ? `${base}&body=${body}` : `${base}?body=${body}`;
+          window.location.href = href;
+        }
+      }
+      
+      function drag(e) {
+        if (isDragging) {
+          e.preventDefault();
+          
+          if (e.type === 'touchmove') {
+            currentX = e.touches[0].clientX - initialX;
+            currentY = e.touches[0].clientY - initialY;
+          } else {
+            currentX = e.clientX - initialX;
+            currentY = e.clientY - initialY;
+          }
+          
+          xOffset = currentX;
+          yOffset = currentY;
+          
+          setTranslate(currentX, currentY, smsFab);
+        }
+      }
+      
+      function setTranslate(xPos, yPos, el) {
+        el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+      }
+      
+      document.addEventListener('mousemove', drag);
+      document.addEventListener('touchmove', drag, { passive: false });
+      document.addEventListener('mouseup', dragEnd);
+      document.addEventListener('touchend', dragEnd);
     })();
   </script>
 </body>

@@ -127,16 +127,52 @@
 <body>
 
   <!-- Header -->
-  <header class="header">
-    <div class="container header-inner">
-      <a class="brand" href="#start"><img src="assets/logo.png" alt="logo"/><span class="brand-name">Utby Snabb Bilverkstad</span></a>
-      <nav class="nav">
-        <a class="secondary" href="#tjanster">Tjänster</a>
-        <a class="secondary" href="#kontakt">Kontakt</a>
-        <a href="#boka">Boka tid</a>
-      </nav>
-    </div>
-  </header>
+ /* === Header layout: logo left, nav centered, spacer right === */
+.header{
+  position:sticky; top:0; z-index:10;
+  background:rgba(12,13,18,.7); backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,.10);
+}
+.header-inner{
+  display:grid; grid-template-columns:1fr auto 1fr;
+  align-items:center; padding:10px 0;
+}
+.brand{display:flex; align-items:center; gap:10px; justify-self:start}
+.brand img{width:64px; height:64px; border-radius:12px; object-fit:contain;
+  filter:drop-shadow(0 0 12px rgba(218,189,102,.30))}
+.brand-name{font:800 18px/1 Space Grotesk, Inter; color:#fff}
+.header-spacer{justify-self:end}
+
+/* === Centered pill group === */
+.nav-center{
+  justify-self:center;
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.12);
+  padding:6px; border-radius:999px;
+  box-shadow:0 6px 18px rgba(0,0,0,.20);
+}
+
+/* Individual chips */
+.chip{
+  display:inline-block; padding:8px 14px; border-radius:999px;
+  font-weight:800; font-size:14px; line-height:1;
+  color:#e9edf5; background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.10);
+  transition:transform .18s ease, background .18s ease, color .18s ease;
+}
+.chip:hover{transform:translateY(-2px); background:rgba(255,255,255,.10)}
+.chip.primary{
+  background:#DABD66; color:#111; border-color:rgba(0,0,0,.18);
+}
+.chip.primary:hover{transform:translateY(-2px)}
+
+/* Mobile tweaks: أصغر قليلاً ويحافظ على التمركز */
+@media (max-width:520px){
+  .brand img{width:54px; height:54px}
+  .nav-center{gap:6px; padding:5px}
+  .chip{padding:7px 12px; font-size:13px}
+}
 
   <!-- Hero -->
   <section class="hero" id="start">

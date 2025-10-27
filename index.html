@@ -10,8 +10,7 @@
   <style>
     *,*::before,*::after{box-sizing:border-box}
     html,body{margin:0;padding:0;height:100%;background:#0b0c10;color:#f6f7fb;font-family:Inter,system-ui,Segoe UI,Roboto,Arial}
-
-    /* لا تمرير أفقي إطلاقًا */
+    /* منع تمرير أفقي */
     html, body { overflow-x: hidden; }
 
     img{max-width:100%;display:block}
@@ -69,12 +68,9 @@
       margin-top:6px;padding:10px 14px;border-radius:999px;background:linear-gradient(180deg,#e9cf6e,#d4b848);
       color:#111;font-weight:800;font-size:14px;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(218,189,102,.25)
     }
+    .booking button[disabled]{opacity:.6;cursor:not-allowed}
     .booking button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(218,189,102,.35)}
-    #bookThanks{display:none;text-align:center;margin-top:12px;font-weight:700;font-size:14px;color:#f3e6b3;background:rgba(255,255,255,.06);padding:12px;border-radius:10px;overflow-wrap:anywhere;word-wrap:break-word}
-
-    /* Compact date/time fields (hint baseline) */
-    #date, #time {max-width:220px;height:36px;font-size:13px;padding:6px 8px}
-    @media(max-width:520px){#date,#time{max-width:100%;height:34px}}
+    #bookThanks{display:none;text-align:center;margin-top:12px;font-weight:700;font-size:14px;color:#f3e6b3;background:rgba(255,255,255,.06);padding:12px;border-radius:10px;overflow-wrap:anywhere}
 
     /* Map */
     .map-container{text-align:center;margin-top:22px}
@@ -100,15 +96,10 @@
     .modal-card h3{text-align:center;font:800 20px/1.2 Inter;margin:.1em 0}
     .modal-card p{text-align:center;color:#C9D2DE;margin:0 0 10px}
     .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
-    .action{display:flex;align-items:center;justify-content:center;padding:10px;border-radius:14px;font-weight:900;text-align:center}
-    .action.call{background:#111;color:#DABD66}
-    .action.mail{background:#DABD66;color:#111}
-    .meta{color:#D7DEEA;font-size:14px;text-align:center;margin-top:6px}
-    .meta strong{color:#fff}
     .modal-close{display:block;margin:10px auto 0;text-align:center;color:#9fb0c0}
 
-    /* قفل تمرير مؤقت لمنع قفز iOS */
-    body.scroll-lock { overflow: hidden; }
+    /* قفل تمرير مؤقت أثناء المودال/الإرسال */
+    body.scroll-lock{overflow:hidden}
 
     /* SMS floating button */
     .sms-fab{
@@ -118,9 +109,8 @@
       border:1px solid rgba(0,0,0,.2);
       text-decoration:none;transition:.15s;
       box-shadow:none !important;
-      touch-action:none; /* تحسين السحب */
+      touch-action:none;
     }
-    .sms-fab:hover{transform:none !important;box-shadow:none !important}
     .sms-fab svg{width:24px;height:24px}
 
     @media(max-width:520px){
@@ -130,22 +120,14 @@
       .nav{flex-wrap:wrap}
     }
 
-    /* ======= جديد: التاريخ والوقت جنب بعض وبحجم أصغر ======= */
+    /* تاريخ ووقت جنب بعض وبحجم أصغر */
     .booking .inline-dt{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(140px,1fr));
-      gap:8px;
-      align-items:end;
-      margin-top:4px;
+      display:grid;grid-template-columns:repeat(2,minmax(140px,1fr));gap:8px;align-items:end;margin-top:4px
     }
     .booking .inline-dt .field{display:flex;flex-direction:column;gap:4px}
     .booking .inline-dt label{font-size:12px}
-    .booking .inline-dt input{
-      height:32px;font-size:12px;padding:6px 8px;max-width:100%;
-    }
-    @media(max-width:520px){
-      .booking .inline-dt{grid-template-columns:1fr}
-    }
+    .booking .inline-dt input{height:32px;font-size:12px;padding:6px 8px;max-width:100%}
+    @media(max-width:520px){.booking .inline-dt{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -193,7 +175,7 @@
       <div class="services">
         <div class="card">
           <h3>Service</h3>
-          <p>Planerad service enligt tillverkarens intervall: byte av motorolja och filter، kontroll av vätskor، bromsar، batteri، belysning och drivlina. Vi uppdaterar digital servicebok där det är möjligt (Volvo, BMW, VAG m.fl.).</p>
+          <p>Planerad service enligt tillverkarens intervall: byte av motorolja och filter, kontroll av vätskor, bromsar, batteri, belysning och drivlina. Vi uppdaterar digital servicebok där det är möjligt (Volvo, BMW, VAG m.fl.).</p>
           <ul style="margin:6px 0 8px 18px">
             <li>30–40 punkters säkerhetskontroll</li>
             <li>Provkörning och felkodsavläsning</li>
@@ -205,9 +187,9 @@
 
         <div class="card">
           <h3>Däck & hjul</h3>
-          <p>Skifte sommar/vinter، balansering och kontroll av mönsterdjup och lufttryck. Vi programmerar och kalibrerar även TPMS vid behov.</p>
+          <p>Skifte sommar/vinter, balansering och kontroll av mönsterdjup och lufttryck. Vi programmerar och kalibrerar även TPMS vid behov.</p>
           <ul style="margin:6px 0 8px 18px">
-            <li>Däckhotell: torrt، säkert och försäkrat</li>
+            <li>Däckhotell: torrt, säkert och försäkrat</li>
             <li>Snabbt skifte med momentkontroll</li>
             <li>Rådgivning om rätt dimension och lastindex</li>
           </ul>
@@ -217,10 +199,10 @@
 
         <div class="card">
           <h3>Kompletta reparationer</h3>
-          <p>Från bromsar، avgassystem och fjädring till motor، koppling/växellåda och el. Vi felsöker systematiskt med moderna diagnosverktyg.</p>
+          <p>Från bromsar, avgassystem och fjädring till motor, koppling/växellåda och el. Vi felsöker systematiskt med moderna diagnosverktyg.</p>
           <ul style="margin:6px 0 8px 18px">
-            <li>Kamrem/kedja، vattenpump och packningar</li>
-            <li>Bromsskivor/-belägg، ok & handbroms</li>
+            <li>Kamrem/kedja, vattenpump och packningar</li>
+            <li>Bromsskivor/-belägg, ok & handbroms</li>
             <li>AC-service: läcktest & påfyllning</li>
           </ul>
           <p>Du får alltid prisförslag innan åtgärd och dokumentation efter utfört arbete.</p>
@@ -231,9 +213,9 @@
       <div class="card" style="margin-top:14px">
         <h3>Vanliga frågor (FAQ)</h3>
         <p><strong>Behöver jag boka tid?</strong> Drop-in vardagar 09:00–18:00. För större jobb rekommenderar vi bokning.</p>
-        <p><strong>Uppdaterar ni servicehistorik?</strong> Ja، där digital bok finns uppdaterar vi den. Annars får du underlag/stämpel.</p>
+        <p><strong>Uppdaterar ni servicehistorik?</strong> Ja, där digital bok finns uppdaterar vi den. Annars får du underlag/stämpel.</p>
         <p><strong>Vilka delar använder ni?</strong> Original eller OEM-kvalitet enligt tillverkarens specifikationer.</p>
-        <p><strong>Garanti på arbete?</strong> Ja، vi lämnar garanti på både delar och arbete enligt branschpraxis.</p>
+        <p><strong>Garanti på arbete?</strong> Ja, vi lämnar garanti på både delar och arbete enligt branschpraxis.</p>
       </div>
     </div>
   </section>
@@ -283,7 +265,7 @@
         <label for="msg">Beskrivning (valfritt)</label>
         <textarea id="msg" name="Beskrivning" placeholder="Kort beskrivning eller andra önskemål…"></textarea>
 
-        <button type="submit">Skicka förfrågan</button>
+        <button type="submit" id="submitBtn">Skicka förfrågan</button>
       </form>
 
       <div id="bookThanks"></div>
@@ -349,9 +331,23 @@
       </div>
       <div class="meta">
         <strong>Vill du ha en professionell hemsida?</strong>
-        <p>Jag bygger snabba، säkra och mobilanpassade webbplatser för företag och privatpersoner. Från idé till färdig sida — enkelt، tydligt och snyggt.</p>
+        <p>Jag bygger snabba, säkra och mobilanpassade webbplatser för företag och privatpersoner. Från idé till färdig sida — enkelt, tydligt och snyggt.</p>
       </div>
       <a href="#" class="modal-close" id="closeCreator">Stäng</a>
+    </div>
+  </div>
+
+  <!-- Modal: Tack (efter formulär) -->
+  <div class="modal" id="thanksModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="thanksTitle">
+      <div class="modal-header">
+        <img src="assets/logo.png" alt="Logotyp">
+        <div>
+          <h3 id="thanksTitle">Tack!</h3>
+          <p>Din bokningsförfrågan har skickats. Vi återkommer så snart som möjligt.</p>
+        </div>
+      </div>
+      <a href="#" class="modal-close" id="thanksClose">Stäng</a>
     </div>
   </div>
 
@@ -363,7 +359,7 @@
   </a>
 
   <script>
-    // min date = today + thank-you inline (مع تثبيت التخطيط بعد الإرسال)
+    // min date + مودال الشكر + منع تكرار الإرسال
     (function(){
       const dateInput=document.getElementById('date');
       if(dateInput){
@@ -371,56 +367,64 @@
         dateInput.min=`${y}-${m}-${d}`;
       }
 
-      const form=document.getElementById('bookingForm'),
-            thanks=document.getElementById('bookThanks');
+      const form=document.getElementById('bookingForm');
+      const submitBtn=document.getElementById('submitBtn');
+      const thanksModal=document.getElementById('thanksModal');
+      const thanksClose=document.getElementById('thanksClose');
 
-      form?.addEventListener('submit', async e=>{
+      let isSubmitting=false;
+
+      form?.addEventListener('submit', async (e)=>{
         e.preventDefault();
         if(!form.checkValidity()){form.reportValidity();return;}
+        if(isSubmitting) return; // لا إرسال ثاني
+        isSubmitting=true;
 
-        // 1) أمسك موضع التمرير الحالي
+        // عطّل الزر فوراً (نقرة واحدة تكفي)
+        submitBtn.disabled=true;
+        const oldLabel=submitBtn.textContent;
+        submitBtn.textContent='Skickar…';
+
+        // ثبّت التمرير
         const y = window.scrollY || window.pageYOffset || 0;
-
-        // 2) احجز ارتفاع النموذج حتى لا تهبط الصفحة فجأة
-        const reservedHeight = Math.max(form.getBoundingClientRect().height, 220);
-        thanks.style.minHeight = reservedHeight + 'px';
-
-        // 3) قفل تمرير مؤقت (يعالج اندفاعة iOS)
         document.body.classList.add('scroll-lock');
 
-        // 4) أرسل الطلب
+        // أرسل
         const data=new FormData(form);
         try{await fetch(form.action,{method:'POST',headers:{'Accept':'application/json'},body:data});}catch{}
 
-        // 5) اخفِ النموذج بدون انهيار التخطيط
-        form.style.visibility='hidden';
-        form.style.position='absolute';
-        form.style.pointerEvents='none';
-
-        // 6) أظهر رسالة الشكر
-        thanks.innerHTML="<strong>Tack!</strong> Din bokningsförfrågan har skickats.<br>Vi återkommer till dig så snart som möjligt.";
-        thanks.style.display='block';
-
-        // 7) ثبّت موضع الصفحة بالضبط حيث كان
+        // نظّف واعرض الشكر
+        form.reset();
         document.documentElement.style.scrollBehavior='auto';
-        window.scrollTo(0, y);
+        window.scrollTo(0,y);
+        thanksModal?.classList.add('show');
 
-        // 8) بعد لحظات، فك القفل ونظّف النموذج
-        setTimeout(()=>{
+        // أعِد الزر بعد إغلاق المودال
+        function closeThanks(){
+          thanksModal?.classList.remove('show');
           document.body.classList.remove('scroll-lock');
-          form.style.display='none';
-          form.reset();
-        },400);
+          submitBtn.disabled=false;
+          submitBtn.textContent=oldLabel;
+          isSubmitting=false;
+        }
+        const onCloseClick=(ev)=>{ev.preventDefault();closeThanks();};
+        const onOutside=(ev)=>{ if(ev.target===thanksModal){ closeThanks(); } };
+
+        // سجّل المستمعين (مرة واحدة لكل عرض)
+        thanksClose?.addEventListener('click', onCloseClick, {once:true});
+        thanksModal?.addEventListener('click', onOutside, {once:true});
       });
     })();
 
-    // Modal open/close
-    const modal=document.getElementById('creatorModal');
-    document.getElementById('openCreator2')?.addEventListener('click',e=>{e.preventDefault();modal.classList.add('show');});
-    document.getElementById('closeCreator')?.addEventListener('click',e=>{e.preventDefault();modal.classList.remove('show');});
-    modal?.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('show');});
+    // Modal open/close (Hussein)
+    (function(){
+      const modal=document.getElementById('creatorModal');
+      document.getElementById('openCreator2')?.addEventListener('click',e=>{e.preventDefault();modal.classList.add('show');document.body.classList.add('scroll-lock');});
+      document.getElementById('closeCreator')?.addEventListener('click',e=>{e.preventDefault();modal.classList.remove('show');document.body.classList.remove('scroll-lock');});
+      modal?.addEventListener('click',e=>{if(e.target===modal){modal.classList.remove('show');document.body.classList.remove('scroll-lock');}});
+    })();
 
-    // SMS default text (iOS/Android)
+    // SMS default text (iOS/Android) + منع النقرات المتكررة
     (function(){
       const link=document.getElementById('smsFab'); if(!link) return;
       const base='sms:+46790574975';
@@ -428,6 +432,17 @@
       const ua=navigator.userAgent.toLowerCase();
       const href=(ua.includes('iphone')||ua.includes('ipad'))?`${base}&body=${body}`:`${base}?body=${body}`;
       link.setAttribute('href',href);
+
+      // Debounce: امنع فتح التطبيق مرات كثيرة بسرعة
+      let lockUntil=0;
+      link.addEventListener('click',(e)=>{
+        const now=Date.now();
+        if(now < lockUntil){
+          e.preventDefault(); e.stopImmediatePropagation();
+          return;
+        }
+        lockUntil = now + 1200; // 1.2s مهلة
+      }, true);
     })();
 
     /* ============================
@@ -437,10 +452,7 @@
       const el = document.getElementById('smsFab');
       if(!el) return;
 
-      const MARGIN_X = 14;     // هامش جانبي
-      const MARGIN_Y = 8;      // هامش علوي/سفلي
-      const CLICK_TOL = 6;     // تحتها يعتبر نقرة
-
+      const MARGIN_X = 14, MARGIN_Y = 8, CLICK_TOL = 6;
       let dragging=false, startX=0, startY=0, startLeft=0, startTop=0, pointerId=null;
 
       // استرجاع الوضعية (جانب + top)
@@ -462,7 +474,6 @@
         el.style.right='auto';
         el.style.bottom='auto';
       }
-
       function clampTop(top){
         const r = el.getBoundingClientRect();
         const vh = Math.max(document.documentElement.clientHeight, window.innerHeight||0);
@@ -481,7 +492,6 @@
         el.style.transition='none';
         e.preventDefault();
       }
-
       function onMove(e){
         if(!dragging || e.pointerId!==pointerId) return;
         const dx=e.clientX-startX, dy=e.clientY-startY;
@@ -489,7 +499,6 @@
         el.style.top =Math.round(startTop +dy)+'px';
         e.preventDefault();
       }
-
       function onUp(e){
         if(e.pointerId!==pointerId) return;
         try{ e.target.releasePointerCapture(pointerId); }catch(_){}
@@ -497,7 +506,6 @@
         const moved=Math.hypot(dx,dy);
         dragging=false; pointerId=null;
 
-        // Snap لأقرب جانب
         const r=el.getBoundingClientRect();
         const vw=Math.max(document.documentElement.clientWidth, window.innerWidth||0);
         const centerX=r.left + r.width/2;

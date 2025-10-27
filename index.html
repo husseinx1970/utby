@@ -68,7 +68,7 @@
     .booking button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(218,189,102,.35)}
     #bookThanks{display:none;text-align:center;margin-top:12px;font-weight:700;font-size:14px;color:#f3e6b3;background:rgba(255,255,255,.06);padding:12px;border-radius:10px}
 
-    /* Compact date/time fields (original) */
+    /* Compact date/time fields (original hint) */
     #date, #time {max-width:220px;height:36px;font-size:13px;padding:6px 8px}
     @media(max-width:520px){#date,#time{max-width:100%;height:34px}}
 
@@ -103,15 +103,15 @@
     .meta strong{color:#fff}
     .modal-close{display:block;margin:10px auto 0;text-align:center;color:#9fb0c0}
 
-    /* SMS floating button (no shadow) */
+    /* SMS floating button */
     .sms-fab{
       position:fixed;right:14px;bottom:14px;width:54px;height:54px;border-radius:50%;
       display:flex;align-items:center;justify-content:center;
       background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;
       border:1px solid rgba(0,0,0,.2);
-      text-decoration:none;transition:.2s;
+      text-decoration:none;transition:.15s;
       box-shadow:none !important;
-      touch-action:none; /* لتحسين السحب */
+      touch-action:none; /* تحسين السحب */
     }
     .sms-fab:hover{transform:none !important;box-shadow:none !important}
     .sms-fab svg{width:24px;height:24px}
@@ -131,13 +131,10 @@
       align-items:end;
       margin-top:4px;
     }
-    .booking .inline-dt .field{
-      display:flex;flex-direction:column;gap:4px;
-    }
+    .booking .inline-dt .field{display:flex;flex-direction:column;gap:4px}
     .booking .inline-dt label{font-size:12px}
     .booking .inline-dt input{
-      height:32px;font-size:12px;padding:6px 8px;
-      max-width:100%;
+      height:32px;font-size:12px;padding:6px 8px;max-width:100%;
     }
     @media(max-width:520px){
       .booking .inline-dt{grid-template-columns:1fr}
@@ -171,7 +168,7 @@
   <section class="hero" id="start">
     <div class="container">
       <h1>Professionell bilservice i Göteborg</h1>
-      <p class="lead">Komplett service, reparation och diagnos för alla bilmärken. Drop-in välkommen — vardagar 09:00–18:00. Vi erbjuder däckhotell och full bilservice.</p>
+      <p class="lead">Komplett service، reparation och diagnos för alla bilmärken. Drop-in välkommen — vardagar 09:00–18:00. Vi erbjuder däckhotell och full bilservice.</p>
       <div class="cta">
         <a class="btn primary" href="#boka">Boka tid</a>
         <a class="btn ghost" href="tel:+46720040936">Ring 072-004 09 36</a>
@@ -189,7 +186,7 @@
       <div class="services">
         <div class="card">
           <h3>Service</h3>
-          <p>Planerad service enligt tillverkarens intervall: byte av motorolja och filter, kontroll av vätskor, bromsar، batteri، belysning och drivlina. Vi uppdaterar digital servicebok där det är möjligt (Volvo, BMW, VAG m.fl.).</p>
+          <p>Planerad service enligt tillverkarens intervall: byte av motorolja och filter، kontroll av vätskor، bromsar، batteri، belysning och drivlina. Vi uppdaterar digital servicebok där det är möjligt (Volvo, BMW, VAG m.fl.).</p>
           <ul style="margin:6px 0 8px 18px">
             <li>30–40 punkters säkerhetskontroll</li>
             <li>Provkörning och felkodsavläsning</li>
@@ -227,9 +224,9 @@
       <div class="card" style="margin-top:14px">
         <h3>Vanliga frågor (FAQ)</h3>
         <p><strong>Behöver jag boka tid?</strong> Drop-in vardagar 09:00–18:00. För större jobb rekommenderar vi bokning.</p>
-        <p><strong>Uppdaterar ni servicehistorik?</strong> Ja, där digital bok finns uppdaterar vi den. Annars får du underlag/stämpel.</p>
+        <p><strong>Uppdaterar ni servicehistorik?</strong> Ja، där digital bok finns uppdaterar vi den. Annars får du underlag/stämpel.</p>
         <p><strong>Vilka delar använder ni?</strong> Original eller OEM-kvalitet enligt tillverkarens specifikationer.</p>
-        <p><strong>Garanti på arbete?</strong> Ja, vi lämnar garanti på både delar och arbete enligt branschpraxis.</p>
+        <p><strong>Garanti på arbete?</strong> Ja، vi lämnar garanti på både delar och arbete enligt branschpraxis.</p>
       </div>
     </div>
   </section>
@@ -354,7 +351,7 @@
   <!-- SMS floating button -->
   <a id="smsFab" class="sms-fab" href="sms:+46790574975" aria-label="Skicka SMS till Hussein">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M20 2H4a2 2 0 00-2 2v16l4-4h14a2 2 0 002-2V4a2 2 0 00-2-2zM6 9h8v2H6V9zm0-4h12v2H6V5z"/>
+      <path d="M20 2H4a2 2 0 00-2 2v16l4-4h14a2 2 0 002-2V4a2 2 0 01-2-2zM6 9h8v2H6V9zm0-4h12v2H6V5z"/>
     </svg>
   </a>
 
@@ -401,36 +398,30 @@
       const el = document.getElementById('smsFab');
       if(!el) return;
 
-      const MARGIN_X = 14;           // الهامش من الجوانب
-      const MARGIN_Y = 8;            // هامش علوي/سفلي
-      const CLICK_TOL = 6;           // بكسلات — تحتها يعتبر نقرة وليس سحب
+      const MARGIN_X = 14;     // هامش جانبي
+      const MARGIN_Y = 8;      // هامش علوي/سفلي
+      const CLICK_TOL = 6;     // تحتها يعتبر نقرة
 
       let dragging=false, startX=0, startY=0, startLeft=0, startTop=0, pointerId=null;
 
-      // طبّق حالة محفوظة (جانب + إزاحة رأسية)
+      // استرجاع الوضعية (جانب + top)
       (function restore(){
         try{
           const s = JSON.parse(localStorage.getItem('smsFabStick')||'null');
           if(s && (s.side==='left'||s.side==='right') && Number.isFinite(s.top)){
             el.style.top = Math.max(MARGIN_Y, s.top) + 'px';
-            if(s.side==='left'){
-              el.style.left = MARGIN_X + 'px';
-              el.style.right = 'auto';
-            }else{
-              el.style.right = MARGIN_X + 'px';
-              el.style.left = 'auto';
-            }
+            if(s.side==='left'){ el.style.left=MARGIN_X+'px'; el.style.right='auto'; }
+            else { el.style.right=MARGIN_X+'px'; el.style.left='auto'; }
           }
         }catch(_){}
       })();
 
-      // أثناء السحب نستخدم left/top فقط
       function ensureLeftTop(){
         const r = el.getBoundingClientRect();
         el.style.left = r.left + 'px';
         el.style.top  = r.top  + 'px';
-        el.style.right = 'auto';
-        el.style.bottom = 'auto';
+        el.style.right='auto';
+        el.style.bottom='auto';
       }
 
       function clampTop(top){
@@ -441,89 +432,62 @@
 
       function onDown(e){
         if(pointerId!==null && e.pointerId!==pointerId) return;
-        pointerId = e.pointerId;
+        pointerId=e.pointerId;
         try{ e.target.setPointerCapture(pointerId); }catch(_){}
-        dragging = true;
-        const r = el.getBoundingClientRect();
-        startX = e.clientX;
-        startY = e.clientY;
-        ensureLeftTop(); // حوّل إلى left/top
-        startLeft = parseFloat(el.style.left);
-        startTop  = parseFloat(el.style.top);
-        el.style.transition = 'none';
+        dragging=true;
+        startX=e.clientX; startY=e.clientY;
+        ensureLeftTop();
+        startLeft=parseFloat(el.style.left);
+        startTop =parseFloat(el.style.top);
+        el.style.transition='none';
         e.preventDefault();
       }
 
       function onMove(e){
         if(!dragging || e.pointerId!==pointerId) return;
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-        el.style.left = Math.round(startLeft + dx) + 'px';
-        el.style.top  = Math.round(startTop  + dy) + 'px';
+        const dx=e.clientX-startX, dy=e.clientY-startY;
+        el.style.left=Math.round(startLeft+dx)+'px';
+        el.style.top =Math.round(startTop +dy)+'px';
         e.preventDefault();
       }
 
       function onUp(e){
         if(e.pointerId!==pointerId) return;
         try{ e.target.releasePointerCapture(pointerId); }catch(_){}
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-        const moved = Math.hypot(dx,dy);
-        dragging = false;
-        pointerId = null;
+        const dx=e.clientX-startX, dy=e.clientY-startY;
+        const moved=Math.hypot(dx,dy);
+        dragging=false; pointerId=null;
 
-        // احسب الالتصاق لأقرب جانب
-        const r = el.getBoundingClientRect();
-        const vw = Math.max(document.documentElement.clientWidth, window.innerWidth||0);
-        const centerX = r.left + r.width/2;
-        const side = (centerX < vw/2) ? 'left' : 'right';
-        const top = clampTop(parseFloat(el.style.top||r.top));
+        // Snap لأقرب جانب
+        const r=el.getBoundingClientRect();
+        const vw=Math.max(document.documentElement.clientWidth, window.innerWidth||0);
+        const centerX=r.left + r.width/2;
+        const side=(centerX < vw/2) ? 'left' : 'right';
+        const top=clampTop(parseFloat(el.style.top||r.top));
 
-        // طبّق الالتصاق (snap)
-        el.style.top = Math.round(top) + 'px';
-        if(side==='left'){
-          el.style.left  = MARGIN_X + 'px';
-          el.style.right = 'auto';
-        }else{
-          el.style.right = MARGIN_X + 'px';
-          el.style.left  = 'auto';
-        }
+        el.style.top=Math.round(top)+'px';
+        if(side==='left'){ el.style.left=MARGIN_X+'px'; el.style.right='auto'; }
+        else { el.style.right=MARGIN_X+'px'; el.style.left='auto'; }
 
-        // احفظ (جانب + إزاحة رأسية)
-        try{
-          localStorage.setItem('smsFabStick', JSON.stringify({side, top}));
-        }catch(_){}
+        try{ localStorage.setItem('smsFabStick', JSON.stringify({side, top})); }catch(_){}
 
-        // منع نقرة غير مقصودة بعد السحب
-        if(moved > CLICK_TOL){
+        if(moved>CLICK_TOL){
           el.addEventListener('click', function once(ev){
-            ev.stopImmediatePropagation();
-            ev.preventDefault();
+            ev.stopImmediatePropagation(); ev.preventDefault();
           }, {once:true, capture:true});
         }
       }
 
-      // اجعلها دائمًا ضمن إطار الشاشة عند تغيير الحجم/الاتجاه
       function keepInView(){
-        const r = el.getBoundingClientRect();
-        const vh = Math.max(document.documentElement.clientHeight, window.innerHeight||0);
-        const vw = Math.max(document.documentElement.clientWidth,  window.innerWidth||0);
-        let top = parseFloat((el.style.top||r.top));
-        top = clampTop(top);
-        el.style.top = Math.round(top) + 'px';
+        const r=el.getBoundingClientRect();
+        const vh=Math.max(document.documentElement.clientHeight, window.innerHeight||0);
+        let top=parseFloat(el.style.top||r.top);
+        top=clampTop(top); el.style.top=Math.round(top)+'px';
 
-        // استرجع الجانب المحفوظ إن وُجد
         try{
-          const s = JSON.parse(localStorage.getItem('smsFabStick')||'null');
-          if(s && s.side){
-            if(s.side==='left'){ el.style.left=MARGIN_X+'px'; el.style.right='auto'; }
-            else{ el.style.right=MARGIN_X+'px'; el.style.left='auto'; }
-          }else{
-            // افتراضيًا أبقها حيث هي: إذا لا يوجد left فعدّل إلى يمين
-            if(!el.style.left && !el.style.right){
-              el.style.right=MARGIN_X+'px'; el.style.left='auto';
-            }
-          }
+          const s=JSON.parse(localStorage.getItem('smsFabStick')||'null');
+          if(s && s.side==='left'){ el.style.left=MARGIN_X+'px'; el.style.right='auto'; }
+          else                     { el.style.right=MARGIN_X+'px'; el.style.left='auto'; }
         }catch(_){}
       }
 

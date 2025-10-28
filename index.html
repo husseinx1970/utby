@@ -15,6 +15,14 @@
     a{color:#DABD66;text-decoration:none}
     .container{width:min(1100px,100%);margin:auto;padding:0 18px}
 
+    /* ===== BG: Fog & Particles ===== */
+    #bgFog, #bgParticles{
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      pointer-events: none;
+    }
+    #bgFog{ z-index:-2; }
+    #bgParticles{ z-index:-1; }
+
     /* Header */
     .header{position:sticky;top:0;z-index:10;background:rgba(12,13,18,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.1)}
     .header-inner{display:flex;justify-content:space-between;align-items:center;padding:10px 0}
@@ -67,14 +75,11 @@
     .booking button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(218,189,102,.35)}
     #bookThanks{display:none}
 
-    /* Fix native select menu colors (text white on dark bg) */
+    /* Fix native select menu colors */
     .booking select{background:#121317;color:#fff}
     .booking select option{background:#0b0c10;color:#fff}
     .booking select option[disabled]{color:#9fb0c0}
-    /* For WebKit dropdown list */
-    @supports selector(select:focus-visible){
-      select::-ms-expand{display:none}
-    }
+    @supports selector(select:focus-visible){ select::-ms-expand{display:none} }
 
     /* Map */
     .map-container{text-align:center;margin-top:22px}
@@ -91,7 +96,7 @@
     .copyright-bar a{color:#DABD66;font-weight:700}
     .copyright-bar a:hover{color:#fff}
 
-    /* Modal (Bild-style) */
+    /* Modals */
     .modal{position:fixed;inset:0;display:none;place-items:center;z-index:20;background:rgba(8,10,14,.55);backdrop-filter:blur(14px)}
     .modal.show{display:grid}
     .modal-card{width:min(620px,92vw);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px;box-shadow:0 32px 90px rgba(0,0,0,.52)}
@@ -106,14 +111,13 @@
     .modal .meta strong{color:#fff}
     .modal-close{display:block;margin:14px auto 2px;text-align:center;color:#9fb0c0}
 
-    /* lock scroll when modal open */
     body.scroll-lock{overflow:hidden}
 
     /* SMS FAB draggable */
     .sms-fab{
       position:fixed;right:14px;bottom:14px;width:54px;height:54px;border-radius:50%;
       display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;
-      border:1px solid rgba(0,0,0,.2);text-decoration:none;transition:.15s;box-shadow:none !important;touch-action:none
+      border:1px solid rgba(0,0,0,.2);text-decoration:none;transition:.15s;box-shadow:none !important;touch-action:none; z-index: 15;
     }
     .sms-fab svg{width:24px;height:24px}
 
@@ -123,7 +127,7 @@
       .nav{flex-wrap:wrap}
     }
 
-    /* datum & tid side-by-side small */
+    /* date & time inline small */
     .booking .inline-dt{display:grid;grid-template-columns:repeat(2,minmax(140px,1fr));gap:8px;align-items:end;margin-top:4px}
     .booking .inline-dt .field{display:flex;flex-direction:column;gap:4px}
     .booking .inline-dt label{font-size:12px}
@@ -132,6 +136,10 @@
   </style>
 </head>
 <body>
+
+  <!-- ===== BG layers ===== -->
+  <canvas id="bgFog"></canvas>
+  <canvas id="bgParticles"></canvas>
 
   <!-- Header -->
   <header class="header">
@@ -173,43 +181,43 @@
       <h2>Våra tjänster</h2>
       <p class="muted">Vi hanterar allt från motor och växellåda till minsta komponent. Du får alltid prisförslag innan åtgärd och tydlig återkoppling när arbetet är klart.</p>
 
-    <div class="services">
-      <div class="card">
-        <h3>Service</h3>
-        <p>Planerad service enligt tillverkarens intervall: byte av motorolja och filter، kontroll av vätskor، bromsar، batteri، belysning och drivlina. Vi uppdaterar digital servicebok där det är möjligt (Volvo، BMW، VAG m.fl.).</p>
-        <ul style="margin:6px 0 8px 18px">
-          <li>30–40 punkters säkerhetskontroll</li>
-          <li>Provkörning och felkodsavläsning</li>
-          <li>Serviceunderlag & tydlig återkoppling</li>
-        </ul>
-        <p>Vi följer GVO-regler så att din nybilsgaranti bevaras när originalspecade delar används.</p>
-        <img src="assets/photo1.jpg" alt="Service och oljebyte">
-      </div>
+      <div class="services">
+        <div class="card">
+          <h3>Service</h3>
+          <p>Planerad service enligt tillverkarens intervall: byte av motorolja och filter، kontroll av vätskor، bromsar، batteri، belysning och drivlina. Vi uppdaterar digital servicebok där det är möjligt (Volvo، BMW، VAG m.fl.).</p>
+          <ul style="margin:6px 0 8px 18px">
+            <li>30–40 punkters säkerhetskontroll</li>
+            <li>Provkörning och felkodsavläsning</li>
+            <li>Serviceunderlag & tydlig återkoppling</li>
+          </ul>
+          <p>Vi följer GVO-regler så att din nybilsgaranti bevaras när originalspecade delar används.</p>
+          <img src="assets/photo1.jpg" alt="Service och oljebyte">
+        </div>
 
-      <div class="card">
-        <h3>Däck & hjul</h3>
-        <p>Skifte sommar/vinter، balansering och kontroll av mönsterdjup och lufttryck. Vi programmerar och kalibrerar även TPMS vid behov.</p>
-        <ul style="margin:6px 0 8px 18px">
-          <li>Däckhotell: torrt، säkert och försäkrat</li>
-          <li>Snabbt skifte med momentkontroll</li>
-          <li>Rådgivning om rätt dimension och lastindex</li>
-        </ul>
-        <p>Vi gör bilen redo för säsongen och minskar vibrationer och onödigt slitage.</p>
-        <img src="assets/photo3.jpg" alt="Däckhotell och hjulservice">
-      </div>
+        <div class="card">
+          <h3>Däck & hjul</h3>
+          <p>Skifte sommar/vinter، balansering och kontroll av mönsterdjup och lufttryck. Vi programmerar och kalibrerar även TPMS vid behov.</p>
+          <ul style="margin:6px 0 8px 18px">
+            <li>Däckhotell: torrt، säkert och försäkrat</li>
+            <li>Snabbt skifte med momentkontroll</li>
+            <li>Rådgivning om rätt dimension och lastindex</li>
+          </ul>
+          <p>Vi gör bilen redo för säsongen och minskar vibrationer och onödigt slitage.</p>
+          <img src="assets/photo3.jpg" alt="Däckhotell och hjulservice">
+        </div>
 
-      <div class="card">
-        <h3>Kompletta reparationer</h3>
-        <p>Från bromsar، avgassystem och fjädring till motor، koppling/växellåda och el. Vi felsöker systematiskt med moderna diagnosverktyg.</p>
-        <ul style="margin:6px 0 8px 18px">
-          <li>Kamrem/kedja، vattenpump och packningar</li>
-          <li>Bromsskivor/-belägg، ok & handbroms</li>
-          <li>AC-service: läcktest & påfyllning</li>
-        </ul>
-        <p>Du får alltid prisförslag innan åtgärd och dokumentation efter utfört arbete.</p>
-        <img src="assets/photo2.jpg" alt="Kompletta reparationer">
+        <div class="card">
+          <h3>Kompletta reparationer</h3>
+          <p>Från bromsar، avgassystem och fjädring till motor، koppling/växellåda och el. Vi felsöker systematiskt med moderna diagnosverktyg.</p>
+          <ul style="margin:6px 0 8px 18px">
+            <li>Kamrem/kedja، vattenpump och packningar</li>
+            <li>Bromsskivor/-belägg، ok & handbroms</li>
+            <li>AC-service: läcktest & påfyllning</li>
+          </ul>
+          <p>Du får alltid prisförslag innan åtgärd och dokumentation efter utfört arbete.</p>
+          <img src="assets/photo2.jpg" alt="Kompletta reparationer">
+        </div>
       </div>
-    </div>
 
       <div class="card" style="margin-top:14px">
         <h3>Vanliga frågor (FAQ)</h3>
@@ -231,12 +239,9 @@
 
       <!-- يرسل الآن إلى info@utbysnabbbilservice.se -->
       <form class="booking" id="bookingForm" action="https://formsubmit.co/info@utbysnabbbilservice.se" method="POST" target="hidden_iframe">
-        <!-- FormSubmit settings -->
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_subject" value="Ny bokning — Utby Snabb Bilverkstad">
-        <!-- honeypot -->
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <!-- Reply-To -->
         <input type="hidden" name="_replyto" id="replyToField" value="">
 
         <label for="name">Namn</label>
@@ -384,13 +389,14 @@
     </svg>
   </a>
 
+  <!-- ===== Scripts ===== -->
   <script>
     // Min date = today
     (function(){
       const dateInput=document.getElementById('date');
       if(dateInput){
         const t=new Date(),y=t.getFullYear(),m=String(t.getMonth()+1).padStart(2,'0'),d=String(t.getDate()).padStart(2,'0');
-        dateInput.min=`${y}-${m}-${d}`;
+        dateInput.min=\`\${y}-\${m}-\${d}\`;
       }
     })();
 
@@ -417,7 +423,7 @@
       modal?.addEventListener('click',e=>{if(e.target===modal)hide();});
     })();
 
-    // Native submit to hidden iframe + show thanks instantly + prevent double-submit
+    // Native submit to hidden iframe + thanks
     (function(){
       const form=document.getElementById('bookingForm');
       const submitBtn=document.getElementById('submitBtn');
@@ -430,7 +436,6 @@
         if(isSubmitting){e.preventDefault();return;}
         isSubmitting=true;
 
-        // UI lock + thanks popup
         submitBtn.disabled=true;
         const oldLabel=submitBtn.textContent;
         submitBtn.textContent='Skickar…';
@@ -438,7 +443,6 @@
         document.body.classList.add('scroll-lock');
         thanksModal?.classList.add('show');
 
-        // بعد إرسال المتصفح للنموذج إلى iframe، نظّف الحقول بهدوء
         setTimeout(()=>{ try{form.reset();}catch(_){} document.documentElement.style.scrollBehavior='auto'; window.scrollTo(0,y); }, 200);
 
         function closeThanks(){
@@ -453,7 +457,7 @@
       });
     })();
 
-    // SMS chooser: show modal with two options (SMS or Email)
+    // SMS chooser
     (function(){
       const fab=document.getElementById('smsFab');
       const chooser=document.getElementById('chooserModal');
@@ -461,13 +465,11 @@
       const chooserMail=document.getElementById('chooserMail');
       const chooserClose=document.getElementById('chooserClose');
 
-      // Build platform-correct SMS link with default body
       function smsHref(){
         const base='sms:+46790574975';
         const body=encodeURIComponent('Hej! Jag behöver rådgivning om bilen.');
         const ua=navigator.userAgent.toLowerCase();
-        // iOS uses &body, Android/others use ?body
-        return (ua.includes('iphone')||ua.includes('ipad'))?`${base}&body=${body}`:`${base}?body=${body}`;
+        return (ua.includes('iphone')||ua.includes('ipad'))?\`\${base}&body=\${body}\`:\`\${base}?body=\${body}\`;
       }
 
       function openChooser(e){
@@ -518,7 +520,7 @@
         if(pointerId!==null && e.pointerId!==pointerId) return;
         pointerId=e.pointerId; try{e.target.setPointerCapture(pointerId);}catch(_){}
         dragging=true; startX=e.clientX; startY=e.clientY; ensureLeftTop();
-        startLeft=parseFloat(el.style.left); startTop=parseFloat(el.style.top);
+        startLeft=parseFloat(el.style.left||0); startTop=parseFloat(el.style.top||0);
         el.style.transition='none'; e.preventDefault();
       }
       function onMove(e){
@@ -539,8 +541,8 @@
         const side=(r.left + r.width/2 < vw/2)?'left':'right';
         const top=clampTop(parseFloat(el.style.top||r.top));
         el.style.top=Math.round(top)+'px';
-        if(side==='left'){el.style.left=MARGIN_X+'px';el.style.right='auto';}
-        else{el.style.right=MARGIN_X+'px';el.style.left='auto';}
+        if(side==='left'){el.style.left='14px';el.style.right='auto';}
+        else{el.style.right='14px';el.style.left='auto';}
         try{localStorage.setItem('smsFabStick',JSON.stringify({side,top}));}catch(_){}
 
         if(moved>CLICK_TOL){
@@ -552,6 +554,208 @@
       window.addEventListener('pointermove',onMove,{passive:false});
       window.addEventListener('pointerup',onUp,{passive:false});
       window.addEventListener('pointercancel',onUp,{passive:false});
+    })();
+  </script>
+
+  <!-- ===== BG: Fog + Particles Engine (repel + touch) ===== -->
+  <script>
+    (function(){
+      const fogCanvas = document.getElementById('bgFog');
+      const fogCtx    = fogCanvas.getContext('2d');
+      const pCanvas   = document.getElementById('bgParticles');
+      const pCtx      = pCanvas.getContext('2d');
+
+      let W=innerWidth, H=innerHeight, DPR=Math.min(devicePixelRatio||1, 2);
+      function resize(){
+        W = innerWidth; H = innerHeight; DPR = Math.min(devicePixelRatio||1, 2);
+        // Fog canvas at lower res for natural blur & performance
+        fogCanvas.width = Math.round(W * 0.6);
+        fogCanvas.height= Math.round(H * 0.6);
+        fogCanvas.style.width = '100%';
+        fogCanvas.style.height= '100%';
+
+        pCanvas.width = Math.round(W * DPR);
+        pCanvas.height= Math.round(H * DPR);
+        pCanvas.style.width = '100%';
+        pCanvas.style.height= '100%';
+        pCtx.setTransform(DPR,0,0,DPR,0,0);
+      }
+      addEventListener('resize', resize);
+      resize();
+
+      const isMobile = /iphone|ipad|android|mobile/i.test(navigator.userAgent);
+      const BASE_PARTICLES = isMobile ? 80 : 140;
+      const particles = [];
+
+      // Mouse / touch repel state
+      const attractor = {x: -9999, y: -9999, active: false};
+      let lastPointerTime = 0;
+
+      // Init particles
+      function initParticles(){
+        particles.length = 0;
+        for(let i=0;i<BASE_PARTICLES;i++){
+          particles.push({
+            x: Math.random()*W,
+            y: Math.random()*H,
+            vx: (Math.random()-0.5)*0.6,
+            vy: (Math.random()-0.5)*0.6,
+            r: Math.random()*2 + 1.2,
+            a: Math.random()*Math.PI*2,
+            spin: (Math.random()-0.5)*0.02
+          });
+        }
+      }
+      initParticles();
+
+      // Fog blobs (slow drifting smoke puffs)
+      const FOG_COUNT = isMobile ? 16 : 26;
+      const fogs = [];
+      function rgba(a){ return `rgba(180,190,200,${a})`; } // cold gray smoke
+      function initFog(){
+        fogs.length = 0;
+        for(let i=0;i<FOG_COUNT;i++){
+          const baseR = (isMobile? 90: 120) + Math.random()*140;
+          fogs.push({
+            x: Math.random()*fogCanvas.width,
+            y: Math.random()*fogCanvas.height,
+            r: baseR,
+            alpha: 0.06 + Math.random()*0.08,
+            dx: (Math.random()*0.4+0.05)*(Math.random()<.5?-1:1),
+            dy: (Math.random()*0.25+0.03)*(Math.random()<.5?-1:1)
+          });
+        }
+      }
+      initFog();
+
+      // Pointer handling (mouse + touch)
+      function setAttractor(x,y){
+        attractor.x = x;
+        attractor.y = y;
+        attractor.active = true;
+        lastPointerTime = performance.now();
+      }
+      function clearAttractorIfIdle(){
+        if(performance.now() - lastPointerTime > 1600){
+          attractor.active = false;
+          attractor.x = -9999; attractor.y = -9999;
+        }
+      }
+      window.addEventListener('pointermove', e=>{
+        setAttractor(e.clientX, e.clientY);
+      }, {passive:true});
+      window.addEventListener('pointerdown', e=>{
+        setAttractor(e.clientX, e.clientY);
+      }, {passive:true});
+      window.addEventListener('pointerup', ()=>{ lastPointerTime = performance.now(); }, {passive:true});
+      window.addEventListener('touchstart', e=>{
+        const t=e.touches[0]; if(t) setAttractor(t.clientX, t.clientY);
+      }, {passive:true});
+      window.addEventListener('touchmove', e=>{
+        const t=e.touches[0]; if(t) setAttractor(t.clientX, t.clientY);
+      }, {passive:true});
+      window.addEventListener('touchend', ()=>{ lastPointerTime = performance.now(); }, {passive:true});
+
+      // Draw fog (lower-res, blurred look)
+      function drawFog(){
+        const ctx = fogCtx;
+        const w = fogCanvas.width, h=fogCanvas.height;
+        ctx.clearRect(0,0,w,h);
+        ctx.globalCompositeOperation = 'lighter';
+        for(const f of fogs){
+          f.x += f.dx*0.2; f.y += f.dy*0.2;
+
+          // Respawn softly from the "workshop" side (left-bottom area)
+          if(f.x < -f.r) { f.x = w + f.r*0.5; f.y = h*0.6 + Math.random()*h*0.4; }
+          if(f.x > w+f.r){ f.x = -f.r*0.5; f.y = h*0.6 + Math.random()*h*0.4; }
+          if(f.y < -f.r) { f.y = h + f.r*0.5; f.x = Math.random()*w*0.4; }
+          if(f.y > h+f.r){ f.y = -f.r*0.5; f.x = Math.random()*w*0.4; }
+
+          const grad = ctx.createRadialGradient(f.x, f.y, f.r*0.1, f.x, f.y, f.r);
+          grad.addColorStop(0, rgba(f.alpha));
+          grad.addColorStop(1, rgba(0));
+          ctx.fillStyle = grad;
+          // Optional extra blur on capable browsers
+          ctx.save();
+          ctx.filter = 'blur(3px)';
+          ctx.beginPath();
+          ctx.arc(f.x, f.y, f.r, 0, Math.PI*2);
+          ctx.fill();
+          ctx.restore();
+        }
+        ctx.globalCompositeOperation = 'source-over';
+      }
+
+      // Draw particles with repel and slight gold glow
+      function drawParticles(){
+        const ctx = pCtx;
+        ctx.clearRect(0,0,W,H);
+
+        for(const p of particles){
+          p.x += p.vx;
+          p.y += p.vy;
+          p.a += p.spin;
+
+          // Screen wrap
+          if(p.x<-10) p.x=W+10; if(p.x>W+10) p.x=-10;
+          if(p.y<-10) p.y=H+10; if(p.y>H+10) p.y=-10;
+
+          // Repel force
+          if(attractor.active){
+            const dx = p.x - attractor.x;
+            const dy = p.y - attractor.y;
+            const dist2 = dx*dx + dy*dy;
+            const R = isMobile ? 110 : 160;
+            const R2 = R*R;
+            if(dist2 < R2){
+              // inverse square repel + clamp
+              const dist = Math.sqrt(dist2) || 0.001;
+              const force = Math.min(1.6, (R2/dist2)); // stronger near pointer
+              const ux = dx / dist, uy = dy / dist;
+              p.vx += ux * 0.08 * force;
+              p.vy += uy * 0.08 * force;
+              // mild damping to prevent runaway
+              p.vx *= 0.98; p.vy *= 0.98;
+            }
+          }
+
+          // Draw
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.a);
+          // outer soft aura
+          ctx.globalAlpha = 0.35;
+          ctx.beginPath();
+          ctx.arc(0,0,p.r*2.2,0,Math.PI*2);
+          ctx.fillStyle = 'rgba(218,189,102,0.25)';
+          ctx.fill();
+          // core
+          ctx.globalAlpha = 0.9;
+          ctx.beginPath();
+          ctx.arc(0,0,p.r,0,Math.PI*2);
+          ctx.fillStyle = 'rgba(218,189,102,0.85)';
+          ctx.fill();
+          ctx.restore();
+
+          // gentle velocity cap
+          const sp2 = p.vx*p.vx + p.vy*p.vy;
+          if(sp2 > 2.5){ p.vx *= 0.96; p.vy *= 0.96; }
+        }
+
+        clearAttractorIfIdle();
+      }
+
+      // Animation loop with simple frame skipper for battery
+      let last = 0;
+      function loop(ts){
+        if(ts - last > 16){ // ~60fps target
+          drawFog();
+          drawParticles();
+          last = ts;
+        }
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
     })();
   </script>
 </body>

@@ -220,23 +220,37 @@
       <!-- iframe مخفي للإرسال بدون تنقل -->
       <iframe name="hidden_iframe" id="hidden_iframe" style="display:none"></iframe>
 
+      <!-- ملاحظة: تم تعطيل الرد التلقائي وتفعيل الكابتشا وتهيئة Reply-To -->
       <form class="booking" id="bookingForm" action="https://formsubmit.co/Husseinmormor@gmail.com" method="POST" target="hidden_iframe">
         <!-- FormSubmit settings -->
-        <input type="hidden" name="_captcha" value="false">
+        <!-- تمت إزالة تعطيل الكابتشا لتمكين الحماية -->
+        <!-- <input type="hidden" name="_captcha" value="false"> -->
+
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_subject" value="Ny bokning — Utby Snabb Bilverkstad">
-        <input type="hidden" name="_autoresponse" value="Tack! Vi har mottagit din bokningsförfrågan och återkommer så snart som möjligt. Med vänlig hälsning, Utby Snabb Bilverkstad.">
-        <!-- يمكنك أيضًا استقبال نسخة على بريد آخر:
-        <input type="hidden" name="_cc" value="utbysnabbservice@gmail.com">
-        -->
+
+        <!-- تم حذف _autoresponse لإيقاف الرسالة التلقائية للزائر -->
+
         <!-- Honeypot -->
-        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <!-- Reply-To: سيُملأ تلقائيًا عبر جافاسكربت من بريد الزائر -->
+        <input type="hidden" name="_replyto" id="replyToField" value="">
 
         <label for="name">Namn</label>
         <input id="name" name="name" placeholder="För- och efternamn" required>
 
         <label for="email">E-post</label>
-        <input id="email" name="email" type="email" placeholder="din@epost.se" required>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="din@epost.se"
+          required
+          pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+          inputmode="email"
+          autocomplete="email"
+        >
 
         <label for="car">Bil/Regnr</label>
         <input id="car" name="Bil/Regnr" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
@@ -278,7 +292,7 @@
       <div class="map-container" id="kontakt" aria-label="Karta och adress">
         <h3>Här hittar du oss</h3>
         <p>Vagnmakaregatan 2, 415 72 Göteborg</p>
-        <iframe src="https://www.google.com/maps?q=57.74025,12.07864&hl=sv&z=15&output=embed" loading="lazy"></iframe>
+        <iframe src="https://www.google.com/maps?q=57.74025,12.07864&hl=sv&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer"></iframe>
       </div>
     </div>
   </section>
@@ -369,6 +383,16 @@
         const t=new Date(),y=t.getFullYear(),m=String(t.getMonth()+1).padStart(2,'0'),d=String(t.getDate()).padStart(2,'0');
         dateInput.min=`${y}-${m}-${d}`;
       }
+    })();
+
+    // Sync _replyto with visitor email (for proper Reply-To)
+    (function(){
+      const email=document.getElementById('email');
+      const reply=document.getElementById('replyToField');
+      function sync(){ reply.value = email.value.trim(); }
+      email?.addEventListener('input', sync);
+      email?.addEventListener('change', sync);
+      sync();
     })();
 
     // Open Hussein modal instantly

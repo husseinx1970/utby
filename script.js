@@ -1,310 +1,128 @@
-// ===== Core site behaviors =====
-(function(){
-  // Min date = today
-  const dateInput=document.getElementById('date');
-  if(dateInput){
-    const t=new Date(),y=t.getFullYear(),m=String(t.getMonth()+1).padStart(2,'0'),d=String(t.getDate()).padStart(2,'0');
-    dateInput.min=`${y}-${m}-${d}`;
-  }
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%;background:#0b0c10;color:#f6f7fb;font-family:Inter,system-ui,Segoe UI,Roboto,Arial}
+html,body{overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:#DABD66;text-decoration:none}
+.container{width:min(1100px,100%);margin:auto;padding:0 18px}
 
-  // Sync _replyto with visitor email
-  const email=document.getElementById('email');
-  const reply=document.getElementById('replyToField');
-  function sync(){ if(reply && email) reply.value = email.value.trim(); }
-  email?.addEventListener('input', sync);
-  email?.addEventListener('change', sync);
-  sync();
+/* ===== BG: layers ===== */
+#bgFog,#bgParticles,#bgSparks{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;background:transparent}
+header,.hero,.section,footer,.site-footer,.modal,.sms-fab,.fx-panel{position:relative;z-index:1}
 
-  // Open Hussein modal
-  const modal=document.getElementById('creatorModal');
-  const open =document.getElementById('openCreator2');
-  const close=document.getElementById('closeCreator');
-  function openFast(ev){ev?.preventDefault();modal?.classList.add('show');document.body.classList.add('scroll-lock');}
-  function hide(ev){ev?.preventDefault();modal?.classList.remove('show');document.body.classList.remove('scroll-lock');}
-  open?.addEventListener('pointerdown',openFast,{passive:false});
-  open?.addEventListener('click',openFast);
-  close?.addEventListener('click',hide);
-  modal?.addEventListener('click',e=>{if(e.target===modal)hide(e);});
+/* Header */
+.header{position:sticky;top:0;z-index:10;background:rgba(12,13,18,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.1)}
+.header-inner{display:flex;justify-content:space-between;align-items:center;padding:10px 0}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{width:64px;height:64px;border-radius:12px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(218,189,102,.3))}
+.brand-name{font:800 18px/1 Space Grotesk;color:#fff}
+.nav{display:flex;gap:8px}
+.nav a{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:700;font-size:14px;border:1px solid rgba(255,255,255,.12);line-height:1}
+.nav a.secondary{background:rgba(255,255,255,.06);color:#fff}
+.nav a:not(.secondary){background:#DABD66;color:#111}
+.nav a .icon svg{width:16px;height:16px}
 
-  // Native submit + thanks
-  const form=document.getElementById('bookingForm');
-  const submitBtn=document.getElementById('submitBtn');
-  const thanksModal=document.getElementById('thanksModal');
-  const thanksClose=document.getElementById('thanksClose');
-  let isSubmitting=false;
-  form?.addEventListener('submit',(e)=>{
-    if(!form.checkValidity()){form.reportValidity();return;}
-    if(isSubmitting){e.preventDefault();return;}
-    isSubmitting=true;
+/* Hero */
+.hero{text-align:center;padding:30px 0}
+h1{font-family:Space Grotesk,Inter;font-weight:800;font-size:clamp(26px,6vw,40px);background:linear-gradient(90deg,#fff,#DABD66);-webkit-background-clip:text;color:transparent;margin:.3em 0}
+.lead{color:#C9D2DE;max-width:65ch;margin:0 auto 16px}
+.cta{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.btn{padding:9px 14px;border-radius:12px;font-weight:800;font-size:14px;border:1px solid rgba(255,255,255,.1);transition:.2s}
+.btn.primary{background:#DABD66;color:#111}
+.btn.ghost{background:rgba(255,255,255,.06);color:#fff}
+.btn:hover{transform:translateY(-2px)}
+.hero-logo{width:min(300px,60vw);margin:20px auto 0;filter:drop-shadow(0 10px 30px rgba(218,189,102,.35));transition:transform .2s ease}
+.hero-logo.big:hover{animation:shake .4s linear both}
+@keyframes shake{
+  10%{transform:translate(1px, -1px) rotate(-.8deg)}
+  20%{transform:translate(-1px, 1px) rotate(.8deg)}
+  30%{transform:translate(1px, 0) rotate(-.6deg)}
+  40%{transform:translate(-1px, 1px) rotate(.6deg)}
+  50%{transform:translate(1px, -1px) rotate(-.5deg)}
+  60%{transform:translate(-1px, 0) rotate(.5deg)}
+  70%{transform:translate(1px, 1px) rotate(-.4deg)}
+  80%{transform:translate(-1px, -1px) rotate(.4deg)}
+  90%{transform:translate(1px, 0) rotate(-.2deg)}
+}
 
-    submitBtn.disabled=true;
-    const oldLabel=submitBtn.textContent;
-    submitBtn.textContent='Skickar…';
-    const y=window.scrollY||window.pageYOffset||0;
-    document.body.classList.add('scroll-lock');
-    thanksModal?.classList.add('show');
+/* Sections */
+.section{padding:35px 0}
+.section h2{text-align:center;font:800 22px/1.3 Space Grotesk;margin:0 0 10px}
+.section p.muted{text-align:center;color:#C9D2DE;margin:0 0 18px}
 
-    setTimeout(()=>{ try{form.reset();}catch(_){} document.documentElement.style.scrollBehavior='auto'; window.scrollTo(0,y); }, 200);
+/* Services */
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px}
+.card h3{margin:.1em 0 .2em;font:700 17px/1.2 Inter}
+.card p{margin:0 0 6px}
+.card img{width:100%;height:140px;object-fit:cover;border-radius:10px;margin-top:8px}
 
-    function closeThanks(){
-      thanksModal?.classList.remove('show');
-      document.body.classList.remove('scroll-lock');
-      submitBtn.disabled=false;
-      submitBtn.textContent=oldLabel;
-      isSubmitting=false;
-    }
-    thanksClose?.addEventListener('click',ev=>{ev.preventDefault();closeThanks();},{once:true});
-    thanksModal?.addEventListener('click',ev=>{if(ev.target===thanksModal)closeThanks();},{once:true});
-  });
+/* Booking */
+.booking{display:grid;gap:10px;max-width:560px;margin:auto}
+.booking label{font-weight:600;font-size:13px;color:#e6e8ef}
+.booking input,.booking select,.booking textarea{width:100%;height:42px;padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:#fff;font-size:14px}
+.booking textarea{height:auto;min-height:100px;resize:vertical}
+.booking input:focus,.booking select:focus,.booking textarea:focus{border-color:#d9b954;outline:none;box-shadow:0 0 0 2px rgba(218,189,102,.25)}
+.booking button{margin-top:6px;padding:10px 14px;border-radius:999px;background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;font-weight:800;font-size:14px;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(218,189,102,.25)}
+.booking button[disabled]{opacity:.6;cursor:not-allowed}
+.booking button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(218,189,102,.35)}
+#bookThanks{display:none}
 
-  // SMS chooser
-  const fab=document.getElementById('smsFab');
-  const chooser=document.getElementById('chooserModal');
-  const chooserSms=document.getElementById('chooserSms');
-  const chooserMail=document.getElementById('chooserMail');
-  const chooserClose=document.getElementById('chooserClose');
-  function smsHref(){
-    const base='sms:+46790574975';
-    const body=encodeURIComponent('Hej! Jag behöver rådgivning om bilen.');
-    const ua=navigator.userAgent.toLowerCase();
-    return (ua.includes('iphone')||ua.includes('ipad'))?`${base}&body=${body}`:`${base}?body=${body}`;
-  }
-  function openChooser(e){
-    e?.preventDefault();
-    chooser?.classList.add('show');
-    document.body.classList.add('scroll-lock');
-    chooserSms?.setAttribute('href', smsHref());
-  }
-  function closeChooser(e){
-    e?.preventDefault();
-    chooser?.classList.remove('show');
-    document.body.classList.remove('scroll-lock');
-  }
-  fab?.addEventListener('click',openChooser);
-  chooserClose?.addEventListener('click',closeChooser);
-  chooser?.addEventListener('click',ev=>{ if(ev.target===chooser) closeChooser(ev); });
+/* Select menu colors */
+.booking select{background:#121317;color:#fff}
+.booking select option{background:#0b0c10;color:#fff}
+.booking select option[disabled]{color:#9fb0c0}
+@supports selector(select:focus-visible){ select::-ms-expand{display:none} }
 
-  // Draggable SMS + snap + remember
-  const el=document.getElementById('smsFab'); 
-  if(el){
-    const MARGIN_X=14,MARGIN_Y=8,CLICK_TOL=6;
-    let dragging=false,startX=0,startY=0,startLeft=0,startTop=0,pointerId=null;
+/* Map */
+.map-container{text-align:center;margin-top:22px}
+iframe{width:100%;height:240px;border:0;border-radius:12px}
 
-    (function restore(){
-      try{
-        const s=JSON.parse(localStorage.getItem('smsFabStick')||'null');
-        if(s && (s.side==='left'||s.side==='right') && Number.isFinite(s.top)){
-          el.style.top=Math.max(MARGIN_Y,s.top)+'px';
-          if(s.side==='left'){el.style.left=MARGIN_X+'px';el.style.right='auto';}
-          else{el.style.right=MARGIN_X+'px';el.style.left='auto';}
-        }
-      }catch(_){}
-    })();
+/* Footer */
+.site-footer{margin-top:32px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.015));border-top:1px solid rgba(255,255,255,.12)}
+.footer-top{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px;padding:22px 0 12px}
+.site-footer h4{font:800 16px/1.2 Inter;color:#fff;margin:.2em 0 .5em}
+.site-footer p,.site-footer a,.site-footer li{color:#C9D2DE;font-size:14px;line-height:1.6}
+.site-footer a:hover{color:#DABD66}
+.footer-divider{height:2px;background:linear-gradient(90deg,transparent,rgba(218,189,102,.7),transparent);margin:8px 0 12px}
+.copyright-bar{text-align:center;padding:10px 0 16px;font-size:13px;color:#BFC7D4;border-top:1px solid rgba(255,255,255,.08)}
+.copyright-bar a{color:#DABD66;font-weight:700}
+.copyright-bar a:hover{color:#fff}
 
-    function ensureLeftTop(){
-      const r=el.getBoundingClientRect();
-      el.style.left=r.left+'px'; el.style.top=r.top+'px'; el.style.right='auto'; el.style.bottom='auto';
-    }
-    function clampTop(top){
-      const r=el.getBoundingClientRect();
-      const vh=Math.max(document.documentElement.clientHeight,window.innerHeight||0);
-      return Math.min(vh-r.height-MARGIN_Y,Math.max(MARGIN_Y,top));
-    }
+/* Modals */
+.modal{position:fixed;inset:0;display:none;place-items:center;z-index:20;background:rgba(8,10,14,.55);backdrop-filter:blur(14px)}
+.modal.show{display:grid}
+.modal-card{width:min(620px,92vw);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px;box-shadow:0 32px 90px rgba(0,0,0,.52)}
+.modal-header{display:flex;align-items:center;gap:10px;justify-content:flex-start;margin-bottom:12px}
+.modal-header img{width:40px;height:40px;border-radius:10px;object-fit:contain;filter:drop-shadow(0 6px 18px rgba(218,189,102,.35))}
+.modal-card h3{font:800 20px/1.2 Inter;margin:.1em 0;text-align:left}
+.modal-card p{color:#C9D2DE;margin:4px 0 10px;text-align:left}
+.action{display:block;width:100%;text-align:center;font-weight:900;border-radius:12px;padding:12px;margin:10px 0}
+.action.call{background:#111;color:#DABD66;border:1px solid rgba(255,255,255,.08)}
+.action.mail{background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;border:none}
+.modal .meta{color:#D7DEEA;font-size:14px;margin-top:10px}
+.modal .meta strong{color:#fff}
+.modal-close{display:block;margin:14px auto 2px;text-align:center;color:#9fb0c0}
 
-    function onDown(e){
-      if(pointerId!==null && e.pointerId!==pointerId) return;
-      pointerId=e.pointerId; try{e.target.setPointerCapture(pointerId);}catch(_){}
-      dragging=true; startX=e.clientX; startY=e.clientY; ensureLeftTop();
-      startLeft=parseFloat(el.style.left||0); startTop=parseFloat(el.style.top||0);
-      el.style.transition='none'; e.preventDefault();
-    }
-    function onMove(e){
-      if(!dragging || e.pointerId!==pointerId) return;
-      const dx=e.clientX-startX,dy=e.clientY-startY;
-      el.style.left=Math.round(startLeft+dx)+'px';
-      el.style.top =Math.round(startTop +dy)+'px';
-      e.preventDefault();
-    }
-    function onUp(e){
-      if(e.pointerId!==pointerId) return;
-      try{e.target.releasePointerCapture(pointerId);}catch(_){}
-      const dx=e.clientX-startX,dy=e.clientY-startY;
-      const moved=Math.hypot(dx,dy); dragging=false; pointerId=null;
+body.scroll-lock{overflow:hidden}
 
-      const r=el.getBoundingClientRect();
-      const vw=Math.max(document.documentElement.clientWidth,window.innerWidth||0);
-      const side=(r.left + r.width/2 < vw/2)?'left':'right';
-      const top=clampTop(parseFloat(el.style.top||r.top));
-      el.style.top=Math.round(top)+'px';
-      if(side==='left'){el.style.left='14px';el.style.right='auto';}
-      else{el.style.right='14px';el.style.left='auto';}
-      try{localStorage.setItem('smsFabStick',JSON.stringify({side,top}));}catch(_){}
+/* SMS FAB draggable */
+.sms-fab{position:fixed;right:14px;bottom:14px;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;border:1px solid rgba(0,0,0,.2);text-decoration:none;transition:.15s;box-shadow:none !important;touch-action:none; z-index:15}
+.sms-fab svg{width:24px;height:24px}
 
-      if(moved>CLICK_TOL){
-        el.addEventListener('click',function once(ev){ev.stopImmediatePropagation();ev.preventDefault();},{once:true,capture:true});
-      }
-    }
+@media(max-width:520px){
+  .footer-top{grid-template-columns:1fr}
+  .brand img{width:54px;height:54px}
+  .nav{flex-wrap:wrap}
+}
 
-    el.addEventListener('pointerdown',onDown,{passive:false});
-    window.addEventListener('pointermove',onMove,{passive:false});
-    window.addEventListener('pointerup',onUp,{passive:false});
-    window.addEventListener('pointercancel',onUp,{passive:false});
-  }
-})();
+/* date & time inline small */
+.booking .inline-dt{display:grid;grid-template-columns:repeat(2,minmax(140px,1fr));gap:8px;align-items:end;margin-top:4px}
+.booking .inline-dt .field{display:flex;flex-direction:column;gap:4px}
+.booking .inline-dt label{font-size:12px}
+.booking .inline-dt input{height:32px;font-size:12px;padding:6px 8px;max-width:100%}
+@media(max-width:520px){.booking .inline-dt{grid-template-columns:1fr}}
 
-// ===== BG: Fog + Particles Engine (mouse/touch repel) =====
-(function(){
-  // Ensure canvases exist & style
-  function ensureCanvas(id){
-    let el=document.getElementById(id);
-    if(!el){ el=document.createElement('canvas'); el.id=id; document.body.prepend(el); }
-    el.style.position='fixed'; el.style.inset='0'; el.style.width='100%'; el.style.height='100%';
-    el.style.pointerEvents='none'; el.style.zIndex='0'; el.style.background='transparent';
-    return el;
-  }
-  const fogCanvas = ensureCanvas('bgFog');
-  const pCanvas   = ensureCanvas('bgParticles');
-  const fogCtx = fogCanvas.getContext('2d');
-  const pCtx   = pCanvas.getContext('2d');
-
-  let W=innerWidth, H=innerHeight, DPR=Math.min(devicePixelRatio||1,2);
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function resize(){
-    W=innerWidth; H=innerHeight; DPR=Math.min(devicePixelRatio||1,2);
-    // Fog lower-res for natural blur
-    fogCanvas.width  = Math.round(W*0.6);
-    fogCanvas.height = Math.round(H*0.6);
-    fogCanvas.style.width='100%'; fogCanvas.style.height='100%';
-    // Particles high-res
-    pCanvas.width = Math.round(W*DPR);
-    pCanvas.height= Math.round(H*DPR);
-    pCanvas.style.width='100%'; pCanvas.style.height='100%';
-    pCtx.setTransform(DPR,0,0,DPR,0,0);
-  }
-  addEventListener('resize', resize, {passive:true});
-  resize();
-
-  const isMobile = /iphone|ipad|android|mobile/i.test(navigator.userAgent);
-  const BASE_PARTICLES = prefersReduced ? 0 : (isMobile ? 80 : 140);
-
-  // Particles with repel
-  const particles = Array.from({length: BASE_PARTICLES}, () => ({
-    x: Math.random()*W,
-    y: Math.random()*H,
-    vx:(Math.random()-0.5)*0.6,
-    vy:(Math.random()-0.5)*0.6,
-    r: Math.random()*2+1.2,
-    a: Math.random()*Math.PI*2,
-    spin:(Math.random()-0.5)*0.02
-  }));
-
-  const attractor={x:-9999,y:-9999,active:false};
-  let lastPointerTime=0;
-
-  const setAttractor=(x,y)=>{attractor.x=x; attractor.y=y; attractor.active=true; lastPointerTime=performance.now();};
-  const idleOff=()=>{ if(performance.now()-lastPointerTime>1600){ attractor.active=false; attractor.x=-9999; attractor.y=-9999; } };
-
-  addEventListener('pointermove', e=>setAttractor(e.clientX,e.clientY), {passive:true});
-  addEventListener('pointerdown', e=>setAttractor(e.clientX,e.clientY), {passive:true});
-  addEventListener('pointerup',   ()=>{ lastPointerTime=performance.now(); }, {passive:true});
-  addEventListener('touchstart', e=>{ const t=e.touches[0]; if(t) setAttractor(t.clientX,t.clientY); }, {passive:true});
-  addEventListener('touchmove',  e=>{ const t=e.touches[0]; if(t) setAttractor(t.clientX,t.clientY); }, {passive:true});
-  addEventListener('touchend',   ()=>{ lastPointerTime=performance.now(); }, {passive:true});
-
-  function drawParticles(){
-    pCtx.clearRect(0,0,W,H);
-    const R  = isMobile ? 110 : 160;
-    const R2 = R*R;
-
-    for(const p of particles){
-      p.x+=p.vx; p.y+=p.vy; p.a+=p.spin;
-
-      // wrap
-      if(p.x<-10) p.x=W+10; if(p.x>W+10) p.x=-10;
-      if(p.y<-10) p.y=H+10; if(p.y>H+10) p.y=-10;
-
-      // repel
-      if(attractor.active){
-        const dx=p.x-attractor.x, dy=p.y-attractor.y, d2=dx*dx+dy*dy;
-        if(d2<R2){
-          const d=Math.sqrt(d2)||0.001, force=Math.min(1.6,(R2/d2));
-          const ux=dx/d, uy=dy/d;
-          p.vx += ux*0.08*force;
-          p.vy += uy*0.08*force;
-          p.vx*=0.98; p.vy*=0.98;
-        }
-      }
-
-      // draw with golden glow
-      pCtx.save();
-      pCtx.translate(p.x,p.y);
-      pCtx.rotate(p.a);
-      pCtx.globalAlpha=0.35;
-      pCtx.beginPath(); pCtx.arc(0,0,p.r*2.2,0,Math.PI*2);
-      pCtx.fillStyle='rgba(218,189,102,0.25)'; pCtx.fill();
-      pCtx.globalAlpha=0.9;
-      pCtx.beginPath(); pCtx.arc(0,0,p.r,0,Math.PI*2);
-      pCtx.fillStyle='rgba(218,189,102,0.85)'; pCtx.fill();
-      pCtx.restore();
-
-      const sp2=p.vx*p.vx+p.vy*p.vy; if(sp2>2.5){ p.vx*=0.96; p.vy*=0.96; }
-    }
-    idleOff();
-  }
-
-  // Fog (smoke)
-  const FOG_COUNT = prefersReduced ? 0 : (isMobile ? 16 : 26);
-  const fogs = Array.from({length: FOG_COUNT}, () => {
-    const baseR=(isMobile?90:120)+Math.random()*140;
-    return {
-      x: Math.random()*fogCanvas.width,
-      y: Math.random()*fogCanvas.height,
-      r: baseR,
-      alpha:0.06+Math.random()*0.08,
-      dx:(Math.random()*0.4+0.05)*(Math.random()<.5?-1:1),
-      dy:(Math.random()*0.25+0.03)*(Math.random()<.5?-1:1)
-    };
-  });
-  const fogRGBA=a=>`rgba(180,190,200,${a})`;
-
-  function drawFog(){
-    const ctx=fogCtx, w=fogCanvas.width, h=fogCanvas.height;
-    ctx.clearRect(0,0,w,h);
-    ctx.globalCompositeOperation='lighter';
-    for(const f of fogs){
-      f.x+=f.dx*0.2; f.y+=f.dy*0.2;
-
-      // Spawn/respawn edges to feel like workshop smoke (left/bottom bias)
-      if(f.x<-f.r){ f.x=w+f.r*0.5; f.y=h*0.6+Math.random()*h*0.4; }
-      if(f.x>w+f.r){ f.x=-f.r*0.5;  f.y=h*0.6+Math.random()*h*0.4; }
-      if(f.y<-f.r){ f.y=h+f.r*0.5; f.x=Math.random()*w*0.4; }
-      if(f.y>h+f.r){ f.y=-f.r*0.5; f.x=Math.random()*w*0.4; }
-
-      const grad=ctx.createRadialGradient(f.x,f.y,f.r*0.1,f.x,f.y,f.r);
-      grad.addColorStop(0, fogRGBA(f.alpha));
-      grad.addColorStop(1, fogRGBA(0));
-
-      ctx.save();
-      ctx.filter='blur(3px)';
-      ctx.fillStyle=grad;
-      ctx.beginPath();
-      ctx.arc(f.x,f.y,f.r,0,Math.PI*2);
-      ctx.fill();
-      ctx.restore();
-    }
-    ctx.globalCompositeOperation='source-over';
-  }
-
-  // Loop
-  let last=0, step=prefersReduced? 1000/24 : 16;
-  function loop(ts){
-    if(ts-last>step){
-      if(FOG_COUNT) drawFog();
-      if(BASE_PARTICLES) drawParticles();
-      last=ts;
-    }
-    requestAnimationFrame(loop);
-  }
-  requestAnimationFrame(loop);
-})();
+/* Effects control panel */
+.fx-panel{position:fixed;left:14px;bottom:14px;display:flex;gap:8px;align-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:6px 8px;backdrop-filter:blur(8px)}
+#fxToggle{border:none;border-radius:8px;padding:6px 8px;font-weight:800;cursor:pointer}
+#fxColor{background:#121317;color:#fff;border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:6px}

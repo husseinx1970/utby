@@ -1,121 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
-  <title>InnovRise — Building What Lasts</title>
-  <meta name="description" content="InnovRise builds purposeful technology with discipline and care. Swedish engineering, global impact." />
-
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="color-scheme" content="dark only">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <title>Utby Snabb Bilverkstad — Hem</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <meta name="color-scheme" content="dark only"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
-  <canvas id="bgGL" aria-hidden="true"></canvas>
+  <canvas id="bgFog"></canvas>
+  <canvas id="bgParticles"></canvas>
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><img src="assets/logo.png" alt="logo"/><span class="brand-name">Utby Snabb Bilverkstad</span></a>
+      <nav class="nav">
+        <a class="secondary" href="projects.html">Tjänster</a>
+        <a class="secondary" href="about.html">Om oss</a>
+        <a class="secondary" href="investors.html">Investors</a>
+        <a href="contact.html">Boka tid</a>
+      </nav>
+    </div>
+  </header>
 
-  
-<header class="nav container">
-  <a class="logo" href="index.html" aria-label="InnovRise Home">
-    <img src="assets/logo.svg" alt="InnovRise logo" />
-    <span class="brandword">InnovRise</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="projects.html">Projects</a></li>
-    <li><a href="investors.html">Investors</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</header>
-
-
-  <main class="container hero">
-    <section class="hero-left">
-      <h1 class="brandline glow-target"><span>InnovRise</span></h1>
-      <p class="lead glow-target">We build technology with purpose, not noise. Our craft is disciplined, measured, and aimed at tangible outcomes that make life safer and work more creative.</p>
-      <p class="glow-target">We prefer proof over promises. We work with partners who value engineering quality, ethical design, and results that withstand time.</p>
+  <section class="hero">
+    <div class="container">
+      <h1>Professionell bilservice i Göteborg</h1>
+      <p class="lead">Service، reparation och diagnos för alla bilmärken. Drop-in — vardagar 09:00–18:00.</p>
       <div class="cta">
-        <a class="btn-primary glow-target" href="projects.html">See Projects</a>
-        <a class="btn-ghost glow-target" href="investors.html">Invest With Us</a>
+        <a class="btn primary" href="contact.html">Boka tid</a>
+        <a class="btn ghost" href="tel:+46720040936">Ring 072-004 09 36</a>
       </div>
-    </section>
-    <section class="hero-right">
-      <canvas id="playground" width="860" height="520" aria-label="InnovRise particles"></canvas>
-      <p class="play-hint">Energy in motion — InnovRise.</p>
-    </section>
-  </main>
-
-  <section class="container beliefs section">
-    <h2 class="glow-target">What We Believe</h2>
-    <div class="beliefs-grid">
-      <div class="belief glow-target">
-        <h3>Integrity before speed</h3>
-        <p>We release only what we can stand behind. Reliability is not a feature; it is the baseline.</p>
-      </div>
-      <div class="belief glow-target">
-        <h3>Craft over hype</h3>
-        <p>We don’t chase attention. We refine details until products feel inevitable.</p>
-      </div>
-      <div class="belief glow-target">
-        <h3>Respect for people</h3>
-        <p>Technology should serve the human mind, preserve dignity, and protect privacy.</p>
-      </div>
-      <div class="belief glow-target">
-        <h3>Progress through knowledge</h3>
-        <p>We value patient learning, open collaboration, and measurable improvement.</p>
-      </div>
+      <img class="hero-logo" src="assets/logo.png" alt="Utby Snabb Bilverkstad logotyp">
     </div>
   </section>
 
-  <section class="container section for-investors">
-    <h2 class="glow-target">For Investors</h2>
-    <div class="grid-2">
-      <div class="card glass glow-target">
-        <h3>Thesis</h3>
-        <p>We focus on essential problems in mobility and design where disciplined engineering can deliver clear, defensible value.</p>
-        <ul>
-          <li>Purposeful hardware with secure event evidence — built for real deployment.</li>
-          <li>Measured rollouts with partners who value outcomes, not headlines.</li>
-          <li>Responsible economics and tools that last.</li>
-        </ul>
+  <section class="section">
+    <div class="container services">
+      <div class="card">
+        <h3>Service</h3>
+        <p>Original-/OEM-delar, digital servicebok där det finns.</p>
+        <img src="assets/photo1.jpg" alt="Service">
       </div>
-      <div class="card glass glow-target">
-        <h3>Invitation</h3>
-        <p>We welcome investors who bring more than capital: method, domain knowledge, and patience for building well. If that’s you, let’s talk.</p>
-        <div class="cta">
-          <a class="btn-primary" href="investors.html">Open the Investor page</a>
-          <a class="btn-ghost" href="contact.html">Contact</a>
-        </div>
+      <div class="card">
+        <h3>Däck & hjul</h3>
+        <p>Skifte, balansering, TPMS och däckhotell.</p>
+        <img src="assets/photo3.jpg" alt="Däck">
+      </div>
+      <div class="card">
+        <h3>Reparationer</h3>
+        <p>Bromsar, fjädring, motor, växellåda och AC.</p>
+        <img src="assets/photo2.jpg" alt="Reparationer">
       </div>
     </div>
   </section>
-
-  
-<footer class="footer">
-  <div class="container footer-grid">
-    <div class="brand">
-      <img src="assets/logo.svg" alt="InnovRise logo small" />
+  <footer class="site-footer">
+    <div class="container footer-top">
       <div>
-        <strong>InnovRise</strong>
-        <p>Swedish Future Innovation</p>
+        <h4>Kontakt</h4>
+        <p><strong>Utby Snabb Bilverkstad</strong></p>
+        <p>Vagnmakaregatan 2, 415 72 Göteborg</p>
+        <p>Telefon: <a href="tel:+46720040936">072-004 09 36</a></p>
+        <p>E-post: <a href="mailto:info@utbysnabbbilservice.se">info@utbysnabbbilservice.se</a></p>
+      </div>
+      <div>
+        <h4>Öppettider</h4>
+        <ul>
+          <li><strong>Vardagar:</strong> 09:00 – 18:00</li>
+          <li>Lördag: enligt överenskommelse</li>
+        </ul>
+        <p style="margin-top:6px">Drop-in välkommen · <strong>Däckhotell</strong></p>
+      </div>
+      <div>
+        <h4>Om verkstaden</h4>
+        <ul>
+          <li>Service, diagnos, bromsar, däck, AC och el</li>
+          <li>Kompletta reparationer — motor & växellåda</li>
+          <li>Tydliga besked och arbete som håller över tid</li>
+        </ul>
+        <p style="margin-top:6px"><a href="https://maps.google.com/?q=57.74025,12.07864" target="_blank" rel="noopener">Hitta oss på Google Maps</a></p>
       </div>
     </div>
-    <div class="links">
-      <a href="index.html">Home</a>
-      <a href="projects.html">Projects</a>
-      <a href="investors.html">Investors</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+    <div class="footer-divider" aria-hidden="true"></div>
+    <div class="container copyright-bar">
+      <span>© 2023 Utby Snabb Bilverkstad</span> |
+      <span>Design by <a id="openCreator2" href="#">Hussein</a></span>
     </div>
-    <div class="socials">
-      <a href="https://www.linkedin.com/in/innovrise-842961389/" target="_blank" rel="noopener">LinkedIn</a>
-    </div>
-  </div>
-  <div class="legal">© <span id="year"></span> InnovRise AB — Karlstad, Sweden</div>
-</footer>
+  </footer>
 
+  <a id="smsFab" class="sms-fab" href="#" aria-label="Skicka SMS eller e-post">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M20 2H4a2 2 0 00-2 2v16l4-4h14a2 2 0 002-2V4a2 2 0 01-2-2zM6 9h8v2H6V9zm0-4h12v2H6V5z"/>
+    </svg>
+  </a>
   <script src="script.js"></script>
 </body>
 </html>

@@ -67,6 +67,15 @@
     .booking button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(218,189,102,.35)}
     #bookThanks{display:none}
 
+    /* Fix native select menu colors (text white on dark bg) */
+    .booking select{background:#121317;color:#fff}
+    .booking select option{background:#0b0c10;color:#fff}
+    .booking select option[disabled]{color:#9fb0c0}
+    /* For WebKit dropdown list */
+    @supports selector(select:focus-visible){
+      select::-ms-expand{display:none}
+    }
+
     /* Map */
     .map-container{text-align:center;margin-top:22px}
     iframe{width:100%;height:240px;border:0;border-radius:12px}
@@ -164,43 +173,43 @@
       <h2>Våra tjänster</h2>
       <p class="muted">Vi hanterar allt från motor och växellåda till minsta komponent. Du får alltid prisförslag innan åtgärd och tydlig återkoppling när arbetet är klart.</p>
 
-      <div class="services">
-        <div class="card">
-          <h3>Service</h3>
-          <p>Planerad service enligt tillverkarens intervall: byte av motorolja och filter، kontroll av vätskor، bromsar، batteri، belysning och drivlina. Vi uppdaterar digital servicebok där det är möjligt (Volvo، BMW، VAG m.fl.).</p>
-          <ul style="margin:6px 0 8px 18px">
-            <li>30–40 punkters säkerhetskontroll</li>
-            <li>Provkörning och felkodsavläsning</li>
-            <li>Serviceunderlag & tydlig återkoppling</li>
-          </ul>
-          <p>Vi följer GVO-regler så att din nybilsgaranti bevaras när originalspecade delar används.</p>
-          <img src="assets/photo1.jpg" alt="Service och oljebyte">
-        </div>
-
-        <div class="card">
-          <h3>Däck & hjul</h3>
-          <p>Skifte sommar/vinter، balansering och kontroll av mönsterdjup och lufttryck. Vi programmerar och kalibrerar även TPMS vid behov.</p>
-          <ul style="margin:6px 0 8px 18px">
-            <li>Däckhotell: torrt، säkert och försäkrat</li>
-            <li>Snabbt skifte med momentkontroll</li>
-            <li>Rådgivning om rätt dimension och lastindex</li>
-          </ul>
-          <p>Vi gör bilen redo för säsongen och minskar vibrationer och onödigt slitage.</p>
-          <img src="assets/photo3.jpg" alt="Däckhotell och hjulservice">
-        </div>
-
-        <div class="card">
-          <h3>Kompletta reparationer</h3>
-          <p>Från bromsar، avgassystem och fjädring till motor، koppling/växellåda och el. Vi felsöker systematiskt med moderna diagnosverktyg.</p>
-          <ul style="margin:6px 0 8px 18px">
-            <li>Kamrem/kedja، vattenpump och packningar</li>
-            <li>Bromsskivor/-belägg، ok & handbroms</li>
-            <li>AC-service: läcktest & påfyllning</li>
-          </ul>
-          <p>Du får alltid prisförslag innan åtgärd och dokumentation efter utfört arbete.</p>
-          <img src="assets/photo2.jpg" alt="Kompletta reparationer">
-        </div>
+    <div class="services">
+      <div class="card">
+        <h3>Service</h3>
+        <p>Planerad service enligt tillverkarens intervall: byte av motorolja och filter، kontroll av vätskor، bromsar، batteri، belysning och drivlina. Vi uppdaterar digital servicebok där det är möjligt (Volvo، BMW، VAG m.fl.).</p>
+        <ul style="margin:6px 0 8px 18px">
+          <li>30–40 punkters säkerhetskontroll</li>
+          <li>Provkörning och felkodsavläsning</li>
+          <li>Serviceunderlag & tydlig återkoppling</li>
+        </ul>
+        <p>Vi följer GVO-regler så att din nybilsgaranti bevaras när originalspecade delar används.</p>
+        <img src="assets/photo1.jpg" alt="Service och oljebyte">
       </div>
+
+      <div class="card">
+        <h3>Däck & hjul</h3>
+        <p>Skifte sommar/vinter، balansering och kontroll av mönsterdjup och lufttryck. Vi programmerar och kalibrerar även TPMS vid behov.</p>
+        <ul style="margin:6px 0 8px 18px">
+          <li>Däckhotell: torrt، säkert och försäkrat</li>
+          <li>Snabbt skifte med momentkontroll</li>
+          <li>Rådgivning om rätt dimension och lastindex</li>
+        </ul>
+        <p>Vi gör bilen redo för säsongen och minskar vibrationer och onödigt slitage.</p>
+        <img src="assets/photo3.jpg" alt="Däckhotell och hjulservice">
+      </div>
+
+      <div class="card">
+        <h3>Kompletta reparationer</h3>
+        <p>Från bromsar، avgassystem och fjädring till motor، koppling/växellåda och el. Vi felsöker systematiskt med moderna diagnosverktyg.</p>
+        <ul style="margin:6px 0 8px 18px">
+          <li>Kamrem/kedja، vattenpump och packningar</li>
+          <li>Bromsskivor/-belägg، ok & handbroms</li>
+          <li>AC-service: läcktest & påfyllning</li>
+        </ul>
+        <p>Du får alltid prisförslag innan åtgärd och dokumentation efter utfört arbete.</p>
+        <img src="assets/photo2.jpg" alt="Kompletta reparationer">
+      </div>
+    </div>
 
       <div class="card" style="margin-top:14px">
         <h3>Vanliga frågor (FAQ)</h3>
@@ -220,37 +229,22 @@
       <!-- iframe مخفي للإرسال بدون تنقل -->
       <iframe name="hidden_iframe" id="hidden_iframe" style="display:none"></iframe>
 
-      <!-- ملاحظة: تم تعطيل الرد التلقائي وتفعيل الكابتشا وتهيئة Reply-To -->
-      <form class="booking" id="bookingForm" action="https://formsubmit.co/Husseinmormor@gmail.com" method="POST" target="hidden_iframe">
+      <!-- يرسل الآن إلى info@utbysnabbbilservice.se -->
+      <form class="booking" id="bookingForm" action="https://formsubmit.co/info@utbysnabbbilservice.se" method="POST" target="hidden_iframe">
         <!-- FormSubmit settings -->
-        <!-- تمت إزالة تعطيل الكابتشا لتمكين الحماية -->
-        <!-- <input type="hidden" name="_captcha" value="false"> -->
-
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_subject" value="Ny bokning — Utby Snabb Bilverkstad">
-
-        <!-- تم حذف _autoresponse لإيقاف الرسالة التلقائية للزائر -->
-
-        <!-- Honeypot -->
+        <!-- honeypot -->
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
-
-        <!-- Reply-To: سيُملأ تلقائيًا عبر جافاسكربت من بريد الزائر -->
+        <!-- Reply-To -->
         <input type="hidden" name="_replyto" id="replyToField" value="">
 
         <label for="name">Namn</label>
         <input id="name" name="name" placeholder="För- och efternamn" required>
 
         <label for="email">E-post</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          placeholder="din@epost.se"
-          required
-          pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
-          inputmode="email"
-          autocomplete="email"
-        >
+        <input id="email" name="email" type="email" placeholder="din@epost.se" required
+               pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" inputmode="email" autocomplete="email">
 
         <label for="car">Bil/Regnr</label>
         <input id="car" name="Bil/Regnr" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
@@ -269,7 +263,6 @@
           <option>Annan åtgärd</option>
         </select>
 
-        <!-- Datum & Tid små وجنب بعض -->
         <div class="inline-dt">
           <div class="field">
             <label for="date">Önskat datum</label>
@@ -305,7 +298,7 @@
         <p><strong>Utby Snabb Bilverkstad</strong></p>
         <p>Vagnmakaregatan 2, 415 72 Göteborg</p>
         <p>Telefon: <a href="tel:+46720040936">072-004 09 36</a></p>
-        <p>E-post: <a href="mailto:Husseinmormor@gmail.com">Husseinmormor@gmail.com</a></p>
+        <p>E-post: <a href="mailto:info@utbysnabbbilservice.se">info@utbysnabbbilservice.se</a></p>
       </div>
       <div>
         <h4>Öppettider</h4>
@@ -345,7 +338,7 @@
         </div>
       </div>
       <a class="action call" href="tel:+46790574975">Ring: 0790574975</a>
-      <a class="action mail" href="mailto:Husseinmormor@gmail.com">Skicka e-post</a>
+      <a class="action mail" href="mailto:info@utbysnabbbilservice.se">Skicka e-post</a>
       <div class="meta">
         <strong>Vill du ha en professionell hemsida?</strong>
         <p>Jag bygger snabba، säkra och mobilanpassade webbplatser för företag och privatpersoner. Från idé till färdig sida — enkelt، tydligt och snyggt.</p>
@@ -368,8 +361,24 @@
     </div>
   </div>
 
+  <!-- Modal: Kontaktväljare (SMS eller E-post) -->
+  <div class="modal" id="chooserModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="chooserTitle">
+      <div class="modal-header">
+        <img src="assets/logo.png" alt="Logotyp">
+        <div>
+          <h3 id="chooserTitle">Välj kontaktmetod</h3>
+          <p>Vill du skicka SMS eller E-post?</p>
+        </div>
+      </div>
+      <a class="action call" id="chooserSms" href="#">Skicka SMS</a>
+      <a class="action mail" id="chooserMail" href="mailto:info@utbysnabbbilservice.se?subject=Bokningsf%C3%B6rfr%C3%A5gan">Skicka e-post</a>
+      <a href="#" class="modal-close" id="chooserClose">Stäng</a>
+    </div>
+  </div>
+
   <!-- SMS floating button -->
-  <a id="smsFab" class="sms-fab" href="sms:+46790574975" aria-label="Skicka SMS till Hussein">
+  <a id="smsFab" class="sms-fab" href="#" aria-label="Skicka SMS eller e-post">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M20 2H4a2 2 0 00-2 2v16l4-4h14a2 2 0 002-2V4a2 2 0 01-2-2zM6 9h8v2H6V9zm0-4h12v2H6V5z"/>
     </svg>
@@ -444,21 +453,38 @@
       });
     })();
 
-    // SMS: default text + debounce clicks
+    // SMS chooser: show modal with two options (SMS or Email)
     (function(){
-      const link=document.getElementById('smsFab'); if(!link) return;
-      const base='sms:+46790574975';
-      const body=encodeURIComponent('Hej! Jag behöver rådgivning om bilen.');
-      const ua=navigator.userAgent.toLowerCase();
-      const href=(ua.includes('iphone')||ua.includes('ipad'))?`${base}&body=${body}`:`${base}?body=${body}`;
-      link.setAttribute('href',href);
+      const fab=document.getElementById('smsFab');
+      const chooser=document.getElementById('chooserModal');
+      const chooserSms=document.getElementById('chooserSms');
+      const chooserMail=document.getElementById('chooserMail');
+      const chooserClose=document.getElementById('chooserClose');
 
-      let lockUntil=0;
-      link.addEventListener('click',(e)=>{
-        const now=Date.now();
-        if(now<lockUntil){e.preventDefault();e.stopImmediatePropagation();return;}
-        lockUntil=now+1200;
-      },true);
+      // Build platform-correct SMS link with default body
+      function smsHref(){
+        const base='sms:+46790574975';
+        const body=encodeURIComponent('Hej! Jag behöver rådgivning om bilen.');
+        const ua=navigator.userAgent.toLowerCase();
+        // iOS uses &body, Android/others use ?body
+        return (ua.includes('iphone')||ua.includes('ipad'))?`${base}&body=${body}`:`${base}?body=${body}`;
+      }
+
+      function openChooser(e){
+        e?.preventDefault();
+        chooser.classList.add('show');
+        document.body.classList.add('scroll-lock');
+        chooserSms.setAttribute('href', smsHref());
+      }
+      function closeChooser(e){
+        e?.preventDefault();
+        chooser.classList.remove('show');
+        document.body.classList.remove('scroll-lock');
+      }
+
+      fab?.addEventListener('click',openChooser);
+      chooserClose?.addEventListener('click',closeChooser);
+      chooser?.addEventListener('click',ev=>{ if(ev.target===chooser) closeChooser(ev); });
     })();
 
     // Draggable SMS + snap to edges + remember position

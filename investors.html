@@ -1,92 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
-  <title>Investors — InnovRise</title>
-  <meta name="description" content="Investor overview: philosophy, market, plan, and the raise." />
-
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="color-scheme" content="dark only">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <title>Investors — Utby Snabb Bilverkstad</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <meta name="color-scheme" content="dark only"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
-  <canvas id="bgGL" aria-hidden="true"></canvas>
-  
-<header class="nav container">
-  <a class="logo" href="index.html" aria-label="InnovRise Home">
-    <img src="assets/logo.svg" alt="InnovRise logo" />
-    <span class="brandword">InnovRise</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="projects.html">Projects</a></li>
-    <li><a href="investors.html">Investors</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</header>
+  <canvas id="bgFog"></canvas>
+  <canvas id="bgParticles"></canvas>
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><img src="assets/logo.png" alt="logo"/><span class="brand-name">Utby Snabb Bilverkstad</span></a>
+      <nav class="nav">
+        <a class="secondary" href="projects.html">Tjänster</a>
+        <a class="secondary" href="about.html">Om oss</a>
+        <a class="secondary" href="investors.html">Investors</a>
+        <a href="contact.html">Boka tid</a>
+      </nav>
+    </div>
+  </header>
 
-  <main class="container page">
-    <h1 class="glow-target">Investors</h1>
-    <p class="lead glow-target">We build patiently and release carefully. We invite partners who share that discipline.</p>
-
-    <section class="cards-3">
-      <div class="card glass glow-target">
-        <h3>Philosophy</h3>
-        <p>We don’t optimize for headlines. We optimize for fewer accidents, clearer evidence, and tools that age well.</p>
-        <p>Our work sits at the intersection of hardware signals, secure summaries, and respectful design.</p>
-      </div>
-      <div class="card glass glow-target">
-        <h3>Market</h3>
-        <p>Mobility safety, insurance efficiency, and urban planning need reliable field systems, not dashboards alone.</p>
-        <p>Our path: fleets and taxi co‑ops first; insurers and municipalities next.</p>
-      </div>
-      <div class="card glass glow-target">
-        <h3>Plan</h3>
-        <ul>
-          <li>Complete certification and durability testing.</li>
-          <li>Run paid pilots with clear success criteria.</li>
-          <li>Scale manufacturing and launch events‑based subscriptions.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="card glass glow-target">
-      <h3>Round</h3>
-      <p>We’re raising to finalize certification, expand pilots, and tool manufacturing. We value investors who bring method, network, and a steady hand.</p>
-      <div class="cta">
-        <a class="btn-primary" href="contact.html">Start a conversation</a>
-        <a class="btn-ghost" href="projects.html">See the work</a>
-      </div>
-    </section>
-  </main>
-  
-<footer class="footer">
-  <div class="container footer-grid">
-    <div class="brand">
-      <img src="assets/logo.svg" alt="InnovRise logo small" />
+  <section class="section">
+    <div class="container">
+      <h2>Investors</h2>
+      <p class="muted">Vi växer — intresserad av partnerskap? Kontakta oss.</p>
+      <ul>
+        <li>Stabil lokal efterfrågan</li>
+        <li>Återkommande kunder</li>
+        <li>Utökning av däckhotell & diagnostik</li>
+      </ul>
+    </div>
+  </section>
+  <footer class="site-footer">
+    <div class="container footer-top">
       <div>
-        <strong>InnovRise</strong>
-        <p>Swedish Future Innovation</p>
+        <h4>Kontakt</h4>
+        <p><strong>Utby Snabb Bilverkstad</strong></p>
+        <p>Vagnmakaregatan 2, 415 72 Göteborg</p>
+        <p>Telefon: <a href="tel:+46720040936">072-004 09 36</a></p>
+        <p>E-post: <a href="mailto:info@utbysnabbbilservice.se">info@utbysnabbbilservice.se</a></p>
+      </div>
+      <div>
+        <h4>Öppettider</h4>
+        <ul>
+          <li><strong>Vardagar:</strong> 09:00 – 18:00</li>
+          <li>Lördag: enligt överenskommelse</li>
+        </ul>
+        <p style="margin-top:6px">Drop-in välkommen · <strong>Däckhotell</strong></p>
+      </div>
+      <div>
+        <h4>Om verkstaden</h4>
+        <ul>
+          <li>Service, diagnos, bromsar, däck, AC och el</li>
+          <li>Kompletta reparationer — motor & växellåda</li>
+          <li>Tydliga besked och arbete som håller över tid</li>
+        </ul>
+        <p style="margin-top:6px"><a href="https://maps.google.com/?q=57.74025,12.07864" target="_blank" rel="noopener">Hitta oss på Google Maps</a></p>
       </div>
     </div>
-    <div class="links">
-      <a href="index.html">Home</a>
-      <a href="projects.html">Projects</a>
-      <a href="investors.html">Investors</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+    <div class="footer-divider" aria-hidden="true"></div>
+    <div class="container copyright-bar">
+      <span>© 2023 Utby Snabb Bilverkstad</span> |
+      <span>Design by <a id="openCreator2" href="#">Hussein</a></span>
     </div>
-    <div class="socials">
-      <a href="https://www.linkedin.com/in/innovrise-842961389/" target="_blank" rel="noopener">LinkedIn</a>
-    </div>
-  </div>
-  <div class="legal">© <span id="year"></span> InnovRise AB — Karlstad, Sweden</div>
-</footer>
+  </footer>
 
   <script src="script.js"></script>
 </body>
-</html]
+</html>

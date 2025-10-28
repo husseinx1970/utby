@@ -1,80 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
-  <title>About — InnovRise</title>
-  <meta name="description" content="About InnovRise: purpose, discipline, and careful engineering." />
-
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="color-scheme" content="dark only">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <title>Om oss — Utby Snabb Bilverkstad</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <meta name="color-scheme" content="dark only"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
-  <canvas id="bgGL" aria-hidden="true"></canvas>
-  
-<header class="nav container">
-  <a class="logo" href="index.html" aria-label="InnovRise Home">
-    <img src="assets/logo.svg" alt="InnovRise logo" />
-    <span class="brandword">InnovRise</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="projects.html">Projects</a></li>
-    <li><a href="investors.html">Investors</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</header>
+  <canvas id="bgFog"></canvas>
+  <canvas id="bgParticles"></canvas>
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html"><img src="assets/logo.png" alt="logo"/><span class="brand-name">Utby Snabb Bilverkstad</span></a>
+      <nav class="nav">
+        <a class="secondary" href="projects.html">Tjänster</a>
+        <a class="secondary" href="about.html">Om oss</a>
+        <a class="secondary" href="investors.html">Investors</a>
+        <a href="contact.html">Boka tid</a>
+      </nav>
+    </div>
+  </header>
 
-  <main class="container page">
-    <h1 class="glow-target">About InnovRise</h1>
-    <p class="lead glow-target">We are a Swedish technology studio. We build quietly and let results speak. Our responsibility is to the people who will rely on what we make.</p>
-    <div class="two-grid">
-      <div class="card glass glow-target">
-        <h3>Principles</h3>
-        <ul>
-          <li>Respect for people and privacy.</li>
-          <li>Reliability over speed.</li>
-          <li>Clarity, simplicity, and good taste.</li>
-        </ul>
-      </div>
-      <div class="card glass glow-target">
-        <h3>How we work</h3>
-        <ul>
-          <li>Prototype fast, test in the wild, refine relentlessly.</li>
-          <li>Collaborate with fleets, engineers, and domain experts.</li>
-          <li>Ship only when the bar is met.</li>
-        </ul>
-      </div>
+  <section class="section">
+    <div class="container">
+      <h2>Om verkstaden</h2>
+      <p class="muted">Vi är en lokal verkstad med fokus på tydlig kommunikation och kvalitet.</p>
+      <p>Vi följer GVO-regler och använder original/OEM-delar. Nybilsgaranti bevaras.</p>
     </div>
-  </main>
-  
-<footer class="footer">
-  <div class="container footer-grid">
-    <div class="brand">
-      <img src="assets/logo.svg" alt="InnovRise logo small" />
+  </section>
+  <footer class="site-footer">
+    <div class="container footer-top">
       <div>
-        <strong>InnovRise</strong>
-        <p>Swedish Future Innovation</p>
+        <h4>Kontakt</h4>
+        <p><strong>Utby Snabb Bilverkstad</strong></p>
+        <p>Vagnmakaregatan 2, 415 72 Göteborg</p>
+        <p>Telefon: <a href="tel:+46720040936">072-004 09 36</a></p>
+        <p>E-post: <a href="mailto:info@utbysnabbbilservice.se">info@utbysnabbbilservice.se</a></p>
+      </div>
+      <div>
+        <h4>Öppettider</h4>
+        <ul>
+          <li><strong>Vardagar:</strong> 09:00 – 18:00</li>
+          <li>Lördag: enligt överenskommelse</li>
+        </ul>
+        <p style="margin-top:6px">Drop-in välkommen · <strong>Däckhotell</strong></p>
+      </div>
+      <div>
+        <h4>Om verkstaden</h4>
+        <ul>
+          <li>Service, diagnos, bromsar, däck, AC och el</li>
+          <li>Kompletta reparationer — motor & växellåda</li>
+          <li>Tydliga besked och arbete som håller över tid</li>
+        </ul>
+        <p style="margin-top:6px"><a href="https://maps.google.com/?q=57.74025,12.07864" target="_blank" rel="noopener">Hitta oss på Google Maps</a></p>
       </div>
     </div>
-    <div class="links">
-      <a href="index.html">Home</a>
-      <a href="projects.html">Projects</a>
-      <a href="investors.html">Investors</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+    <div class="footer-divider" aria-hidden="true"></div>
+    <div class="container copyright-bar">
+      <span>© 2023 Utby Snabb Bilverkstad</span> |
+      <span>Design by <a id="openCreator2" href="#">Hussein</a></span>
     </div>
-    <div class="socials">
-      <a href="https://www.linkedin.com/in/innovrise-842961389/" target="_blank" rel="noopener">LinkedIn</a>
-    </div>
-  </div>
-  <div class="legal">© <span id="year"></span> InnovRise AB — Karlstad, Sweden</div>
-</footer>
+  </footer>
 
   <script src="script.js"></script>
 </body>
-</html]
+</html>

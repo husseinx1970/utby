@@ -147,7 +147,7 @@
           <span>Kontakt</span>
         </a>
         <a href="#boka">
-          <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h2v2h6V2h2v2h3a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h3V2z"/></svg></span>
+          <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h2v2h6V2h2v2h3a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h3V2zm14 8H3v8a1 1 0 001 1h16a1 1 0 001-1v-8z"/></svg></span>
           <span>Boka tid</span>
         </a>
       </nav>
@@ -160,7 +160,7 @@
       <h1>Professionell bilservice i Göteborg</h1>
       <p class="lead">Komplett service، reparation och diagnos för alla bilmärken. Drop-in välkommen — vardagar 09:00–18:00. Vi erbjuder däckhotell och full bilservice.</p>
       <div class="cta">
-        <a class="btn primary" href="mailto:info@utbysnabbbilservice.se?subject=Bokningsförfrågan">Boka via e-post</a>
+        <a class="btn primary" href="#boka">Boka tid</a>
         <a class="btn ghost" href="tel:+46720040936">Ring 072-004 09 36</a>
       </div>
       <img class="hero-logo" src="assets/logo.png" alt="Utby Snabb Bilverkstad logotyp">
@@ -226,22 +226,61 @@
     <div class="container">
       <h2>Kontakt & bokning</h2>
 
-      <div class="booking">
-        <p style="text-align:center;margin-bottom:20px;">För att boka tid, skicka ett e-post till oss med följande information:</p>
-        
-        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:20px;">
-          <p><strong>Namn:</strong> Ditt för- och efternamn</p>
-          <p><strong>E-post:</strong> Din e-postadress</p>
-          <p><strong>Bil/Regnr:</strong> Bilens märke, modell och registreringsnummer</p>
-          <p><strong>Problem/Tjänst:</strong> Beskriv vad bilen behöver</p>
-          <p><strong>Önskat datum:</strong> När du vill komma</p>
-          <p><strong>Önskad tid:</strong> Vilken tid passar dig</p>
+      <!-- iframe مخفي للإرسال بدون تنقل -->
+      <iframe name="hidden_iframe" id="hidden_iframe" style="display:none"></iframe>
+
+      <!-- يرسل الآن إلى info@utbysnabbbilservice.se -->
+      <form class="booking" id="bookingForm" action="https://formsubmit.co/info@utbysnabbbilservice.se" method="POST" target="hidden_iframe">
+        <!-- FormSubmit settings -->
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_subject" value="Ny bokning — Utby Snabb Bilverkstad">
+        <!-- honeypot -->
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <!-- Reply-To -->
+        <input type="hidden" name="_replyto" id="replyToField" value="">
+
+        <label for="name">Namn</label>
+        <input id="name" name="name" placeholder="För- och efternamn" required>
+
+        <label for="email">E-post</label>
+        <input id="email" name="email" type="email" placeholder="din@epost.se" required
+               pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" inputmode="email" autocomplete="email">
+
+        <label for="car">Bil/Regnr</label>
+        <input id="car" name="Bil/Regnr" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
+
+        <label for="issue">Problem / Tjänst</label>
+        <select id="issue" name="Problem" required>
+          <option value="" disabled selected>Välj ett alternativ…</option>
+          <option>Service & olja</option>
+          <option>Bromsar</option>
+          <option>Däck & hjul</option>
+          <option>AC / klimatanläggning</option>
+          <option>El / elektronik</option>
+          <option>Diagnos / OBD</option>
+          <option>Växellåda / koppling</option>
+          <option>Motor</option>
+          <option>Annan åtgärd</option>
+        </select>
+
+        <div class="inline-dt">
+          <div class="field">
+            <label for="date">Önskat datum</label>
+            <input id="date" name="Datum" type="date" required>
+          </div>
+          <div class="field">
+            <label for="time">Önskad tid</label>
+            <input id="time" name="Tid" type="time" required>
+          </div>
         </div>
 
-        <div style="text-align:center;margin-top:20px;">
-          <a class="btn primary" href="mailto:info@utbysnabbbilservice.se?subject=Bokningsförfrågan&body=Hej! Jag vill boka tid för bilservice.%0D%0A%0D%0ANamn:%0D%0AE-post:%0D%0ABil/Regnr:%0D%0AProblem/Tjänst:%0D%0AÖnskat datum:%0D%0AÖnskad tid:%0D%0A%0D%0AÖvrig information:">Skicka e-post för bokning</a>
-        </div>
-      </div>
+        <label for="msg">Beskrivning (valfritt)</label>
+        <textarea id="msg" name="Beskrivning" placeholder="Kort beskrivning eller andra önskemål…"></textarea>
+
+        <button type="submit" id="submitBtn">Skicka förfrågan</button>
+      </form>
+
+      <div id="bookThanks"></div>
 
       <div class="map-container" id="kontakt" aria-label="Karta och adress">
         <h3>Här hittar du oss</h3>
@@ -346,6 +385,25 @@
   </a>
 
   <script>
+    // Min date = today
+    (function(){
+      const dateInput=document.getElementById('date');
+      if(dateInput){
+        const t=new Date(),y=t.getFullYear(),m=String(t.getMonth()+1).padStart(2,'0'),d=String(t.getDate()).padStart(2,'0');
+        dateInput.min=`${y}-${m}-${d}`;
+      }
+    })();
+
+    // Sync _replyto with visitor email (for proper Reply-To)
+    (function(){
+      const email=document.getElementById('email');
+      const reply=document.getElementById('replyToField');
+      function sync(){ reply.value = email.value.trim(); }
+      email?.addEventListener('input', sync);
+      email?.addEventListener('change', sync);
+      sync();
+    })();
+
     // Open Hussein modal instantly
     (function(){
       const modal=document.getElementById('creatorModal');
@@ -357,6 +415,42 @@
       open?.addEventListener('click',openFast);
       close?.addEventListener('click',hide);
       modal?.addEventListener('click',e=>{if(e.target===modal)hide();});
+    })();
+
+    // Native submit to hidden iframe + show thanks instantly + prevent double-submit
+    (function(){
+      const form=document.getElementById('bookingForm');
+      const submitBtn=document.getElementById('submitBtn');
+      const thanksModal=document.getElementById('thanksModal');
+      const thanksClose=document.getElementById('thanksClose');
+      let isSubmitting=false;
+
+      form?.addEventListener('submit',(e)=>{
+        if(!form.checkValidity()){form.reportValidity();return;}
+        if(isSubmitting){e.preventDefault();return;}
+        isSubmitting=true;
+
+        // UI lock + thanks popup
+        submitBtn.disabled=true;
+        const oldLabel=submitBtn.textContent;
+        submitBtn.textContent='Skickar…';
+        const y=window.scrollY||window.pageYOffset||0;
+        document.body.classList.add('scroll-lock');
+        thanksModal?.classList.add('show');
+
+        // بعد إرسال المتصفح للنموذج إلى iframe، نظّف الحقول بهدوء
+        setTimeout(()=>{ try{form.reset();}catch(_){} document.documentElement.style.scrollBehavior='auto'; window.scrollTo(0,y); }, 200);
+
+        function closeThanks(){
+          thanksModal?.classList.remove('show');
+          document.body.classList.remove('scroll-lock');
+          submitBtn.disabled=false;
+          submitBtn.textContent=oldLabel;
+          isSubmitting=false;
+        }
+        thanksClose?.addEventListener('click',ev=>{ev.preventDefault();closeThanks();},{once:true});
+        thanksModal?.addEventListener('click',ev=>{if(ev.target===thanksModal)closeThanks();},{once:true});
+      });
     })();
 
     // SMS chooser: show modal with two options (SMS or Email)

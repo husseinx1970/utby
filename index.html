@@ -67,6 +67,25 @@
     .booking button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(218,189,102,.35)}
     #bookThanks{display:none}
 
+    /* Contact Form Styles */
+    .contact-form{max-width:560px;margin:20px auto;padding:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px}
+    .contact-form h3{text-align:center;font:800 20px/1.3 Space Grotesk;margin:0 0 15px;color:#fff}
+    .contact-form label{display:block;font-weight:600;font-size:13px;color:#e6e8ef;margin-bottom:4px}
+    .contact-form input,.contact-form textarea{
+      width:100%;padding:10px 12px;border-radius:8px;
+      border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);
+      color:#fff;font-size:14px;margin-bottom:15px
+    }
+    .contact-form textarea{min-height:120px;resize:vertical}
+    .contact-form input:focus,.contact-form textarea:focus{
+      border-color:#d9b954;outline:none;box-shadow:0 0 0 2px rgba(218,189,102,.25)
+    }
+    .contact-form button{width:100%;padding:12px;border-radius:999px;background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;font-weight:800;font-size:15px;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(218,189,102,.25)}
+    .contact-form button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(218,189,102,.35)}
+    #contactStatus{margin-top:10px;padding:10px;border-radius:8px;text-align:center;display:none}
+    #contactStatus.success{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.3)}
+    #contactStatus.error{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.3)}
+
     /* Fix native select menu colors (text white on dark bg) */
     .booking select{background:#121317;color:#fff}
     .booking select option{background:#0b0c10;color:#fff}
@@ -147,7 +166,7 @@
           <span>Kontakt</span>
         </a>
         <a href="#boka">
-          <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h2v2h6V2h2v2h3a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h3V2zm14 8H3v8a1 1 0 001 1h16a1 1 0 001-1v-8z"/></svg></span>
+          <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h2v2h6V2h2v2h3a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h3V2z"/></svg></span>
           <span>Boka tid</span>
         </a>
       </nav>
@@ -226,10 +245,39 @@
     <div class="container">
       <h2>Kontakt & bokning</h2>
 
+      <!-- نموذج الاتصال الجديد -->
+      <div class="contact-form">
+        <h3>Kontakta oss direkt</h3>
+        <form id="contactForm" action="https://formsubmit.co/snabbservise@hotmail.com" method="POST">
+          <!-- FormSubmit settings -->
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_subject" value="Nytt meddelande — Utby Snabb Bilverkstad">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="hidden" name="_next" value="#">
+
+          <label for="contactName">Namn</label>
+          <input id="contactName" name="name" type="text" placeholder="Ditt fullständiga namn" required>
+
+          <label for="contactEmail">E-post</label>
+          <input id="contactEmail" name="email" type="email" placeholder="din@epost.se" required>
+
+          <label for="contactPhone">Telefon (valfritt)</label>
+          <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67">
+
+          <label for="contactMessage">Meddelande</label>
+          <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..." required></textarea>
+
+          <button type="submit">Skicka meddelande</button>
+          
+          <div id="contactStatus"></div>
+        </form>
+      </div>
+
       <!-- iframe مخفي للإرسال بدون تنقل -->
       <iframe name="hidden_iframe" id="hidden_iframe" style="display:none"></iframe>
 
-      <!-- يرسل الآن إلى info@utbysnabbbilservice.se -->
+      <!-- نموذج الحجز -->
       <form class="booking" id="bookingForm" action="https://formsubmit.co/snabbservise@hotmail.com" method="POST" target="hidden_iframe">
         <!-- FormSubmit settings -->
         <input type="hidden" name="_template" value="table">
@@ -404,155 +452,49 @@
       sync();
     })();
 
-    // Open Hussein modal instantly
+    // Contact Form AJAX Handler
     (function(){
-      const modal=document.getElementById('creatorModal');
-      const open =document.getElementById('openCreator2');
-      const close=document.getElementById('closeCreator');
-      function openFast(ev){ev?.preventDefault();modal.classList.add('show');document.body.classList.add('scroll-lock');}
-      function hide(ev){ev?.preventDefault();modal.classList.remove('show');document.body.classList.remove('scroll-lock');}
-      open?.addEventListener('pointerdown',openFast,{passive:false});
-      open?.addEventListener('click',openFast);
-      close?.addEventListener('click',hide);
-      modal?.addEventListener('click',e=>{if(e.target===modal)hide();});
-    })();
-
-    // Native submit to hidden iframe + show thanks instantly + prevent double-submit
-    (function(){
-      const form=document.getElementById('bookingForm');
-      const submitBtn=document.getElementById('submitBtn');
-      const thanksModal=document.getElementById('thanksModal');
-      const thanksClose=document.getElementById('thanksClose');
-      let isSubmitting=false;
-
-      form?.addEventListener('submit',(e)=>{
-        if(!form.checkValidity()){form.reportValidity();return;}
-        if(isSubmitting){e.preventDefault();return;}
-        isSubmitting=true;
-
-        // UI lock + thanks popup
-        submitBtn.disabled=true;
-        const oldLabel=submitBtn.textContent;
-        submitBtn.textContent='Skickar…';
-        const y=window.scrollY||window.pageYOffset||0;
-        document.body.classList.add('scroll-lock');
-        thanksModal?.classList.add('show');
-
-        // بعد إرسال المتصفح للنموذج إلى iframe، نظّف الحقول بهدوء
-        setTimeout(()=>{ try{form.reset();}catch(_){} document.documentElement.style.scrollBehavior='auto'; window.scrollTo(0,y); }, 200);
-
-        function closeThanks(){
-          thanksModal?.classList.remove('show');
-          document.body.classList.remove('scroll-lock');
-          submitBtn.disabled=false;
-          submitBtn.textContent=oldLabel;
-          isSubmitting=false;
-        }
-        thanksClose?.addEventListener('click',ev=>{ev.preventDefault();closeThanks();},{once:true});
-        thanksModal?.addEventListener('click',ev=>{if(ev.target===thanksModal)closeThanks();},{once:true});
-      });
-    })();
-
-    // SMS chooser: show modal with two options (SMS or Email)
-    (function(){
-      const fab=document.getElementById('smsFab');
-      const chooser=document.getElementById('chooserModal');
-      const chooserSms=document.getElementById('chooserSms');
-      const chooserMail=document.getElementById('chooserMail');
-      const chooserClose=document.getElementById('chooserClose');
-
-      // Build platform-correct SMS link with default body
-      function smsHref(){
-        const base='sms:+46790574975';
-        const body=encodeURIComponent('Hej! Jag behöver rådgivning om bilen.');
-        const ua=navigator.userAgent.toLowerCase();
-        // iOS uses &body, Android/others use ?body
-        return (ua.includes('iphone')||ua.includes('ipad'))?`${base}&body=${body}`:`${base}?body=${body}`;
-      }
-
-      function openChooser(e){
-        e?.preventDefault();
-        chooser.classList.add('show');
-        document.body.classList.add('scroll-lock');
-        chooserSms.setAttribute('href', smsHref());
-      }
-      function closeChooser(e){
-        e?.preventDefault();
-        chooser.classList.remove('show');
-        document.body.classList.remove('scroll-lock');
-      }
-
-      fab?.addEventListener('click',openChooser);
-      chooserClose?.addEventListener('click',closeChooser);
-      chooser?.addEventListener('click',ev=>{ if(ev.target===chooser) closeChooser(ev); });
-    })();
-
-    // Draggable SMS + snap to edges + remember position
-    (function(){
-      const el=document.getElementById('smsFab'); if(!el) return;
-      const MARGIN_X=14,MARGIN_Y=8,CLICK_TOL=6;
-      let dragging=false,startX=0,startY=0,startLeft=0,startTop=0,pointerId=null;
-
-      (function restore(){
-        try{
-          const s=JSON.parse(localStorage.getItem('smsFabStick')||'null');
-          if(s && (s.side==='left'||s.side==='right') && Number.isFinite(s.top)){
-            el.style.top=Math.max(MARGIN_Y,s.top)+'px';
-            if(s.side==='left'){el.style.left=MARGIN_X+'px';el.style.right='auto';}
-            else{el.style.right=MARGIN_X+'px';el.style.left='auto';}
+      const contactForm = document.getElementById('contactForm');
+      const contactStatus = document.getElementById('contactStatus');
+      
+      if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          const submitBtn = contactForm.querySelector('button[type="submit"]');
+          const originalText = submitBtn.textContent;
+          
+          // Disable button and show loading
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Skickar...';
+          contactStatus.style.display = 'none';
+          
+          try {
+            const formData = new FormData(contactForm);
+            
+            const response = await fetch(contactForm.action, {
+              method: 'POST',
+              headers: { 'Accept': 'application/json' },
+              body: formData
+            });
+            
+            if (response.ok) {
+              // Success
+              contactStatus.textContent = 'Tack! Ditt meddelande har skickats. Vi återkommer så snart som möjligt.';
+              contactStatus.className = 'success';
+              contactStatus.style.display = 'block';
+              contactForm.reset();
+            } else {
+              throw new Error('Något gick fel');
+            }
+          } catch (error) {
+            // Error
+            contactStatus.textContent = 'Något gick fel. Vänligen försök igen eller ring oss direkt.';
+            contactStatus.className = 'error';
+            contactStatus.style.display = 'block';
+          } finally {
+            // Re-enable button
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
           }
-        }catch(_){}
-      })();
-
-      function ensureLeftTop(){
-        const r=el.getBoundingClientRect();
-        el.style.left=r.left+'px'; el.style.top=r.top+'px'; el.style.right='auto'; el.style.bottom='auto';
-      }
-      function clampTop(top){
-        const r=el.getBoundingClientRect();
-        const vh=Math.max(document.documentElement.clientHeight,window.innerHeight||0);
-        return Math.min(vh-r.height-MARGIN_Y,Math.max(MARGIN_Y,top));
-      }
-
-      function onDown(e){
-        if(pointerId!==null && e.pointerId!==pointerId) return;
-        pointerId=e.pointerId; try{e.target.setPointerCapture(pointerId);}catch(_){}
-        dragging=true; startX=e.clientX; startY=e.clientY; ensureLeftTop();
-        startLeft=parseFloat(el.style.left); startTop=parseFloat(el.style.top);
-        el.style.transition='none'; e.preventDefault();
-      }
-      function onMove(e){
-        if(!dragging || e.pointerId!==pointerId) return;
-        const dx=e.clientX-startX,dy=e.clientY-startY;
-        el.style.left=Math.round(startLeft+dx)+'px';
-        el.style.top =Math.round(startTop +dy)+'px';
-        e.preventDefault();
-      }
-      function onUp(e){
-        if(e.pointerId!==pointerId) return;
-        try{e.target.releasePointerCapture(pointerId);}catch(_){}
-        const dx=e.clientX-startX,dy=e.clientY-startY;
-        const moved=Math.hypot(dx,dy); dragging=false; pointerId=null;
-
-        const r=el.getBoundingClientRect();
-        const vw=Math.max(document.documentElement.clientWidth,window.innerWidth||0);
-        const side=(r.left + r.width/2 < vw/2)?'left':'right';
-        const top=clampTop(parseFloat(el.style.top||r.top));
-        el.style.top=Math.round(top)+'px';
-        if(side==='left'){el.style.left=MARGIN_X+'px';el.style.right='auto';}
-        else{el.style.right=MARGIN_X+'px';el.style.left='auto';}
-        try{localStorage.setItem('smsFabStick',JSON.stringify({side,top}));}catch(_){}
-
-        if(moved>CLICK_TOL){
-          el.addEventListener('click',function once(ev){ev.stopImmediatePropagation();ev.preventDefault();},{once:true,capture:true});
-        }
-      }
-
-      el.addEventListener('pointerdown',onDown,{passive:false});
-      window.addEventListener('pointermove',onMove,{passive:false});
-      window.addEventListener('pointerup',onUp,{passive:false});
-      window.addEventListener('pointercancel',onUp,{passive:false});
-    })();
-  </script>
-</body>
-</html>
+        });

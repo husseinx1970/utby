@@ -221,79 +221,90 @@
     </div>
   </section>
 
-  <!-- Boka & Kontakt -->
-  <section class="section" id="boka">
-    <div class="container">
-      <h2>Kontakt & bokning</h2>
+ <!-- Kontakt & Bokning — Ren & Modern version -->
+<section id="boka" class="booking-modern" aria-labelledby="boka-title">
+  <div class="wrap">
+    <header class="bm-header">
+      <h2 id="boka-title">Kontakt & bokning</h2>
+      <p class="subtitle">Boka tid eller skicka en förfrågan — vi återkommer samma dag.</p>
+    </header>
 
-      <!-- نموذج الاتصال -->
-      <div class="contact-form">
-        <h3>Kontakta oss direkt</h3>
-        <form id="contactForm" action="https://formsubmit.co/snabbservise@hotmail.com" method="POST">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_subject" value="Nytt meddelande — Utby Snabb Bilverkstad">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="text" name="_honey" style="display:none">
+    <div class="bm-grid">
+      <!-- FORM -->
+      <form id="contactForm" class="bm-card bm-form" action="https://formsubmit.co/snabbservise@hotmail.com" method="POST" novalidate>
+        <!-- FormSubmit -->
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_subject" value="Nytt meddelande — Utby Snabb Bilverkstad">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" style="display:none">
 
-          <label for="contactName">Namn *</label>
-          <input id="contactName" name="name" type="text" placeholder="Ditt fullständiga namn" required>
-
-          <label for="contactEmail">E-post *</label>
-          <input id="contactEmail" name="email" type="email" placeholder="din@epost.se" required>
-
-          <label for="contactPhone">Telefon (valfritt)</label>
-          <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67">
-
-          <label for="contactMessage">Meddelande *</label>
-          <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..." required></textarea>
-
-          <button type="submit">Skicka meddelande</button>
-          <div id="contactStatus"></div>
-        </form>
-      </div>
-
-      <!-- نموذج الحجز -->
-      <form class="booking" id="bookingForm">
-        <h3>Boka tid</h3>
-        
-        <label for="name">Namn *</label>
-        <input id="name" name="name" placeholder="För- och efternamn" required>
-
-        <label for="email">E-post *</label>
-        <input id="email" name="email" type="email" placeholder="din@epost.se" required>
-
-        <label for="car">Bil/Regnr *</label>
-        <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
-
-        <label for="issue">Problem / Tjänst *</label>
-        <select id="issue" name="issue" required>
-          <option value="" disabled selected>Välj ett alternativ…</option>
-          <option>Service & olja</option>
-          <option>Bromsar</option>
-          <option>Däck & hjul</option>
-          <option>AC / klimatanläggning</option>
-          <option>El / elektronik</option>
-          <option>Diagnos / OBD</option>
-          <option>Växellåda / koppling</option>
-          <option>Motor</option>
-          <option>Annan åtgärd</option>
-        </select>
-
-        <div class="inline-dt">
-          <div class="field">
-            <label for="date">Önskat datum *</label>
-            <input id="date" name="date" type="date" required>
-          </div>
-          <div class="field">
-            <label for="time">Önskad tid *</label>
-            <input id="time" name="time" type="time" required>
-          </div>
+        <div class="row two">
+          <label>
+            <span>Namn *</span>
+            <input id="contactName" name="name" type="text" required placeholder="Förnamn Efternamn">
+          </label>
+          <label>
+            <span>E-post *</span>
+            <input id="contactEmail" name="email" type="email" required placeholder="din@epost.se">
+          </label>
         </div>
 
-        <label for="msg">Beskrivning (valfritt)</label>
-        <textarea id="msg" name="message" placeholder="Kort beskrivning eller andra önskemål…"></textarea>
+        <div class="row three">
+          <label>
+            <span>Telefon *</span>
+            <input id="contactPhone" name="phone" type="tel" required placeholder="072-123 45 67">
+          </label>
+          <label>
+            <span>Bil / Regnr *</span>
+            <input id="contactCar" name="car" required placeholder="Ex. ABC123 / Volvo V60 2017">
+          </label>
+          <label>
+            <span>Tjänst *</span>
+            <select id="contactService" name="service" required>
+              <option value="" disabled selected>Välj tjänst…</option>
+              <option>Service & olja</option>
+              <option>Bromsar</option>
+              <option>Däck & hjul</option>
+              <option>AC / klimatanläggning</option>
+              <option>El / elektronik</option>
+              <option>Diagnos / OBD</option>
+              <option>Motor / växellåda</option>
+              <option>Annat</option>
+            </select>
+          </label>
+        </div>
 
-        <button type="submit" id="submitBtn">Skicka förfrågan</button>
+        <label class="full">
+          <span>Meddelande</span>
+          <textarea id="contactMessage" name="message" placeholder="Beskriv problemet eller önskemål (valfritt)"></textarea>
+        </label>
+
+        <div class="row two">
+          <label>
+            <span>Datum *</span>
+            <input id="bookingDate" name="booking_date" type="date" required>
+          </label>
+          <label>
+            <span>Tid *</span>
+            <select id="bookingTime" name="booking_time" required>
+              <option value="" disabled selected>Välj datum först…</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="consent">
+          <input id="contactConsent" name="consent" type="checkbox" required>
+          <span>Jag godkänner att uppgifterna används för bokning.</span>
+        </label>
+
+        <div class="actions">
+          <button type="submit" id="submitBtn" class="btn primary">
+            <!-- small send icon -->
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden><path fill="currentColor" d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+            Skicka / Boka
+          </button>
+          <div id="contactStatus" class="status" aria-live="polite"></div>
+        </div>
       </form>
 
       <div class="map-container" id="kontakt">

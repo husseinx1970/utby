@@ -116,8 +116,9 @@
       position:fixed;right:14px;bottom:14px;width:54px;height:54px;border-radius:50%;
       display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;
       border:1px solid rgba(0,0,0,.2);text-decoration:none;transition:.15s;box-shadow:none !important;touch-action:none;
-      z-index:100
+      z-index:100;cursor:grab;
     }
+    .sms-fab:active{cursor:grabbing}
     .sms-fab svg{width:24px;height:24px}
 
     @media(max-width:520px){
@@ -241,8 +242,27 @@
           <label for="contactEmail">E-post *</label>
           <input id="contactEmail" name="email" type="email" placeholder="din@epost.se" required>
 
-          <label for="contactPhone">Telefon (valfritt)</label>
-          <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67">
+          <label for="contactPhone">Telefon *</label>
+          <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67" required>
+
+          <label for="contactCar">Bil/Regnr *</label>
+          <input id="contactCar" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
+
+          <label for="contactService">Problem / Tjänst *</label>
+          <select id="contactService" name="service" required>
+            <option value="" disabled selected>Välj ett alternativ…</option>
+            <option>Service & olja</option>
+            <option>Bromsar</option>
+            <option>Däck & hjul</option>
+            <option>AC / klimatanläggning</option>
+            <option>El / elektronik</option>
+            <option>Diagnos / OBD</option>
+            <option>Växellåda / koppling</option>
+            <option>Motor</option>
+            <option>Annan åtgärd</option>
+            <option>Förfrågan om pris</option>
+            <option>Allmän fråga</option>
+          </select>
 
           <label for="contactMessage">Meddelande *</label>
           <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..." required></textarea>
@@ -262,6 +282,9 @@
         <label for="email">E-post *</label>
         <input id="email" name="email" type="email" placeholder="din@epost.se" required>
 
+        <label for="phone">Telefon *</label>
+        <input id="phone" name="phone" type="tel" placeholder="072-123 45 67" required>
+
         <label for="car">Bil/Regnr *</label>
         <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
 
@@ -277,6 +300,7 @@
           <option>Växellåda / koppling</option>
           <option>Motor</option>
           <option>Annan åtgärd</option>
+          <option>Förfrågan om pris</option>
         </select>
 
         <div class="inline-dt">
@@ -593,10 +617,10 @@
       makeSmsFabDraggable(smsFab);
     }
 
-    // جعل زر SMS قابل للسحب
+    // جعل زر SMS قابل للسحب مع الماوس والإصبع
     function makeSmsFabDraggable(el) {
       const MARGIN_X = 14, MARGIN_Y = 8, CLICK_TOL = 6;
-      let dragging = false, startX = 0, startY = 0, startLeft = 0, startTop = 0, pointerId = null;
+      let dragging = false, startX = 0, startY = 0, startLeft = 0, startTop = 0;
 
       // استعادة الموضع المحفوظ
       function restorePosition() {
@@ -623,48 +647,72 @@
         el.style.bottom = 'auto';
       }
 
-      function clampTop(top) {
+      function clampPosition(left, top) {
         const rect = el.getBoundingClientRect();
+        const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
         const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-        return Math.min(vh - rect.height - MARGIN_Y, Math.max(MARGIN_Y, top));
+        
+        const clampedLeft = Math.max(MARGIN_X, Math.min(vw - rect.width - MARGIN_X, left));
+        const clampedTop = Math.max(MARGIN_Y, Math.min(vh - rect.height - MARGIN_Y, top));
+        
+        return { left: clampedLeft, top: clampedTop };
       }
 
-      function onPointerDown(e) {
-        if (pointerId !== null && e.pointerId !== pointerId) return;
-        pointerId = e.pointerId;
-        try { e.target.setPointerCapture(pointerId); } catch (_) {}
+      function getPosition(e) {
+        return e.touches ? {
+          clientX: e.touches[0].clientX,
+          clientY: e.touches[0].clientY
+        } : e;
+      }
+
+      function onStart(e) {
+        const pos = getPosition(e);
         dragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
+        startX = pos.clientX;
+        startY = pos.clientY;
         ensureLeftTop();
         startLeft = parseFloat(el.style.left);
         startTop = parseFloat(el.style.top);
         el.style.transition = 'none';
+        el.style.cursor = 'grabbing';
         e.preventDefault();
       }
 
-      function onPointerMove(e) {
-        if (!dragging || e.pointerId !== pointerId) return;
-        const dx = e.clientX - startX, dy = e.clientY - startY;
-        el.style.left = Math.round(startLeft + dx) + 'px';
-        el.style.top = Math.round(startTop + dy) + 'px';
+      function onMove(e) {
+        if (!dragging) return;
+        const pos = getPosition(e);
+        const dx = pos.clientX - startX;
+        const dy = pos.clientY - startY;
+        
+        const newLeft = startLeft + dx;
+        const newTop = startTop + dy;
+        
+        const clamped = clampPosition(newLeft, newTop);
+        
+        el.style.left = Math.round(clamped.left) + 'px';
+        el.style.top = Math.round(clamped.top) + 'px';
+        el.style.right = 'auto';
+        el.style.bottom = 'auto';
+        
         e.preventDefault();
       }
 
-      function onPointerUp(e) {
-        if (e.pointerId !== pointerId) return;
-        try { e.target.releasePointerCapture(pointerId); } catch (_) {}
-        const dx = e.clientX - startX, dy = e.clientY - startY;
+      function onEnd(e) {
+        if (!dragging) return;
+        const pos = getPosition(e);
+        const dx = pos.clientX - startX;
+        const dy = pos.clientY - startY;
         const moved = Math.hypot(dx, dy);
         dragging = false;
-        pointerId = null;
+        el.style.cursor = 'grab';
 
         const rect = el.getBoundingClientRect();
         const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
         const side = (rect.left + rect.width / 2 < vw / 2) ? 'left' : 'right';
-        const top = clampTop(parseFloat(el.style.top || rect.top));
-        el.style.top = Math.round(top) + 'px';
-
+        const clamped = clampPosition(parseFloat(el.style.left), parseFloat(el.style.top));
+        
+        el.style.top = Math.round(clamped.top) + 'px';
+        
         if (side === 'left') {
           el.style.left = MARGIN_X + 'px';
           el.style.right = 'auto';
@@ -674,7 +722,10 @@
         }
 
         try {
-          localStorage.setItem('smsFabPosition', JSON.stringify({ side, top }));
+          localStorage.setItem('smsFabPosition', JSON.stringify({ 
+            side, 
+            top: clamped.top 
+          }));
         } catch (_) {}
 
         if (moved > CLICK_TOL) {
@@ -687,10 +738,16 @@
 
       // استعادة الموضع وإضافة event listeners
       restorePosition();
-      el.addEventListener('pointerdown', onPointerDown, { passive: false });
-      window.addEventListener('pointermove', onPointerMove, { passive: false });
-      window.addEventListener('pointerup', onPointerUp, { passive: false });
-      window.addEventListener('pointercancel', onPointerUp, { passive: false });
+      
+      // دعم الماوس
+      el.addEventListener('mousedown', onStart);
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onEnd);
+      
+      // دعم اللمس
+      el.addEventListener('touchstart', onStart, { passive: false });
+      document.addEventListener('touchmove', onMove, { passive: false });
+      document.addEventListener('touchend', onEnd);
     }
   </script>
 </body>

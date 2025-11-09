@@ -111,7 +111,7 @@
     /* lock scroll when modal open */
     body.scroll-lock{overflow:hidden}
 
-    /* SMS FAB */
+    /* SMS FAB draggable */
     .sms-fab{
       position:fixed;right:14px;bottom:14px;width:54px;height:54px;border-radius:50%;
       display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;
@@ -375,8 +375,24 @@
     </div>
   </div>
 
-  <!-- SMS Button -->
-  <a id="smsFab" class="sms-fab" href="#">
+  <!-- Modal: Kontaktväljare (SMS eller E-post) -->
+  <div class="modal" id="chooserModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <img src="assets/logo.png" alt="Logotyp">
+        <div>
+          <h3>Välj kontaktmetod</h3>
+          <p>Vill du skicka SMS eller E-post?</p>
+        </div>
+      </div>
+      <a class="action call" id="chooserSms" href="#">Skicka SMS</a>
+      <a class="action mail" id="chooserMail" href="mailto:info@utbysnabbbilservice.se?subject=Bokningsförfrågan">Skicka e-post</a>
+      <span class="modal-close" id="chooserClose">Stäng</span>
+    </div>
+  </div>
+
+  <!-- SMS floating button -->
+  <a id="smsFab" class="sms-fab" href="#" aria-label="Skicka SMS eller e-post">
     <svg viewBox="0 0 24 24" fill="currentColor">
       <path d="M20 2H4a2 2 0 00-2 2v16l4-4h14a2 2 0 002-2V4a2 2 0 01-2-2zM6 9h8v2H6V9zm0-4h12v2H6V5z"/>
     </svg>
@@ -393,6 +409,9 @@
         const d = String(today.getDate()).padStart(2, '0');
         dateInput.min = `${y}-${m}-${d}`;
       }
+
+      // تهيئة وضع زر SMS
+      initSmsFab();
     });
 
     // إدارة Modal Hussein
@@ -526,13 +545,152 @@
       });
     }
 
-    // زر الرسائل
-    const smsFab = document.getElementById('smsFab');
-    if (smsFab) {
-      smsFab.addEventListener('click', function(e) {
+    // إدارة زر SMS مع اختيار الطريقة
+    function initSmsFab() {
+      const smsFab = document.getElementById('smsFab');
+      const chooserModal = document.getElementById('chooserModal');
+      const chooserSms = document.getElementById('chooserSms');
+      const chooserMail = document.getElementById('chooserMail');
+      const chooserClose = document.getElementById('chooserClose');
+
+      if (!smsFab || !chooserModal) return;
+
+      // بناء رابط SMS بناءً على النظام الأساسي
+      function getSmsHref() {
+        const base = 'sms:+46720040936';
+        const body = encodeURIComponent('Hej! Jag behöver rådgivning om bilen.');
+        const ua = navigator.userAgent.toLowerCase();
+        // iOS يستخدم &body، Android والأنظمة الأخرى تستخدم ?body
+        return (ua.includes('iphone') || ua.includes('ipad')) ? 
+          `${base}&body=${body}` : `${base}?body=${body}`;
+      }
+
+      // فتح modal اختيار الطريقة
+      function openChooser(e) {
         e.preventDefault();
-        window.location.href = 'sms:+46720040936?body=Hej! Jag behöver rådgivning om bilen.';
+        chooserModal.classList.add('show');
+        document.body.classList.add('scroll-lock');
+        
+        // تعيين رابط SMS
+        chooserSms.href = getSmsHref();
+      }
+
+      // إغلاق modal اختيار الطريقة
+      function closeChooser(e) {
+        e.preventDefault();
+        chooserModal.classList.remove('show');
+        document.body.classList.remove('scroll-lock');
+      }
+
+      // إضافة event listeners
+      smsFab.addEventListener('click', openChooser);
+      chooserClose.addEventListener('click', closeChooser);
+      chooserModal.addEventListener('click', function(e) {
+        if (e.target === chooserModal) closeChooser(e);
       });
+
+      // جعل زر SMS قابل للسحب
+      makeSmsFabDraggable(smsFab);
+    }
+
+    // جعل زر SMS قابل للسحب
+    function makeSmsFabDraggable(el) {
+      const MARGIN_X = 14, MARGIN_Y = 8, CLICK_TOL = 6;
+      let dragging = false, startX = 0, startY = 0, startLeft = 0, startTop = 0, pointerId = null;
+
+      // استعادة الموضع المحفوظ
+      function restorePosition() {
+        try {
+          const saved = JSON.parse(localStorage.getItem('smsFabPosition') || 'null');
+          if (saved && (saved.side === 'left' || saved.side === 'right') && Number.isFinite(saved.top)) {
+            el.style.top = Math.max(MARGIN_Y, saved.top) + 'px';
+            if (saved.side === 'left') {
+              el.style.left = MARGIN_X + 'px';
+              el.style.right = 'auto';
+            } else {
+              el.style.right = MARGIN_X + 'px';
+              el.style.left = 'auto';
+            }
+          }
+        } catch (_) {}
+      }
+
+      function ensureLeftTop() {
+        const rect = el.getBoundingClientRect();
+        el.style.left = rect.left + 'px';
+        el.style.top = rect.top + 'px';
+        el.style.right = 'auto';
+        el.style.bottom = 'auto';
+      }
+
+      function clampTop(top) {
+        const rect = el.getBoundingClientRect();
+        const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        return Math.min(vh - rect.height - MARGIN_Y, Math.max(MARGIN_Y, top));
+      }
+
+      function onPointerDown(e) {
+        if (pointerId !== null && e.pointerId !== pointerId) return;
+        pointerId = e.pointerId;
+        try { e.target.setPointerCapture(pointerId); } catch (_) {}
+        dragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        ensureLeftTop();
+        startLeft = parseFloat(el.style.left);
+        startTop = parseFloat(el.style.top);
+        el.style.transition = 'none';
+        e.preventDefault();
+      }
+
+      function onPointerMove(e) {
+        if (!dragging || e.pointerId !== pointerId) return;
+        const dx = e.clientX - startX, dy = e.clientY - startY;
+        el.style.left = Math.round(startLeft + dx) + 'px';
+        el.style.top = Math.round(startTop + dy) + 'px';
+        e.preventDefault();
+      }
+
+      function onPointerUp(e) {
+        if (e.pointerId !== pointerId) return;
+        try { e.target.releasePointerCapture(pointerId); } catch (_) {}
+        const dx = e.clientX - startX, dy = e.clientY - startY;
+        const moved = Math.hypot(dx, dy);
+        dragging = false;
+        pointerId = null;
+
+        const rect = el.getBoundingClientRect();
+        const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        const side = (rect.left + rect.width / 2 < vw / 2) ? 'left' : 'right';
+        const top = clampTop(parseFloat(el.style.top || rect.top));
+        el.style.top = Math.round(top) + 'px';
+
+        if (side === 'left') {
+          el.style.left = MARGIN_X + 'px';
+          el.style.right = 'auto';
+        } else {
+          el.style.right = MARGIN_X + 'px';
+          el.style.left = 'auto';
+        }
+
+        try {
+          localStorage.setItem('smsFabPosition', JSON.stringify({ side, top }));
+        } catch (_) {}
+
+        if (moved > CLICK_TOL) {
+          el.addEventListener('click', function once(ev) {
+            ev.stopImmediatePropagation();
+            ev.preventDefault();
+          }, { once: true, capture: true });
+        }
+      }
+
+      // استعادة الموضع وإضافة event listeners
+      restorePosition();
+      el.addEventListener('pointerdown', onPointerDown, { passive: false });
+      window.addEventListener('pointermove', onPointerMove, { passive: false });
+      window.addEventListener('pointerup', onPointerUp, { passive: false });
+      window.addEventListener('pointercancel', onPointerUp, { passive: false });
     }
   </script>
 </body>

@@ -13,7 +13,7 @@
     html,body{overflow-x:hidden}
     img{max-width:100%;display:block}
     a{color:#DABD66;text-decoration:none}
-    .container{width:min(1100px,100%);margin:auto;padding:0 18px;position:relative;z-index:2} /* keep content above canvas */
+    .container{width:min(1100px,100%);margin:auto;padding:0 18px;position:relative;z-index:2}
 
     /* Header */
     .header{position:sticky;top:0;z-index:10;background:rgba(12,13,18,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.1)}
@@ -133,33 +133,18 @@
     .inline-dt input{height:32px;font-size:12px;padding:6px 8px;max-width:100%}
     @media(max-width:520px){.inline-dt{grid-template-columns:1fr}}
 
-    /* ------------------------
-       Background canvas styling
-       ------------------------ */
+    /* canvas for particles */
     #bgCanvas {
       position: fixed;
       inset: 0;
       width: 100vw;
       height: 100vh;
       pointer-events: none;
-      z-index: 0; /* behind content (content containers have z-index:2) */
+      z-index: 0;
       display:block;
     }
 
-    /* subtle smoke overlay using CSS radial-gradient */
-    .bg-smoke {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(60% 40% at 10% 20%, rgba(255,255,255,0.02), transparent 30%),
-        radial-gradient(40% 30% at 80% 70%, rgba(255,255,255,0.02), transparent 25%),
-        linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02));
-      mix-blend-mode: normal;
-    }
-
-    /* make sure main content sits above the canvas/smoke */
+    /* ensure UI sits above canvas */
     header, main, footer, .modal, .sms-fab { position: relative; z-index: 2; }
   </style>
 </head>
@@ -167,7 +152,6 @@
 
   <!-- canvas for particles/dust -->
   <canvas id="bgCanvas" aria-hidden="true"></canvas>
-  <div class="bg-smoke" aria-hidden="true"></div>
 
   <!-- Header -->
   <header class="header">
@@ -279,8 +263,8 @@
 
         <label for="car">Bil/Regnr </label>
         <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
+
 <!-- Sökbar Problem / Tjänst (ersätter <select id="issue">) -->
-<!-- Problem / Tjänst — kort lista med 'Annat' först -->
 <label for="issueInput">Problem / Tjänst</label>
 <div class="custom-dropdown" id="issueDropdown">
   <input type="text" id="issueInput" name="issue" placeholder="Välj eller sök tjänst..." required autocomplete="off">
@@ -299,7 +283,6 @@
 </div>
 
 <style>
-/* --- Dropdown-stil (mörk tema) --- */
 .custom-dropdown {
   position: relative;
   width: 100%;
@@ -317,15 +300,6 @@
   outline: none;
   cursor: pointer;
 }
-.custom-dropdown input:focus {
-  border-color: rgba(255,215,90,0.9);
-  box-shadow: 0 0 10px rgba(255,215,90,0.1);
-}
-.custom-dropdown input::placeholder {
-  color: rgba(255,255,255,0.4);
-}
-
-/* lista */
 .dropdown-list {
   position: absolute;
   top: 100%;
@@ -352,8 +326,6 @@
   background: rgba(255,215,90,0.15);
   color: #fff;
 }
-
-/* liten pil för känsla som select 🔽 */
 .custom-dropdown::after {
   content: "▾";
   position: absolute;
@@ -388,6 +360,7 @@ document.addEventListener("click", e => {
   if (!dropdown.contains(e.target)) list.style.display = "none";
 });
 </script>
+
         <div class="inline-dt">
           <div class="field">
             <label for="date">Önskat datum *</label>
@@ -513,156 +486,110 @@ document.addEventListener("click", e => {
   </a>
 
   <script>
-    // ------------ particle + smoke script --------------
+    /* -------------------------
+       Particles-only background
+       ------------------------- */
     (function(){
       const canvas = document.getElementById('bgCanvas');
       const ctx = canvas.getContext('2d', { alpha: true });
-      let W = canvas.width = window.innerWidth;
-      let H = canvas.height = window.innerHeight;
+      let W = window.innerWidth;
+      let H = window.innerHeight;
       const DPR = Math.max(1, window.devicePixelRatio || 1);
 
-      canvas.width = W * DPR;
-      canvas.height = H * DPR;
-      canvas.style.width = W + 'px';
-      canvas.style.height = H + 'px';
-      ctx.scale(DPR, DPR);
-
-      // particles configuration
-      const PARTICLE_COUNT = Math.round((W * H) / 90000); // scalable with viewport; small number on phones
-      const particles = [];
-
-      function rand(min, max){ return Math.random() * (max - min) + min; }
-      function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
-
-      // create subtle background vignette / noisy base
-      function drawBackground(){
-        // dark grey base (keep original dark) with slight desaturated overlay
-        const g = ctx.createLinearGradient(0, 0, 0, H);
-        g.addColorStop(0, 'rgba(8,9,12,0.95)');
-        g.addColorStop(1, 'rgba(12,13,18,0.98)');
-        ctx.fillStyle = g;
-        ctx.fillRect(0, 0, W, H);
-
-        // faint soft blobs to mimic smoke (additional to CSS)
-        for(let i=0;i<3;i++){
-          const gx = ctx.createRadialGradient(
-            rand(W*0.1, W*0.9), rand(H*0.05, H*0.7), rand(50, 120),
-            rand(W*0.1, W*0.9), rand(H*0.1, H*0.9), rand(250, 400)
-          );
-          gx.addColorStop(0, `rgba(255,255,255,${rand(0.01,0.03)})`);
-          gx.addColorStop(1, 'rgba(255,255,255,0)');
-          ctx.fillStyle = gx;
-          ctx.fillRect(0,0,W,H);
-        }
-      }
-
-      // particle object
-      class Particle {
-        constructor(){
-          this.reset(true);
-        }
-        reset(init=false){
-          // spawn mostly from lower half to float upward, spread across width
-          this.x = rand(-W*0.05, W*1.05);
-          this.y = init ? rand(H*0.1, H*0.95) : H + rand(2, 80);
-          this.vx = rand(-0.15, 0.15); // slight horizontal drift
-          this.vy = rand(-0.3, -0.8); // upward
-          this.size = rand(0.6, 3.6); // radius
-          this.life = rand(6, 18); // seconds
-          this.age = 0;
-          this.alpha = rand(0.06, 0.42);
-          // color: near-white-grayish
-          const tone = Math.round(rand(200, 255));
-          this.color = `rgba(${tone},${tone},${tone},${this.alpha})`;
-          // blur factor (used via shadow)
-          this.blur = rand(0.6, 3.2);
-        }
-        step(dt){
-          this.x += this.vx * dt * 60;
-          this.y += this.vy * dt * 60;
-          this.age += dt;
-          // very small horizontal sway
-          this.vx += Math.sin(this.age * 0.6 + this.x * 0.001) * 0.002;
-          if (this.y + this.size < -50 || this.age > this.life) this.reset();
-        }
-        draw(ctx){
-          ctx.save();
-          ctx.globalCompositeOperation = 'lighter';
-          ctx.fillStyle = this.color;
-          ctx.beginPath();
-          // use shadowBlur to create soft glow (works well for small "dust")
-          ctx.shadowColor = this.color;
-          ctx.shadowBlur = this.blur * 6;
-          ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
-          ctx.fill();
-          ctx.restore();
-        }
-      }
-
-      // init particles
-      function initParticles(){
-        particles.length = 0;
-        const count = clamp(PARTICLE_COUNT, 18, 160);
-        for(let i=0;i<count;i++){
-          particles.push(new Particle());
-        }
-      }
-
-      // animation loop
-      let last = performance.now();
-      function loop(now){
-        const dt = Math.min(0.09, (now - last) / 1000);
-        last = now;
-
-        // clear and draw background
-        ctx.clearRect(0,0,W,H);
-        drawBackground();
-
-        // draw particles
-        for(let p of particles){
-          p.step(dt);
-          p.draw(ctx);
-        }
-
-        // subtle moving noise overlay (tiny transparent pattern) - drawn occasionally for performance
-        requestAnimationFrame(loop);
-      }
-
-      // handle resize
-      function onResize(){
-        W = canvas.width = window.innerWidth;
-        H = canvas.height = window.innerHeight;
+      function setSize(){
+        W = window.innerWidth; H = window.innerHeight;
         canvas.width = W * DPR;
         canvas.height = H * DPR;
         canvas.style.width = W + 'px';
         canvas.style.height = H + 'px';
-        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-        initParticles();
+        ctx.setTransform(DPR,0,0,DPR,0,0);
       }
-      window.addEventListener('resize', debounce(onResize, 120));
+      setSize();
 
-      // simple debounce
-      function debounce(fn, ms){ let t; return function(...a){ clearTimeout(t); t=setTimeout(()=>fn.apply(this,a), ms); }; }
+      // particle config (light white/gray dots)
+      function rand(min,max){ return Math.random()*(max-min)+min; }
+      const PARTICLE_BASE = Math.round((W*H)/110000); // scales with viewport
+      let particles = [];
+      function Particle(init){
+        this.reset(init);
+      }
+      Particle.prototype.reset = function(init){
+        this.x = rand(-W*0.03, W*1.03);
+        this.y = init ? rand(0, H) : H + rand(2, 60);
+        this.vx = rand(-0.12, 0.12);
+        this.vy = rand(-0.25, -0.6);
+        this.size = rand(0.6, 3.2);
+        this.life = rand(7, 20);
+        this.age = 0;
+        const tone = Math.round(rand(200, 245));
+        this.alpha = rand(0.06, 0.36);
+        this.color = `rgba(${tone},${tone},${tone},${this.alpha})`;
+        this.blur = rand(0.6, 2.6);
+      };
+      Particle.prototype.step = function(dt){
+        this.x += this.vx * dt * 60;
+        this.y += this.vy * dt * 60;
+        this.age += dt;
+        // tiny sway
+        this.vx += Math.sin((this.age*0.6) + (this.x*0.001))*0.002;
+        if (this.y + this.size < -30 || this.age > this.life) this.reset();
+      };
+      Particle.prototype.draw = function(ctx){
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = this.blur * 6;
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+        ctx.fill();
+        ctx.restore();
+      };
 
-      // gently reduce CPU on hidden tab
-      let rafId = null;
-      document.addEventListener('visibilitychange', function(){
-        if(document.hidden){
-          // stop drawing to save CPU but keep a timeout to keep particles from jumping
-          cancelAnimationFrame(rafId);
-        } else {
-          last = performance.now();
-          rafId = requestAnimationFrame(loop);
-        }
+      function initParticles(){
+        const count = Math.max(18, Math.min(140, Math.round(PARTICLE_BASE)));
+        particles = [];
+        for(let i=0;i<count;i++) particles.push(new Particle(true));
+      }
+      initParticles();
+
+      let last = performance.now();
+      function drawBackground(){
+        const g = ctx.createLinearGradient(0,0,0,H);
+        g.addColorStop(0, 'rgba(8,9,12,0.96)');
+        g.addColorStop(1, 'rgba(12,13,18,0.99)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0,0,W,H);
+      }
+
+      function loop(now){
+        const dt = Math.min(0.09, (now - last)/1000);
+        last = now;
+        ctx.clearRect(0,0,W,H);
+        drawBackground();
+        for(const p of particles){ p.step(dt); p.draw(ctx); }
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+
+      let resizeTimer;
+      window.addEventListener('resize', function(){
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function(){
+          setSize();
+          initParticles();
+        }, 120);
       });
 
-      initParticles();
-      last = performance.now();
-      rafId = requestAnimationFrame(loop);
+      // pause when hidden
+      document.addEventListener('visibilitychange', function(){
+        if(document.hidden) cancelAnimationFrame(loop);
+        else { last = performance.now(); requestAnimationFrame(loop); }
+      });
     })();
-    // ---------------------------------------------------
+    /* ------------------------- end particles ------------------------- */
 
-    // تهيئة التاريخ
+    // بقیة السكربت (نفس الموجود سابقاً) - تهيئة التاريخ، النماذج، الـ modal و SMS FAB
     document.addEventListener('DOMContentLoaded', function() {
       const dateInput = document.getElementById('date');
       if (dateInput) {
@@ -672,12 +599,9 @@ document.addEventListener("click", e => {
         const d = String(today.getDate()).padStart(2, '0');
         dateInput.min = `${y}-${m}-${d}`;
       }
-
-      // تهيئة وضع زر SMS
       initSmsFab();
     });
 
-    // إدارة Modal Hussein
     const creatorModal = document.getElementById('creatorModal');
     const openCreator = document.getElementById('openCreator');
     const closeCreator = document.getElementById('closeCreator');
@@ -689,7 +613,6 @@ document.addEventListener("click", e => {
         document.body.classList.add('scroll-lock');
       });
     }
-
     if (closeCreator && creatorModal) {
       closeCreator.addEventListener('click', function(e) {
         e.preventDefault();
@@ -697,8 +620,6 @@ document.addEventListener("click", e => {
         document.body.classList.remove('scroll-lock');
       });
     }
-
-    // إغلاق Modal بالنقر خارج المحتوى
     if (creatorModal) {
       creatorModal.addEventListener('click', function(e) {
         if (e.target === creatorModal) {
@@ -708,54 +629,42 @@ document.addEventListener("click", e => {
       });
     }
 
-    // إرسال نموذج الاتصال
     const contactForm = document.getElementById('contactForm');
     const contactStatus = document.getElementById('contactStatus');
 
     if (contactForm) {
       contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
-        
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
-        
-        // تعطيل الزر وعرض التحميل
         submitBtn.disabled = true;
         submitBtn.textContent = 'Skickar...';
         contactStatus.style.display = 'none';
-        
         try {
           const formData = new FormData(contactForm);
-          
           const response = await fetch(contactForm.action, {
             method: 'POST',
             headers: { 'Accept': 'application/json' },
             body: formData
           });
-          
           if (response.ok) {
-            // نجاح
             contactStatus.textContent = 'Tack! Ditt meddelande har skickats. Vi återkommer så snart som möjligt.';
             contactStatus.className = 'success';
             contactStatus.style.display = 'block';
             contactForm.reset();
-          } else {
-            throw new Error('Något gick fel');
-          }
+          } else throw new Error('Något gick fel');
         } catch (error) {
-          // خطأ
           contactStatus.textContent = 'Något gick fel. Vänligen försök igen eller ring oss direkt.';
           contactStatus.className = 'error';
           contactStatus.style.display = 'block';
         } finally {
-          // إعادة تمكين الزر
           submitBtn.disabled = false;
           submitBtn.textContent = originalText;
         }
       });
     }
 
-    // إرسال نموذج الحجز
+    // bookingForm may not exist in this page, keep safe
     const bookingForm = document.getElementById('bookingForm');
     const thanksModal = document.getElementById('thanksModal');
     const thanksClose = document.getElementById('thanksClose');
@@ -763,43 +672,29 @@ document.addEventListener("click", e => {
     if (bookingForm) {
       bookingForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
         if (!bookingForm.checkValidity()) {
           bookingForm.reportValidity();
           return;
         }
-
         const submitBtn = document.getElementById('submitBtn');
         const originalText = submitBtn.textContent;
-        
-        // تعطيل الزر وعرض التحميل
         submitBtn.disabled = true;
         submitBtn.textContent = 'Skickar...';
-        
-        // محاكاة الإرسال
         setTimeout(() => {
-          // عرض رسالة النجاح
           thanksModal.classList.add('show');
           document.body.classList.add('scroll-lock');
-          
-          // إعادة تعيين النموذج
           bookingForm.reset();
-          
-          // إعادة تمكين الزر
           submitBtn.disabled = false;
           submitBtn.textContent = originalText;
         }, 1500);
       });
     }
-
-    // إغلاق modal الشكر
     if (thanksClose && thanksModal) {
       thanksClose.addEventListener('click', function(e) {
         e.preventDefault();
         thanksModal.classList.remove('show');
         document.body.classList.remove('scroll-lock');
       });
-      
       thanksModal.addEventListener('click', function(e) {
         if (e.target === thanksModal) {
           thanksModal.classList.remove('show');
@@ -808,76 +703,51 @@ document.addEventListener("click", e => {
       });
     }
 
-    // إدارة زر SMS مع اختيار الطريقة
     function initSmsFab() {
       const smsFab = document.getElementById('smsFab');
       const chooserModal = document.getElementById('chooserModal');
       const chooserSms = document.getElementById('chooserSms');
       const chooserMail = document.getElementById('chooserMail');
       const chooserClose = document.getElementById('chooserClose');
-
       if (!smsFab || !chooserModal) return;
-
-      // بناء رابط SMS بناءً على النظام الأساسي
       function getSmsHref() {
         const base = 'sms:+46720040936';
         const body = encodeURIComponent('Hej! Jag skulle vilja be om hjälp med min bil, den verkar ha ett problem och jag behöver rådgivning.');
         const ua = navigator.userAgent.toLowerCase();
-        // iOS يستخدم &body، Android والأنظمة الأخرى تستخدم ?body
-        return (ua.includes('iphone') || ua.includes('ipad')) ? 
-          `${base}&body=${body}` : `${base}?body=${body}`;
+        return (ua.includes('iphone') || ua.includes('ipad')) ? `${base}&body=${body}` : `${base}?body=${body}`;
       }
-
-      // فتح modal اختيار الطريقة
       function openChooser(e) {
         e.preventDefault();
         chooserModal.classList.add('show');
         document.body.classList.add('scroll-lock');
-        
-        // تعيين رابط SMS
         chooserSms.href = getSmsHref();
       }
-
-      // إغلاق modal اختيار الطريقة
       function closeChooser(e) {
         e.preventDefault();
         chooserModal.classList.remove('show');
         document.body.classList.remove('scroll-lock');
       }
-
-      // إضافة event listeners
       smsFab.addEventListener('click', openChooser);
-      chooserClose.addEventListener('click', closeChooser);
+      if (chooserClose) chooserClose.addEventListener('click', closeChooser);
       chooserModal.addEventListener('click', function(e) {
         if (e.target === chooserModal) closeChooser(e);
       });
-
-      // جعل زر SMS قابل للسحب
       makeSmsFabDraggable(smsFab);
     }
 
-    // جعل زر SMS قابل للسحب
     function makeSmsFabDraggable(el) {
       const MARGIN_X = 14, MARGIN_Y = 8, CLICK_TOL = 6;
       let dragging = false, startX = 0, startY = 0, startLeft = 0, startTop = 0, pointerId = null;
-
-      // استعادة الموضع المحفوظ
       function restorePosition() {
         try {
           const saved = JSON.parse(localStorage.getItem('smsFabPosition') || 'null');
           if (saved && (saved.side === 'left' || saved.side === 'right') && Number.isFinite(saved.top)) {
             el.style.top = Math.max(MARGIN_Y, saved.top) + 'px';
-            if (saved.side === 'left') {
-              el.style.left = MARGIN_X + 'px';
-              el.style.right = 'auto';
-            } else {
-              el.style.right = MARGIN_X + 'px';
-              el.style.left = 'auto';
-            }
+            if (saved.side === 'left') { el.style.left = MARGIN_X + 'px'; el.style.right = 'auto'; }
+            else { el.style.right = MARGIN_X + 'px'; el.style.left = 'auto'; }
           }
         } catch (_) {}
       }
-
       function ensureLeftTop() {
         const rect = el.getBoundingClientRect();
         el.style.left = rect.left + 'px';
@@ -885,27 +755,23 @@ document.addEventListener("click", e => {
         el.style.right = 'auto';
         el.style.bottom = 'auto';
       }
-
       function clampTop(top) {
         const rect = el.getBoundingClientRect();
         const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
         return Math.min(vh - rect.height - MARGIN_Y, Math.max(MARGIN_Y, top));
       }
-
       function onPointerDown(e) {
         if (pointerId !== null && e.pointerId !== pointerId) return;
         pointerId = e.pointerId;
         try { e.target.setPointerCapture(pointerId); } catch (_) {}
         dragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
+        startX = e.clientX; startY = e.clientY;
         ensureLeftTop();
-        startLeft = parseFloat(el.style.left);
-        startTop = parseFloat(el.style.top);
+        startLeft = parseFloat(el.style.left || 0);
+        startTop = parseFloat(el.style.top || 0);
         el.style.transition = 'none';
         e.preventDefault();
       }
-
       function onPointerMove(e) {
         if (!dragging || e.pointerId !== pointerId) return;
         const dx = e.clientX - startX, dy = e.clientY - startY;
@@ -913,42 +779,24 @@ document.addEventListener("click", e => {
         el.style.top = Math.round(startTop + dy) + 'px';
         e.preventDefault();
       }
-
       function onPointerUp(e) {
         if (e.pointerId !== pointerId) return;
         try { e.target.releasePointerCapture(pointerId); } catch (_) {}
         const dx = e.clientX - startX, dy = e.clientY - startY;
         const moved = Math.hypot(dx, dy);
-        dragging = false;
-        pointerId = null;
-
+        dragging = false; pointerId = null;
         const rect = el.getBoundingClientRect();
         const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
         const side = (rect.left + rect.width / 2 < vw / 2) ? 'left' : 'right';
         const top = clampTop(parseFloat(el.style.top || rect.top));
         el.style.top = Math.round(top) + 'px';
-
-        if (side === 'left') {
-          el.style.left = MARGIN_X + 'px';
-          el.style.right = 'auto';
-        } else {
-          el.style.right = MARGIN_X + 'px';
-          el.style.left = 'auto';
-        }
-
-        try {
-          localStorage.setItem('smsFabPosition', JSON.stringify({ side, top }));
-        } catch (_) {}
-
+        if (side === 'left') { el.style.left = MARGIN_X + 'px'; el.style.right = 'auto'; }
+        else { el.style.right = MARGIN_X + 'px'; el.style.left = 'auto'; }
+        try { localStorage.setItem('smsFabPosition', JSON.stringify({ side, top })); } catch (_) {}
         if (moved > CLICK_TOL) {
-          el.addEventListener('click', function once(ev) {
-            ev.stopImmediatePropagation();
-            ev.preventDefault();
-          }, { once: true, capture: true });
+          el.addEventListener('click', function once(ev) { ev.stopImmediatePropagation(); ev.preventDefault(); }, { once: true, capture: true });
         }
       }
-
-      // استعادة الموضع وإضافة event listeners
       restorePosition();
       el.addEventListener('pointerdown', onPointerDown, { passive: false });
       window.addEventListener('pointermove', onPointerMove, { passive: false });
@@ -956,5 +804,5 @@ document.addEventListener("click", e => {
       window.addEventListener('pointercancel', onPointerUp, { passive: false });
     }
   </script>
-</body> 
+</body>
 </html>

@@ -237,26 +237,7 @@
 
           <label for="contactName">Namn *</label>
           <input id="contactName" name="name" type="text" placeholder="Ditt fullständiga namn" required>
-
-          <label for="contactEmail">E-post *</label>
-          <input id="contactEmail" name="email" type="email" placeholder="din@epost.se" required>
-
-          <label for="contactPhone">Telefon (valfritt)</label>
-          <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67">
-
-          <label for="contactMessage">Meddelande *</label>
-          <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..." required></textarea>
-
-          <button type="submit">Skicka meddelande</button>
-          <div id="contactStatus"></div>
-        </form>
-      </div>
-
-      <!-- نموذج الحجز -->
-      <form class="booking" id="bookingForm">
-        <h3>Boka tid</h3>
-        
-        <label for="name">Namn *</label>
+   <label for="name">Namn *</label>
         <input id="name" name="name" placeholder="För- och efternamn" required>
 
         <label for="email">E-post *</label>
@@ -289,13 +270,22 @@
             <input id="time" name="time" type="time" required>
           </div>
         </div>
+          
+          <label for="contactEmail">E-post *</label>
+          <input id="contactEmail" name="email" type="email" placeholder="din@epost.se" required>
 
-        <label for="msg">Beskrivning (valfritt)</label>
-        <textarea id="msg" name="message" placeholder="Kort beskrivning eller andra önskemål…"></textarea>
+          <label for="contactPhone">Telefon (valfritt)</label>
+          <input id="contactPhone" name="phone" type="tel" placeholder="07xxxxxxx">
 
-        <button type="submit" id="submitBtn">Skicka förfrågan</button>
-      </form>
+          <label for="contactMessage">Meddelande *</label>
+          <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..." required></textarea>
 
+          <button type="submit">Skicka meddelande</button>
+          <div id="contactStatus"></div>
+        </form>
+      </div>
+
+    
       <div class="map-container" id="kontakt">
         <h3>Här hittar du oss</h3>
         <p>Vagnmakaregatan 2, 415 72 Göteborg</p>

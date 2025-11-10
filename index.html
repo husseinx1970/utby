@@ -221,307 +221,79 @@
     </div>
   </section>
 
- <!-- Kontakt & Bokning — Ren & Modern version -->
-<!-- Kontakt & Bokning (Förbättrad) -->
-<section class="section booking-section" id="boka" aria-labelledby="boka-heading">
-  <div class="container">
-    <h2 id="boka-heading">Kontakt & bokning</h2>
+  <!-- Boka & Kontakt -->
+  <section class="section" id="boka">
+    <div class="container">
+      <h2>Kontakt & bokning</h2>
 
-    <div class="grid">
-      <!-- Kontakt / Form -->
-      <div class="card contact-card" aria-labelledby="contact-heading">
-        <h3 id="contact-heading">Kontakta oss direkt</h3>
-
-        <form id="contactForm" action="https://formsubmit.co/snabbservise@hotmail.com" method="POST" novalidate>
-          <!-- FormSubmit inställningar -->
+      <!-- نموذج الاتصال -->
+      <div class="contact-form">
+        <h3>Kontakta oss direkt</h3>
+        <form id="contactForm" action="https://formsubmit.co/snabbservise@hotmail.com" method="POST">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_subject" value="Nytt meddelande — Utby Snabb Bilverkstad">
           <input type="hidden" name="_captcha" value="false">
           <input type="text" name="_honey" style="display:none">
 
-          <div class="form-row">
-            <label for="contactName">Namn *</label>
-            <input id="contactName" name="name" type="text" placeholder="Ditt fullständiga namn" required>
-          </div>
+          <label for="contactName">Namn *</label>
+          <input id="contactName" name="name" type="text" placeholder="Ditt fullständiga namn" required>
 
-          <div class="form-row">
-            <label for="contactEmail">E-post *</label>
-            <input id="contactEmail" name="email" type="email" placeholder="din@epost.se" required>
-          </div>
+          <label for="contactEmail">E-post *</label>
+          <input id="contactEmail" name="email" type="email" placeholder="din@epost.se" required>
 
-          <div class="form-row three-cols">
-            <div>
-              <label for="contactPhone">Telefon *</label>
-              <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67" required>
-            </div>
+          <label for="contactPhone">Telefon (valfritt)</label>
+          <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67">
 
-            <div>
-              <label for="contactCar">Bil / Regnr *</label>
-              <input id="contactCar" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
-            </div>
+          <label for="contactMessage">Meddelande *</label>
+          <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..." required></textarea>
 
-            <div>
-              <label for="contactService">Problem / Tjänst *</label>
-              <select id="contactService" name="service" required>
-                <option value="" disabled selected>Välj ett alternativ…</option>
-                <option>Service & olja</option>
-                <option>Bromsar</option>
-                <option>Däck & hjul</option>
-                <option>AC / klimatanläggning</option>
-                <option>El / elektronik</option>
-                <option>Diagnos / OBD</option>
-                <option>Växellåda / koppling</option>
-                <option>Motor</option>
-                <option>Annan åtgärd</option>
-                <option>Förfrågan om pris</option>
-                <option>Allmän fråga</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <label for="contactMessage">Meddelande *</label>
-            <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..." required></textarea>
-          </div>
-
-          <div class="form-divider">Bokningsförslag</div>
-
-          <div class="form-row two-cols">
-            <div>
-              <label for="bookingDate">Datum *</label>
-              <input id="bookingDate" name="booking_date" type="date" required>
-            </div>
-
-            <div>
-              <label for="bookingTime">Tid *</label>
-              <select id="bookingTime" name="booking_time" required>
-                <option value="" disabled selected>Välj datum först…</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-row checkbox-row">
-            <input id="contactConsent" name="consent" type="checkbox" required>
-            <label for="contactConsent" class="inline">Jag godkänner att mina uppgifter används för bokning och kontakt.</label>
-          </div>
-
-          <div class="form-actions">
-            <button type="submit" id="submitBtn">Skicka meddelande</button>
-            <div id="contactStatus" role="status" aria-live="polite"></div>
-          </div>
+          <button type="submit">Skicka meddelande</button>
+          <div id="contactStatus"></div>
         </form>
       </div>
 
-      <!-- Info / Öppettider (Kompletterande kort) -->
-      <aside class="card info-card" aria-labelledby="info-heading">
-        <h4 id="info-heading">Öppettider & snabbinfo</h4>
-        <p><strong>Adress:</strong> Utby Snabb Bilverkstad</p>
-        <p><strong>Telefon:</strong> 072-123 45 67</p>
-        <p><strong>Öppettider:</strong></p>
-        <ul>
-          <li>Mån–Fre: 08:00 – 17:00</li>
-          <li>Lör: 09:00 – 13:00</li>
-          <li>Sön: Stängt</li>
-        </ul>
+      <!-- نموذج الحجز -->
+      <form class="booking" id="bookingForm">
+        <h3>Boka tid</h3>
+        
+        <label for="name">Namn *</label>
+        <input id="name" name="name" placeholder="För- och efternamn" required>
 
-        <div class="times-note">
-          <p><strong>Tidsluckor:</strong> Morgon, eftermiddag och kväll. Om ingen tid passar — ange förslag i meddelandet så återkommer vi.</p>
+        <label for="email">E-post *</label>
+        <input id="email" name="email" type="email" placeholder="din@epost.se" required>
+
+        <label for="car">Bil/Regnr *</label>
+        <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
+
+        <label for="issue">Problem / Tjänst *</label>
+        <select id="issue" name="issue" required>
+          <option value="" disabled selected>Välj ett alternativ…</option>
+          <option>Service & olja</option>
+          <option>Bromsar</option>
+          <option>Däck & hjul</option>
+          <option>AC / klimatanläggning</option>
+          <option>El / elektronik</option>
+          <option>Diagnos / OBD</option>
+          <option>Växellåda / koppling</option>
+          <option>Motor</option>
+          <option>Annan åtgärd</option>
+        </select>
+
+        <div class="inline-dt">
+          <div class="field">
+            <label for="date">Önskat datum *</label>
+            <input id="date" name="date" type="date" required>
+          </div>
+          <div class="field">
+            <label for="time">Önskad tid *</label>
+            <input id="time" name="time" type="time" required>
+          </div>
         </div>
-      </aside>
-    </div>
-  </div>
-</section>
 
-<!-- STYLES -->
-<style>
-  :root{
-    --bg: #f7f9fb;
-    --card: #ffffff;
-    --accent: #1f6feb;
-    --muted: #6b7280;
-    --radius: 10px;
-    font-family: Inter, "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;
-  }
+        <label for="msg">Beskrivning (valfritt)</label>
+        <textarea id="msg" name="message" placeholder="Kort beskrivning eller andra önskemål…"></textarea>
 
-  .booking-section{ padding: 40px 16px; background: var(--bg); color:#0b1220; }
-  .booking-section .container{ max-width:1100px; margin:0 auto; }
-  .booking-section h2{ margin:0 0 20px; font-size:1.7rem; }
-  .grid{ display:grid; grid-template-columns: 1fr 320px; gap:20px; align-items:start; }
-  @media (max-width:900px){ .grid{grid-template-columns:1fr;} }
-
-  .card{ background:var(--card); border-radius:var(--radius); box-shadow: 0 6px 20px rgba(11,17,32,0.06); padding:20px; }
-  .contact-card h3{ margin-top:0; margin-bottom:12px; }
-  .info-card h4{ margin-top:0; }
-
-  .form-row{ margin-bottom:14px; display:block; }
-  .form-row label{ display:block; margin-bottom:6px; font-size:0.92rem; color:var(--muted); }
-  input[type="text"], input[type="email"], input[type="tel"], input[type="date"], select, textarea {
-    width:100%; padding:10px 12px; border-radius:8px; border:1px solid #e6e9ef; box-sizing:border-box;
-    font-size:0.95rem; background:#fff;
-  }
-  textarea{ min-height:110px; resize:vertical; }
-
-  .three-cols{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px; }
-  .two-cols{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
-  @media (max-width:700px){ .three-cols, .two-cols{ grid-template-columns:1fr; } }
-
-  .form-divider{ margin:16px 0; font-weight:600; color:var(--muted); font-size:0.95rem; }
-
-  .checkbox-row{ display:flex; gap:8px; align-items:center; font-size:0.9rem; color:var(--muted); }
-  .checkbox-row input{ width:18px; height:18px; }
-
-  .form-actions{ display:flex; gap:12px; align-items:center; margin-top:6px; }
-  button[type="submit"]{
-    background:var(--accent); color:white; padding:10px 16px; border-radius:8px; border:none; cursor:pointer; font-weight:600;
-  }
-  button[type="submit"]:hover{ filter:brightness(0.95); }
-
-  #contactStatus{ font-size:0.95rem; color:var(--muted); }
-
-  .info-card ul{ padding-left:18px; margin:6px 0 12px; color:var(--muted); }
-  .times-note{ font-size:0.9rem; color:var(--muted); margin-top:12px; }
-</style>
-
-<!-- SCRIPTS -->
-<script>
-  (function(){
-    const bookingDate = document.getElementById('bookingDate');
-    const bookingTime = document.getElementById('bookingTime');
-    const contactForm = document.getElementById('contactForm');
-    const statusEl = document.getElementById('contactStatus');
-    const submitBtn = document.getElementById('submitBtn');
-
-    // Föreslagna tidsluckor - kan justeras
-    const timePools = {
-      morning: ["08:00","08:30","09:00","09:30","10:00","10:30","11:00"],
-      afternoon: ["12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00"],
-      evening: ["16:30","17:00"]
-    };
-
-    // Sätt min datum till idag
-    function setMinDate(){
-      const today = new Date();
-      const yyyy = today.getFullYear();
-      const mm = String(today.getMonth() + 1).padStart(2,'0');
-      const dd = String(today.getDate()).padStart(2,'0');
-      bookingDate.min = `${yyyy}-${mm}-${dd}`;
-      bookingDate.value = `${yyyy}-${mm}-${dd}`;
-      populateTimes(); // initiera tider för dagens datum
-    }
-
-    // Fyll tidsval beroende på valt datum
-    function populateTimes(){
-      bookingTime.innerHTML = '';
-      const selected = bookingDate.value;
-      if(!selected){
-        bookingTime.innerHTML = '<option value="" disabled selected>Välj datum först…</option>';
-        return;
-      }
-
-      // Logik: om bokar idag, ta bort tidsluckor som redan passerat
-      const today = new Date();
-      const chosen = new Date(selected + 'T00:00:00');
-      const isToday = (today.getFullYear() === chosen.getFullYear()
-                      && today.getMonth() === chosen.getMonth()
-                      && today.getDate() === chosen.getDate());
-
-      const createOptGroup = (label, times) => {
-        const optGroup = document.createElement('optgroup');
-        optGroup.label = label;
-        times.forEach(t => {
-          // Om dagens datum, filtrera bort tider tidigare än nu
-          if(isToday){
-            const [hh,mm] = t.split(':').map(Number);
-            const nowMinutes = today.getHours()*60 + today.getMinutes();
-            const tMinutes = hh*60 + mm;
-            if(tMinutes <= nowMinutes + 29) return; // uteslut tider som redan börjat eller inom 30 min
-          }
-          const opt = document.createElement('option');
-          opt.value = t;
-          opt.textContent = t;
-          optGroup.appendChild(opt);
-        });
-        return optGroup;
-      };
-
-      // Lägg till grupper i önskad ordning
-      const morningGroup = createOptGroup('Morgon', timePools.morning);
-      const afternoonGroup = createOptGroup('Eftermiddag', timePools.afternoon);
-      const eveningGroup = createOptGroup('Kväll', timePools.evening);
-
-      // Bygg lista och hantera fall när inga tider kvar
-      const groups = [morningGroup, afternoonGroup, eveningGroup].filter(g => g && g.children.length > 0);
-      if(groups.length === 0){
-        bookingTime.innerHTML = '<option value="" disabled>Inga lediga tider detta datum — välj ett annat datum eller skriv förslag i meddelandet</option>';
-        bookingTime.disabled = true;
-      } else {
-        bookingTime.disabled = false;
-        bookingTime.innerHTML = '<option value="" disabled selected>Välj tid…</option>';
-        groups.forEach(g => bookingTime.appendChild(g));
-      }
-    }
-
-    // Init
-    setMinDate();
-
-    // Event listeners
-    bookingDate.addEventListener('change', populateTimes);
-
-    // Enkel klient-validering + statusvisning
-    contactForm.addEventListener('submit', function(e){
-      // Vidarebefordra fortfarande till FormSubmit (standard submit)
-      // Men vi lägger till enkel visuell feedback här.
-      if(!contactForm.checkValidity()){
-        e.preventDefault();
-        contactForm.reportValidity();
-        return;
-      }
-
-      // Om tidfält är disabled eller inte valt -> varna användaren
-      if(bookingTime.disabled || !bookingTime.value){
-        e.preventDefault();
-        statusEl.textContent = 'Vänligen välj en ledig tid eller ange ett förslag i meddelandet.';
-        statusEl.style.color = '#b45309'; // orange
-        return;
-      }
-
-      // Visuell "skickar..." state
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Skickar…';
-      statusEl.textContent = 'Skickar meddelandet — vänta ett ögonblick...';
-      statusEl.style.color = '#374151';
-
-      // Låt standard submit ske (skickas till FormSubmit). Eftersom vi inte fångar ajax-respons,
-      // återställ knapp efter kort tid så användaren kan se bekräftelse från FormSubmit (om redirect).
-      setTimeout(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Skicka meddelande';
-      }, 2500);
-      // Notera: FormSubmit kan göra en redirect eller visa sin egen bekräftelse.
-      // Om du vill hantera svaret AJAX-mässigt, säg till så kan jag byta formuläret till fetch()/AJAX.
-    });
-
-    // Förbättring - om användaren öppnar formuläret på en dag där alla tider för dagen gått, välj nästa dag automatiskt
-    window.addEventListener('focus', () => {
-      // Smått förbättringsförsök: om tidlista är tom så flytta datum framåt en dag och repopulera
-      if(bookingTime && bookingTime.disabled){
-        const current = new Date(bookingDate.value);
-        current.setDate(current.getDate() + 1);
-        const y = current.getFullYear();
-        const m = String(current.getMonth()+1).padStart(2,'0');
-        const d = String(current.getDate()).padStart(2,'0');
-        bookingDate.value = `${y}-${m}-${d}`;
-        populateTimes();
-      }
-    });
-
-  })();
-</script>   <!-- small send icon -->
-            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden><path fill="currentColor" d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
-            Skicka / Boka
-          </button>
-          <div id="contactStatus" class="status" aria-live="polite"></div>
-        </div>
+        <button type="submit" id="submitBtn">Skicka förfrågan</button>
       </form>
 
       <div class="map-container" id="kontakt">

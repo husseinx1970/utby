@@ -244,9 +244,132 @@
         <label for="email">E-post </label>
         <input id="email" name="email" type="email" placeholder="din@epost.se" required>
 
-        <label for="car">Bil/Regnr </label>
-        <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
-<!-- Sökbar Problem / Tjänst (ersätter <select id="issue">) -->
+  <!-- Lägg detta under ditt car-input i formuläret -->
+<label for="car">Bil/Regnr </label>
+<input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
+
+<!-- Här visas informationen -->
+<div id="carInfo" aria-live="polite" style="margin-top:10px;"></div>
+
+<style>
+/* Enkel mörk styling för info-box */
+#carInfo {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  color: #e6e6e6;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  display: none; /* hidden until data */
+}
+#carInfo .row { margin-bottom:6px; display:flex; gap:8px; }
+#carInfo .label { color: rgba(230,230,230,0.6); width:110px; }
+#carInfo .value { color: #fff; flex:1; }
+#carInfo .loading { color: rgba(255,215,90,0.9); }
+#carInfo .error { color: #ff8a8a; }
+</style>
+
+<script>
+/*
+  HOW TO USE:
+  - For testing locally leave VEHICLE_API_URL = null (uses mockLookup).
+  - To use real lookup: set VEHICLE_API_URL to your endpoint (e.g. "https://myproxy.example.com/vehicle")
+    and make sure the endpoint accepts GET ?reg=ABC123 and returns JSON like:
+    { make: "...", model: "...", year: "2017", fuel: "Bensin", vin: "WAU..." }
+  - If the API blocks browser (CORS), deploy a tiny serverless proxy (Netlify/Lambda) that adds CORS header.
+*/
+
+const VEHICLE_API_URL = null; // <-- replace with your real API URL or keep null to use mock
+
+const carInput = document.getElementById('car');
+const carInfo = document.getElementById('carInfo');
+
+let debounceTimer = null;
+const DEBOUNCE_MS = 600;
+
+carInput.addEventListener('input', () => {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(onCarChanged, DEBOUNCE_MS);
+});
+
+carInput.addEventListener('blur', onCarChanged); // also try on blur
+
+function showLoading(msg = 'Söker...') {
+  carInfo.style.display = 'block';
+  carInfo.innerHTML = `<div class="loading">${msg}</div>`;
+}
+
+function showError(msg) {
+  carInfo.style.display = 'block';
+  carInfo.innerHTML = `<div class="error">${msg}</div>`;
+}
+
+function showData(data) {
+  carInfo.style.display = 'block';
+  carInfo.innerHTML = `
+    <div class="row"><div class="label">Märke</div><div class="value">${escapeHtml(data.make || '—')}</div></div>
+    <div class="row"><div class="label">Modell</div><div class="value">${escapeHtml(data.model || '—')}</div></div>
+    <div class="row"><div class="label">Årsmodell</div><div class="value">${escapeHtml(data.year || '—')}</div></div>
+    <div class="row"><div class="label">Drivmedel</div><div class="value">${escapeHtml(data.fuel || '—')}</div></div>
+    <div class="row"><div class="label">VIN</div><div class="value">${escapeHtml(data.vin || '—')}</div></div>
+  `;
+}
+
+/* huvudfunktion när registreringsnummer ändras */
+function onCarChanged() {
+  const reg = (carInput.value || '').trim();
+  if (!reg || reg.length < 2) { carInfo.style.display = 'none'; return; }
+
+  showLoading('Hämtar fordonsuppgifter...');
+  // välj mellan riktig API eller mock
+  if (VEHICLE_API_URL) {
+    // verklig API-anrop (förväntar JSON)
+    fetch(`${VEHICLE_API_URL}?reg=${encodeURIComponent(reg)}`)
+      .then(resp => {
+        if (!resp.ok) throw new Error('Fel från API');
+        return resp.json();
+      })
+      .then(json => {
+        // Anpassa åtkomst beroende på vad ditt API returnerar.
+        // Vi förväntar oss fälten: make, model, year, fuel, vin
+        showData({
+          make: json.make || json.brand || json.manufacturer,
+          model: json.model || json.modelName,
+          year: json.year || json.regYear || json.firstRegistrationYear,
+          fuel: json.fuel || json.fuelType,
+          vin: json.vin || json.vinNumber
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        showError('Kunde inte hämta uppgifter. Kontrollera API / CORS eller prova igen senare.');
+      });
+  } else {
+    // Mock lookup för testning (ersätt med riktig service senare)
+    setTimeout(() => {
+      const mock = mockLookup(reg);
+      if (mock) showData(mock);
+      else showError('Inga uppgifter hittades för detta regnr (mock).');
+    }, 600);
+  }
+}
+
+/* Enkel mock-databas för testning */
+function mockLookup(reg) {
+  const key = reg.replace(/\s|-/g,'').toUpperCase();
+  const db = {
+    'ABC123': { make: 'Volvo', model: 'V60', year: '2017', fuel: 'Diesel', vin: 'YV1ZZZ1Z2J1234567' },
+    'XYZ987': { make: 'Toyota', model: 'Corolla', year: '2019', fuel: 'Bensin', vin: 'JTDBR32E720123456' },
+    'SWE001': { make: 'Volkswagen', model: 'Golf', year: '2015', fuel: 'Bensin', vin: 'WVWZZZ1KZFW000001' }
+  };
+  return db[key] || null;
+}
+
+/* liten hjälpfunktion för säker HTML-utskrift */
+function escapeHtml(str) {
+  return String(str || '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+}
+</script><!-- Sökbar Problem / Tjänst (ersätter <select id="issue">) -->
 <!-- Problem / Tjänst — kort lista med 'Annat' först -->
 <label for="issueInput">Problem / Tjänst</label>
 <div class="custom-dropdown" id="issueDropdown">

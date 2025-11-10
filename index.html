@@ -246,20 +246,45 @@
 
         <label for="car">Bil/Regnr </label>
         <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
-
-        <label for="issue">Problem / Tjänst </label>
-        <select id="issue" name="issue" required>
-          <option value="" disabled selected>Välj ett alternativ…</option>
-          <option>Service & olja</option>
-          <option>Bromsar</option>
-          <option>Däck & hjul</option>
-          <option>AC / klimatanläggning</option>
-          <option>El / elektronik</option>
-          <option>Diagnos / OBD</option>
-          <option>Växellåda / koppling</option>
-          <option>Motor</option>
-          <option>Annan åtgärd</option>
-        </select>
+<!-- Sökbar Problem / Tjänst (ersätter <select id="issue">) -->
+<label for="issueInput">Problem / Tjänst</label>
+<div class="searchable-select">
+  <input id="issueInput" name="issue" list="issuesList" placeholder="Välj eller sök tjänst..." required autocomplete="off">
+  <datalist id="issuesList">
+    <!-- Grundläggande -->
+    <option value="Service & olja">
+    <option value="Bromsar">
+    <option value="Däck & hjul">
+    <option value="AC / klimatanläggning">
+    <option value="El / elektronik">
+    <option value="Diagnos / OBD">
+    <option value="Växellåda / koppling">
+    <option value="Motor">
+    <option value="Avgassystem">
+    <option value="Styrning / fjädring">
+    <option value="Batteri / start">
+    <option value="Ljus / belysning">
+    <option value="Klimaservice (r134a/r1234yf)">
+    <option value="Felsökning - elektronik">
+    <!-- Däck & säsong -->
+    <option value="Sommar-/vinterdäck montering">
+    <option value="Däckbyte + balansering">
+    <option value="Däckreparation (lagning)">
+    <!-- Servicepaket -->
+    <option value="40/60/90/120-punkt service">
+    <option value="Bromsservice & skivbyte">
+    <option value="Kamrem / kamkedjeservice">
+    <!-- Fordonsspecifikt -->
+    <option value="Inspektion - besiktning redo">
+    <option value="Service för elbil / hybrid">
+    <option value="Programmering / nyckel">
+    <!-- Annat -->
+    <option value="Bilglas / stenskott">
+    <option value="Plåtskada / lack">
+    <option value="Rengöring / bilvård">
+    <option value="Annat - beskriv i meddelandet">
+  </datalist>
+</div>
 
         <div class="inline-dt">
           <div class="field">

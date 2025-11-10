@@ -545,7 +545,7 @@
       // بناء رابط SMS بناءً على النظام الأساسي
       function getSmsHref() {
         const base = 'sms:+46720040936';
-        const body = encodeURIComponent('Hej! Jag behöver rådgivning om bilen.');
+        const body = encodeURIComponent('Hej! Jag skulle vilja be om hjälp med min bil, den verkar ha ett problem och jag behöver rådgivning.');
         const ua = navigator.userAgent.toLowerCase();
         // iOS يستخدم &body، Android والأنظمة الأخرى تستخدم ?body
         return (ua.includes('iphone') || ua.includes('ipad')) ? 

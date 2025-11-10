@@ -776,3 +776,187 @@ document.addEventListener("click", e => {
   </script>
 </body> 
 </html>
+
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Particles Background</title>
+<style>
+  /* full-screen canvas */
+  html,body{height:100%;margin:0;background:#0f1114}
+  #bgCanvas{
+    position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0;
+    display:block;
+  }
+  /* optional overlay to place page content above canvas:
+     .page-content { position:relative; z-index:2; } */
+</style>
+</head>
+<body>
+<canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+<script>
+/* Simple, pretty white particles on dark/grey background.
+   - Paste into any page; canvas is fixed and non-interactive (pointer-events:none).
+   - Change CONFIG below to tweak count / speed / glow.
+*/
+
+(function(){
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d', { alpha: true });
+
+  // ====== CONFIG ======
+  let CONFIG = {
+    particleBaseDensity: 70000, // smaller -> more particles (area divisor)
+    minParticles: 40,          // minimum particles
+    maxParticles: 450,         // maximum particles
+    sizeMin: 0.8,
+    sizeMax: 3.6,
+    speedYMin: -0.12,
+    speedYMax: -0.5,
+    speedXRange: 0.18,
+    glowMin: 0.8,
+    glowMax: 3.2,
+    alphaMin: 0.06,
+    alphaMax: 0.36,
+    pointerRepelRadius: 160,   // px
+    pointerActive: true,       // true -> particles react to pointer
+  };
+  // =====================
+
+  let DPR = Math.max(1, window.devicePixelRatio || 1);
+  let W = innerWidth, H = innerHeight;
+
+  function resize() {
+    DPR = Math.max(1, window.devicePixelRatio || 1);
+    W = innerWidth; H = innerHeight;
+    canvas.width  = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
+    canvas.style.width  = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    initParticles();
+  }
+
+  window.addEventListener('resize', debounce(resize, 120));
+  resize();
+
+  function rand(min, max){ return Math.random()*(max-min)+min; }
+  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+
+  // Particle
+  function Particle(onScreen){
+    this.reset(onScreen);
+  }
+  Particle.prototype.reset = function(onScreen){
+    this.x = rand(-W*0.05, W*1.05);
+    this.y = onScreen ? rand(0, H) : H + rand(4, 120);
+    this.vx = rand(-CONFIG.speedXRange, CONFIG.speedXRange);
+    this.vy = rand(CONFIG.speedYMin, CONFIG.speedYMax);
+    this.baseSize = rand(CONFIG.sizeMin, CONFIG.sizeMax);
+    this.size = this.baseSize;
+    this.life = rand(10, 30);
+    this.age = 0;
+    const tone = Math.round(rand(200, 245));
+    this.alpha = rand(CONFIG.alphaMin, CONFIG.alphaMax);
+    this.color = `rgba(${tone},${tone},${tone},${this.alpha})`;
+    this.blur = rand(CONFIG.glowMin, CONFIG.glowMax);
+    this.wob = rand(0.2, 1.4);
+  };
+  Particle.prototype.step = function(dt, mx, my, pointerActive){
+    // pointer influence: repel when near, slight attraction further away
+    if(pointerActive && mx !== null){
+      const dx = this.x - mx, dy = this.y - my;
+      const d2 = dx*dx + dy*dy;
+      const r = CONFIG.pointerRepelRadius;
+      if(d2 < r*r){
+        const f = (1 - Math.sqrt(d2)/r) * 0.9;
+        this.vx += (dx / (Math.sqrt(d2)+6)) * 0.08 * f;
+        this.vy += (dy / (Math.sqrt(d2)+6)) * 0.08 * f;
+      } else if(d2 < r*r*4){
+        const f = 0.01;
+        this.vx += ((mx - this.x) * f) * 0.01;
+        this.vy += ((my - this.y) * f) * 0.01;
+      }
+    }
+
+    // soft sway
+    this.vx += Math.sin((this.age * 0.6) + this.wob) * 0.002;
+    this.x += this.vx * dt * 60;
+    this.y += this.vy * dt * 60;
+    this.age += dt;
+    if(this.y + this.size < -40 || this.age > this.life) this.reset(false);
+    this.size = this.baseSize + Math.sin(this.age*1.5)*0.25;
+  };
+  Particle.prototype.draw = function(ctx){
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.shadowColor = this.color;
+    ctx.shadowBlur = this.blur * 6;
+    ctx.arc(this.x, this.y, Math.max(0.2,this.size), 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+  };
+
+  let particles = [];
+  function initParticles(){
+    const base = Math.round((W*H) / CONFIG.particleBaseDensity);
+    const count = clamp(base, CONFIG.minParticles, CONFIG.maxParticles);
+    particles.length = 0;
+    for(let i=0;i<count;i++) particles.push(new Particle(true));
+  }
+  initParticles();
+
+  // pointer tracking
+  let mouseX = null, mouseY = null, pointerActive = false;
+  function onPointerMove(e){
+    const p = e.touches ? e.touches[0] : e;
+    mouseX = p.clientX;
+    mouseY = p.clientY;
+    pointerActive = true;
+  }
+  function onPointerLeave(){ pointerActive = false; mouseX = null; mouseY = null; }
+  if(CONFIG.pointerActive){
+    window.addEventListener('mousemove', onPointerMove, {passive:true});
+    window.addEventListener('touchmove', onPointerMove, {passive:true});
+    window.addEventListener('mouseleave', onPointerLeave);
+    window.addEventListener('touchend', onPointerLeave);
+  }
+
+  // animation loop
+  let last = performance.now();
+  function frame(now){
+    const dt = Math.min(0.09, (now - last)/1000);
+    last = now;
+    // background fill darker gradient
+    const g = ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0, 'rgba(14,15,18,0.98)');
+    g.addColorStop(1, 'rgba(10,10,12,0.98)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0,0,W,H);
+
+    for(const p of particles){
+      p.step(dt, mouseX, mouseY, pointerActive);
+      p.draw(ctx);
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // small debounce helper
+  function debounce(fn, t){ let id; return function(){ clearTimeout(id); id = setTimeout(fn, t); }; }
+
+  // expose config adjust function for runtime tuning
+  window.PARTICLES_BG = {
+    set: (obj) => { CONFIG = Object.assign(CONFIG, obj); initParticles(); },
+    getConfig: () => JSON.parse(JSON.stringify(CONFIG))
+  };
+
+})();
+</script>
+</body>
+</html>

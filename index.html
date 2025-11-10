@@ -222,84 +222,132 @@
   </section>
 
  <!-- Kontakt & Bokning — Ren & Modern version -->
-<section id="boka" class="booking-modern" aria-labelledby="boka-title">
-  <div class="wrap">
-    <header class="bm-header">
-      <h2 id="boka-title">Kontakt & bokning</h2>
-      <p class="subtitle">Boka tid eller skicka en förfrågan — vi återkommer samma dag.</p>
-    </header>
+<!-- Kontakt & Bokning — Enkel mailto-design -->
+<section class="section" id="boka">
+  <div class="container">
+    <h2>Kontakt & bokning</h2>
 
-    <div class="bm-grid">
-      <!-- FORM -->
-      <form id="contactForm" class="bm-card bm-form" action="https://formsubmit.co/snabbservise@hotmail.com" method="POST" novalidate>
-        <!-- FormSubmit -->
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_subject" value="Nytt meddelande — Utby Snabb Bilverkstad">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="text" name="_honey" style="display:none">
+    <div class="booking" style="max-width:820px;margin:18px auto 0;">
+      <p style="text-align:center;margin-bottom:18px;color:#374151;">
+        För att boka tid kan du antingen fylla i formuläret nedan eller skicka e-post direkt via knappen — vi återkommer så snart som möjligt.
+      </p>
 
-        <div class="row two">
-          <label>
-            <span>Namn *</span>
-            <input id="contactName" name="name" type="text" required placeholder="Förnamn Efternamn">
-          </label>
-          <label>
-            <span>E-post *</span>
-            <input id="contactEmail" name="email" type="email" required placeholder="din@epost.se">
-          </label>
+      <!-- Visuell informationsruta -->
+      <div style="background:rgba(15,23,42,0.03);border:1px solid rgba(15,23,42,0.06);border-radius:12px;padding:18px 20px;margin-bottom:16px;">
+        <p style="margin:8px 0;"><strong>Namn:</strong> Ditt för- och efternamn</p>
+        <p style="margin:8px 0;"><strong>E-post:</strong> Din e-postadress</p>
+        <p style="margin:8px 0;"><strong>Telefon:</strong> Telefonnummer (ex. 072-123 45 67)</p>
+        <p style="margin:8px 0;"><strong>Bil / Regnr:</strong> Märke, modell och registreringsnummer</p>
+        <p style="margin:8px 0;"><strong>Problem / Tjänst:</strong> Beskriv vad bilen behöver</p>
+        <p style="margin:8px 0;"><strong>Önskat datum:</strong> När du vill komma</p>
+        <p style="margin:8px 0;"><strong>Önskad tid:</strong> Vilken tid passar dig</p>
+      </div>
+
+      <!-- Valfritt: enkel inline-form för att fylla mailto (fungerar i klienten och genererar mail body) -->
+      <form id="mailtoForm" style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <input id="m_name" name="name" type="text" placeholder="Namn *" required style="flex:1;min-width:180px;padding:10px;border-radius:8px;border:1px solid #e6e9ef;">
+          <input id="m_email" name="email" type="email" placeholder="E-post *" required style="flex:1;min-width:180px;padding:10px;border-radius:8px;border:1px solid #e6e9ef;">
         </div>
 
-        <div class="row three">
-          <label>
-            <span>Telefon *</span>
-            <input id="contactPhone" name="phone" type="tel" required placeholder="072-123 45 67">
-          </label>
-          <label>
-            <span>Bil / Regnr *</span>
-            <input id="contactCar" name="car" required placeholder="Ex. ABC123 / Volvo V60 2017">
-          </label>
-          <label>
-            <span>Tjänst *</span>
-            <select id="contactService" name="service" required>
-              <option value="" disabled selected>Välj tjänst…</option>
-              <option>Service & olja</option>
-              <option>Bromsar</option>
-              <option>Däck & hjul</option>
-              <option>AC / klimatanläggning</option>
-              <option>El / elektronik</option>
-              <option>Diagnos / OBD</option>
-              <option>Motor / växellåda</option>
-              <option>Annat</option>
-            </select>
-          </label>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <input id="m_phone" name="phone" type="tel" placeholder="Telefon" style="flex:1;min-width:180px;padding:10px;border-radius:8px;border:1px solid #e6e9ef;">
+          <input id="m_car" name="car" type="text" placeholder="Bil / Regnr" style="flex:1;min-width:180px;padding:10px;border-radius:8px;border:1px solid #e6e9ef;">
         </div>
 
-        <label class="full">
-          <span>Meddelande</span>
-          <textarea id="contactMessage" name="message" placeholder="Beskriv problemet eller önskemål (valfritt)"></textarea>
-        </label>
+        <select id="m_service" name="service" style="padding:10px;border-radius:8px;border:1px solid #e6e9ef;max-width:380px;">
+          <option value="">Välj tjänst…</option>
+          <option>Service & olja</option>
+          <option>Bromsar</option>
+          <option>Däck & hjul</option>
+          <option>AC / klimatanläggning</option>
+          <option>El / elektronik</option>
+          <option>Diagnos / OBD</option>
+          <option>Motor / växellåda</option>
+          <option>Annat</option>
+        </select>
 
-        <div class="row two">
-          <label>
-            <span>Datum *</span>
-            <input id="bookingDate" name="booking_date" type="date" required>
-          </label>
-          <label>
-            <span>Tid *</span>
-            <select id="bookingTime" name="booking_time" required>
-              <option value="" disabled selected>Välj datum först…</option>
-            </select>
-          </label>
+        <textarea id="m_message" name="message" placeholder="Beskriv problemet eller önskemål (valfritt)" style="min-height:90px;padding:10px;border-radius:8px;border:1px solid #e6e9ef;"></textarea>
+
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <input id="m_date" name="date" type="date" style="padding:10px;border-radius:8px;border:1px solid #e6e9ef;">
+          <input id="m_time" name="time" type="time" style="padding:10px;border-radius:8px;border:1px solid #e6e9ef;">
         </div>
 
-        <label class="consent">
-          <input id="contactConsent" name="consent" type="checkbox" required>
-          <span>Jag godkänner att uppgifterna används för bokning.</span>
-        </label>
+        <div style="display:flex;gap:12px;align-items:center;margin-top:6px;">
+          <!-- Mailto-knapp: genereras via JS -->
+          <a id="mailtoBtn" class="btn primary" href="#" style="display:inline-block;padding:10px 14px;background:#0b74da;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;">
+            Skicka e-post för bokning
+          </a>
 
-        <div class="actions">
-          <button type="submit" id="submitBtn" class="btn primary">
-            <!-- small send icon -->
+          <button type="button" id="clearBtn" style="background:#f3f4f6;border:1px solid #e5e7eb;padding:8px 12px;border-radius:8px;cursor:pointer;">Rensa</button>
+
+          <div id="mailtoNote" style="color:#6b7280;font-size:0.95rem;">Vi använder din e-postklient för att skicka bokningsförfrågan.</div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function(){
+    const mailtoBtn = document.getElementById('mailtoBtn');
+    const clearBtn = document.getElementById('clearBtn');
+
+    function buildMailto(){
+      const to = 'info@utbysnabbbilservice.se';
+      const subject = encodeURIComponent('Bokningsförfrågan — Utby Snabb Bilverkstad');
+      const name = document.getElementById('m_name').value.trim();
+      const email = document.getElementById('m_email').value.trim();
+      const phone = document.getElementById('m_phone').value.trim();
+      const car = document.getElementById('m_car').value.trim();
+      const service = document.getElementById('m_service').value;
+      const message = document.getElementById('m_message').value.trim();
+      const date = document.getElementById('m_date').value;
+      const time = document.getElementById('m_time').value;
+
+      // bygg email body med placeholders
+      let body = '';
+      body += 'Hej!%0D%0A%0D%0AJag vill boka tid för bilservice.%0D%0A%0D%0A';
+      body += 'Namn: ' + encodeURIComponent(name) + '%0D%0A';
+      body += 'E-post: ' + encodeURIComponent(email) + '%0D%0A';
+      body += 'Telefon: ' + encodeURIComponent(phone) + '%0D%0A';
+      body += 'Bil / Regnr: ' + encodeURIComponent(car) + '%0D%0A';
+      body += 'Problem / Tjänst: ' + encodeURIComponent(service) + '%0D%0A';
+      body += 'Önskat datum: ' + encodeURIComponent(date) + '%0D%0A';
+      body += 'Önskad tid: ' + encodeURIComponent(time) + '%0D%0A%0D%0A';
+      body += 'Övrig information: ' + encodeURIComponent(message) + '%0D%0A%0D%0AMed vänlig hälsning,%0D%0A';
+
+      return `mailto:${to}?subject=${subject}&body=${body}`;
+    }
+
+    // uppdatera href när fälten ändras
+    const inputs = Array.from(document.querySelectorAll('#mailtoForm input, #mailtoForm textarea, #mailtoForm select'));
+    inputs.forEach(i => i.addEventListener('input', () => {
+      mailtoBtn.href = buildMailto();
+    }));
+
+    // init
+    mailtoBtn.href = buildMailto();
+
+    // validering: kräver namn och epost
+    mailtoBtn.addEventListener('click', function(e){
+      const name = document.getElementById('m_name').value.trim();
+      const email = document.getElementById('m_email').value.trim();
+      if(!name || !email){
+        e.preventDefault();
+        alert('Vänligen fyll i Namn och E-post innan du skickar.');
+        return false;
+      }
+      // annars länken öppnar användarens e-postklient
+    });
+
+    clearBtn.addEventListener('click', function(){
+      document.getElementById('mailtoForm').reset();
+      mailtoBtn.href = buildMailto();
+    });
+  })();
+</script>   <!-- small send icon -->
             <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden><path fill="currentColor" d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
             Skicka / Boka
           </button>

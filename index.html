@@ -235,18 +235,31 @@
           <input type="hidden" name="_captcha" value="false">
           <input type="text" name="_honey" style="display:none">
 
-          <label for="contactName">Namn *</label>
-          <input id="contactName" name="name" type="text" placeholder="Ditt fullständiga namn" required>
-   <label for="name">Namn *</label>
+          <label for="contactPhone">Telefon (valfritt)</label>
+          <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67">
+
+          <label for="contactMessage">Meddelande </label>
+          <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..." required></textarea>
+
+          <button type="submit">Skicka meddelande</button>
+          <div id="contactStatus"></div>
+        </form>
+      </div>
+
+      <!-- نموذج الحجز -->
+      <form class="booking" id="bookingForm">
+        <h3>Boka tid</h3>
+        
+        <label for="name">Namn </label>
         <input id="name" name="name" placeholder="För- och efternamn" required>
 
-        <label for="email">E-post *</label>
+        <label for="email">E-post </label>
         <input id="email" name="email" type="email" placeholder="din@epost.se" required>
 
-        <label for="car">Bil/Regnr *</label>
+        <label for="car">Bil/Regnr </label>
         <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
 
-        <label for="issue">Problem / Tjänst *</label>
+        <label for="issue">Problem / Tjänst </label>
         <select id="issue" name="issue" required>
           <option value="" disabled selected>Välj ett alternativ…</option>
           <option>Service & olja</option>
@@ -266,26 +279,17 @@
             <input id="date" name="date" type="date" required>
           </div>
           <div class="field">
-            <label for="time">Önskad tid *</label>
+            <label for="time">Önskad tid </label>
             <input id="time" name="time" type="time" required>
           </div>
         </div>
-          
-          <label for="contactEmail">E-post *</label>
-          <input id="contactEmail" name="email" type="email" placeholder="din@epost.se" required>
 
-          <label for="contactPhone">Telefon (valfritt)</label>
-          <input id="contactPhone" name="phone" type="tel" placeholder="07xxxxxxx">
+        <label for="msg">Beskrivning (valfritt)</label>
+        <textarea id="msg" name="message" placeholder="Kort beskrivning eller andra önskemål…"></textarea>
 
-          <label for="contactMessage">Meddelande *</label>
-          <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..." required></textarea>
+        <button type="submit" id="submitBtn">Skicka förfrågan</button>
+      </form>
 
-          <button type="submit">Skicka meddelande</button>
-          <div id="contactStatus"></div>
-        </form>
-      </div>
-
-    
       <div class="map-container" id="kontakt">
         <h3>Här hittar du oss</h3>
         <p>Vagnmakaregatan 2, 415 72 Göteborg</p>
@@ -683,5 +687,5 @@
       window.addEventListener('pointercancel', onPointerUp, { passive: false });
     }
   </script>
-</body>
+</body> 
 </html>

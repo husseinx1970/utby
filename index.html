@@ -16,14 +16,14 @@
     .container{width:min(1100px,100%);margin:auto;padding:0 18px}
 
     /* Header */
-    .header{position:sticky;top:0;z-index:10;background:rgba(12,13,18,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.1)}
+    .header{position:sticky;top:0;z-index:30;background:rgba(12,13,18,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
     .header-inner{display:flex;justify-content:space-between;align-items:center;padding:10px 0}
     .brand{display:flex;align-items:center;gap:10px}
-    .brand img{width:64px;height:64px;border-radius:12px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(218,189,102,.3))}
+    .brand img{width:56px;height:56px;border-radius:12px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(218,189,102,.3))}
     .brand-name{font:800 18px/1 Space Grotesk;color:#fff}
     .nav{display:flex;gap:8px}
-    .nav a{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:700;font-size:14px;border:1px solid rgba(255,255,255,.12);line-height:1}
-    .nav a.secondary{background:rgba(255,255,255,.06);color:#fff}
+    .nav a{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:700;font-size:14px;border:1px solid rgba(255,255,255,.08);line-height:1}
+    .nav a.secondary{background:rgba(255,255,255,.03);color:#fff}
     .nav a:not(.secondary){background:#DABD66;color:#111}
     .nav a .icon svg{width:16px;height:16px}
 
@@ -32,9 +32,9 @@
     h1{font-family:Space Grotesk,Inter;font-weight:800;font-size:clamp(26px,6vw,40px);background:linear-gradient(90deg,#fff,#DABD66);-webkit-background-clip:text;color:transparent;margin:.3em 0}
     .lead{color:#C9D2DE;max-width:65ch;margin:0 auto 16px}
     .cta{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-    .btn{padding:9px 14px;border-radius:12px;font-weight:800;font-size:14px;border:1px solid rgba(255,255,255,.1);transition:.2s}
+    .btn{padding:9px 14px;border-radius:12px;font-weight:800;font-size:14px;border:1px solid rgba(255,255,255,.08);transition:.2s}
     .btn.primary{background:#DABD66;color:#111}
-    .btn.ghost{background:rgba(255,255,255,.06);color:#fff}
+    .btn.ghost{background:rgba(255,255,255,.04);color:#fff}
     .btn:hover{transform:translateY(-2px)}
     .hero-logo{width:min(300px,60vw);margin:20px auto 0;filter:drop-shadow(0 10px 30px rgba(218,189,102,.35))}
 
@@ -45,7 +45,7 @@
 
     /* Services */
     .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-    .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px}
+    .card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:14px}
     .card h3{margin:.1em 0 .2em;font:700 17px/1.2 Inter}
     .card p{margin:0 0 6px}
     .card img{width:100%;height:140px;object-fit:cover;border-radius:10px;margin-top:8px}
@@ -55,23 +55,23 @@
     .booking label,.contact-form label{font-weight:600;font-size:13px;color:#e6e8ef}
     .booking input,.booking select,.booking textarea,.contact-form input,.contact-form textarea{
       width:100%;height:42px;padding:8px 10px;border-radius:8px;
-      border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);
       color:#fff;font-size:14px
     }
     .booking textarea,.contact-form textarea{height:auto;min-height:100px;resize:vertical}
     .booking input:focus,.booking select:focus,.booking textarea:focus,.contact-form input:focus,.contact-form textarea:focus{
-      border-color:#d9b954;outline:none;box-shadow:0 0 0 2px rgba(218,189,102,.25)
+      border-color:#d9b954;outline:none;box-shadow:0 0 0 2px rgba(218,189,102,.16)
     }
-    .booking button,.contact-form button{margin-top:6px;padding:12px 14px;border-radius:999px;background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;font-weight:800;font-size:15px;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(218,189,102,.25)}
+    .booking button,.contact-form button{margin-top:6px;padding:12px 14px;border-radius:999px;background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;font-weight:800;font-size:15px;border:none;cursor:pointer;box-shadow:0 6px 20px rgba(218,189,102,.18)}
     .booking button[disabled],.contact-form button[disabled]{opacity:.6;cursor:not-allowed}
-    .booking button:hover,.contact-form button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(218,189,102,.35)}
+    .booking button:hover,.contact-form button:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(218,189,102,.22)}
     
     /* Contact Form Specific */
-    .contact-form{padding:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px}
+    .contact-form{padding:20px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.04);border-radius:14px}
     .contact-form h3{text-align:center;font:800 20px/1.3 Space Grotesk;margin:0 0 15px;color:#fff}
     #contactStatus{margin-top:10px;padding:10px;border-radius:8px;text-align:center;display:none}
-    #contactStatus.success{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.3)}
-    #contactStatus.error{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.3)}
+    #contactStatus.success{background:rgba(34,197,94,.08);color:#4ade80;border:1px solid rgba(34,197,94,.18)}
+    #contactStatus.error{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.18)}
 
     /* Fix native select menu colors */
     .booking select{background:#121317;color:#fff}
@@ -83,20 +83,20 @@
     iframe{width:100%;height:240px;border:0;border-radius:12px}
 
     /* Footer */
-    .site-footer{margin-top:32px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.015));border-top:1px solid rgba(255,255,255,.12)}
+    .site-footer{margin-top:32px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));border-top:1px solid rgba(255,255,255,.06)}
     .footer-top{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px;padding:22px 0 12px}
     .site-footer h4{font:800 16px/1.2 Inter;color:#fff;margin:.2em 0 .5em}
     .site-footer p,.site-footer a,.site-footer li{color:#C9D2DE;font-size:14px;line-height:1.6}
     .site-footer a:hover{color:#DABD66}
     .footer-divider{height:2px;background:linear-gradient(90deg,transparent,rgba(218,189,102,.7),transparent);margin:8px 0 12px}
-    .copyright-bar{text-align:center;padding:10px 0 16px;font-size:13px;color:#BFC7D4;border-top:1px solid rgba(255,255,255,.08)}
+    .copyright-bar{text-align:center;padding:10px 0 16px;font-size:13px;color:#BFC7D4;border-top:1px solid rgba(255,255,255,.04)}
     .copyright-bar a{color:#DABD66;font-weight:700}
     .copyright-bar a:hover{color:#fff}
 
     /* Modal */
-    .modal{position:fixed;inset:0;display:none;place-items:center;z-index:20;background:rgba(8,10,14,.55);backdrop-filter:blur(14px)}
+    .modal{position:fixed;inset:0;display:none;place-items:center;z-index:60;background:rgba(8,10,14,.55);backdrop-filter:blur(14px)}
     .modal.show{display:grid}
-    .modal-card{width:min(620px,92vw);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px;box-shadow:0 32px 90px rgba(0,0,0,.52)}
+    .modal-card{width:min(620px,92vw);background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:18px;box-shadow:0 32px 90px rgba(0,0,0,.52)}
     .modal-header{display:flex;align-items:center;gap:10px;justify-content:flex-start;margin-bottom:12px}
     .modal-header img{width:40px;height:40px;border-radius:10px;object-fit:contain;filter:drop-shadow(0 6px 18px rgba(218,189,102,.35))}
     .modal-card h3{font:800 20px/1.2 Inter;margin:.1em 0;text-align:left}
@@ -115,14 +115,15 @@
     .sms-fab{
       position:fixed;right:14px;bottom:14px;width:54px;height:54px;border-radius:50%;
       display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;
-      border:1px solid rgba(0,0,0,.2);text-decoration:none;transition:.15s;box-shadow:none !important;touch-action:none;
-      z-index:100
+      border:1px solid rgba(0,0,0,.16);text-decoration:none;transition:.15s;box-shadow:0 6px 18px rgba(0,0,0,.35);touch-action:none;
+      z-index:70
     }
     .sms-fab svg{width:24px;height:24px}
+    .sms-fab:active{transform:scale(.98)}
 
     @media(max-width:520px){
       .footer-top{grid-template-columns:1fr}
-      .brand img{width:54px;height:54px}
+      .brand img{width:48px;height:48px}
       .nav{flex-wrap:wrap}
     }
 
@@ -132,9 +133,17 @@
     .inline-dt label{font-size:12px}
     .inline-dt input{height:32px;font-size:12px;padding:6px 8px;max-width:100%}
     @media(max-width:520px){.inline-dt{grid-template-columns:1fr}}
+
+    /* background canvas sits under everything */
+    #bgCanvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0;display:block}
+    /* ensure main content sits above */
+    header, .container, footer, .modal, .contact-form, .services { position: relative; z-index: 10; }
   </style>
 </head>
 <body>
+
+  <!-- background canvas -->
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
   <!-- Header -->
   <header class="header">
@@ -226,156 +235,64 @@
     <div class="container">
       <h2>Kontakt oss & Boka tid</h2>
 
-      <!-- نموذج الاتصال -->
+      <!-- Kontaktformular -->
       <div class="contact-form">
         <h3>Boka tid</h3>
-        <form id="contactForm" action="https://formsubmit.co/snabbservise@hotmail.com" method="POST">
+        <!-- action must match the email you registered at formsubmit.co -->
+        <form id="contactForm" action="https://formsubmit.co/snabbservise@hotmail.com" method="POST" novalidate>
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_subject" value="Nytt meddelande — Utby Snabb Bilservice">
           <input type="hidden" name="_captcha" value="false">
           <input type="text" name="_honey" style="display:none">
 
- <label for="name">Namn </label>
-        <input id="name" name="name" placeholder="För- och efternamn" required>
+          <label for="name">Namn </label>
+          <input id="name" name="name" placeholder="För- och efternamn" required>
 
           <label for="contactPhone">Telefon (valfritt)</label>
           <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67">
        
-        <label for="email">E-post </label>
-        <input id="email" name="email" type="email" placeholder="din@epost.se" required>
+          <label for="email">E-post </label>
+          <input id="email" name="email" type="email" placeholder="din@epost.se" required>
 
-        <label for="car">Bil/Regnr </label>
-        <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
-<!-- Sökbar Problem / Tjänst (ersätter <select id="issue">) -->
-<!-- Problem / Tjänst — kort lista med 'Annat' först -->
-<label for="issueInput">Problem / Tjänst</label>
-<div class="custom-dropdown" id="issueDropdown">
-  <input type="text" id="issueInput" name="issue" placeholder="Välj eller sök tjänst..." required autocomplete="off">
-  <ul class="dropdown-list">
-    <li>Annat – beskriv i meddelandet</li>
-    <li>Service & olja</li>
-    <li>Bromsar</li>
-    <li>Däck & hjul</li>
-    <li>AC / klimatanläggning</li>
-    <li>El / elektronik</li>
-    <li>Diagnos / OBD</li>
-    <li>Motor</li>
-    <li>Växellåda / koppling</li>
-    <li>Besiktning / kontroll</li>
-  </ul>
-</div>
+          <label for="car">Bil/Regnr </label>
+          <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
 
-<style>
-/* --- Dropdown-stil (mörk tema) --- */
-.custom-dropdown {
-  position: relative;
-  width: 100%;
-  margin-bottom: 14px;
-}
-.custom-dropdown input {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.03);
-  color: #eee;
-  font-size: 15px;
-  box-sizing: border-box;
-  outline: none;
-  cursor: pointer;
-}
-.custom-dropdown input:focus {
-  border-color: rgba(255,215,90,0.9);
-  box-shadow: 0 0 10px rgba(255,215,90,0.1);
-}
-.custom-dropdown input::placeholder {
-  color: rgba(255,255,255,0.4);
-}
-
-/* lista */
-.dropdown-list {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  max-height: 220px;
-  overflow-y: auto;
-  background: #111;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 10px;
-  padding: 6px 0;
-  list-style: none;
-  margin: 4px 0 0 0;
-  display: none;
-  z-index: 999;
-}
-.dropdown-list li {
-  padding: 10px 14px;
-  color: #ddd;
-  cursor: pointer;
-  font-size: 15px;
-}
-.dropdown-list li:hover {
-  background: rgba(255,215,90,0.15);
-  color: #fff;
-}
-
-/* liten pil för känsla som select 🔽 */
-.custom-dropdown::after {
-  content: "▾";
-  position: absolute;
-  right: 14px;
-  top: 12px;
-  color: rgba(255,255,255,0.4);
-  pointer-events: none;
-  font-size: 18px;
-}
-</style>
-
-<script>
-const dropdown = document.getElementById("issueDropdown");
-const input = dropdown.querySelector("input");
-const list = dropdown.querySelector(".dropdown-list");
-
-input.addEventListener("focus", () => list.style.display = "block");
-input.addEventListener("input", () => {
-  const filter = input.value.toLowerCase();
-  const items = list.querySelectorAll("li");
-  items.forEach(li => {
-    li.style.display = li.textContent.toLowerCase().includes(filter) ? "block" : "none";
-  });
-});
-list.querySelectorAll("li").forEach(li => {
-  li.addEventListener("click", () => {
-    input.value = li.textContent;
-    list.style.display = "none";
-  });
-});
-document.addEventListener("click", e => {
-  if (!dropdown.contains(e.target)) list.style.display = "none";
-});
-</script>
-        <div class="inline-dt">
-          <div class="field">
-            <label for="date">Önskat datum *</label>
-            <input id="date" name="date" type="date" required>
+          <!-- Problem / Tjänst -->
+          <label for="issueInput">Problem / Tjänst</label>
+          <div class="custom-dropdown" id="issueDropdown">
+            <input type="text" id="issueInput" name="issue" placeholder="Välj eller sök tjänst..." required autocomplete="off">
+            <ul class="dropdown-list" aria-hidden="true">
+              <li>Annat – beskriv i meddelandet</li>
+              <li>Service & olja</li>
+              <li>Bromsar</li>
+              <li>Däck & hjul</li>
+              <li>AC / klimatanläggning</li>
+              <li>El / elektronik</li>
+              <li>Diagnos / OBD</li>
+              <li>Motor</li>
+              <li>Växellåda / koppling</li>
+              <li>Besiktning / kontroll</li>
+            </ul>
           </div>
-          <div class="field">
-            <label for="time">Önskad tid </label>
-            <input id="time" name="time" type="time" required>
-          </div>
-        </div>
 
-     
+          <div class="inline-dt">
+            <div class="field">
+              <label for="date">Önskat datum *</label>
+              <input id="date" name="date" type="date" required>
+            </div>
+            <div class="field">
+              <label for="time">Önskad tid </label>
+              <input id="time" name="time" type="time" required>
+            </div>
+          </div>
+
           <label for="contactMessage">Meddelande </label>
           <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..." required></textarea>
 
-          <button type="submit">Skicka meddelande</button>
-          <div id="contactStatus"></div>
+          <button id="contactSubmit" type="submit">Skicka meddelande</button>
+          <div id="contactStatus" role="status" aria-live="polite"></div>
         </form>
       </div>
-
-      <!-- نموذج الحجز -->
 
       <div class="map-container" id="kontakt">
         <h3>Här hittar du oss</h3>
@@ -423,7 +340,7 @@ document.addEventListener("click", e => {
   </footer>
 
   <!-- Modal: Kontakta Hussein -->
-  <div class="modal" id="creatorModal">
+  <div class="modal" id="creatorModal" aria-hidden="true">
     <div class="modal-card">
       <div class="modal-header">
         <img src="assets/logo.png" alt="Logotyp">
@@ -443,7 +360,7 @@ document.addEventListener("click", e => {
   </div>
 
   <!-- Modal: Tack -->
-  <div class="modal" id="thanksModal">
+  <div class="modal" id="thanksModal" aria-hidden="true">
     <div class="modal-card">
       <div class="modal-header">
         <img src="assets/logo.png" alt="Logotyp">
@@ -457,7 +374,7 @@ document.addEventListener("click", e => {
   </div>
 
   <!-- Modal: Kontaktväljare (SMS eller E-post) -->
-  <div class="modal" id="chooserModal">
+  <div class="modal" id="chooserModal" aria-hidden="true">
     <div class="modal-card">
       <div class="modal-header">
         <img src="assets/logo.png" alt="Logotyp">
@@ -473,306 +390,404 @@ document.addEventListener("click", e => {
   </div>
 
   <!-- SMS floating button -->
-  <a id="smsFab" class="sms-fab" href="#" aria-label="Skicka SMS eller e-post">
-    <svg viewBox="0 0 24 24" fill="currentColor">
+  <a id="smsFab" class="sms-fab" href="#" aria-label="Skicka SMS eller e-post" title="SMS">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M20 2H4a2 2 0 00-2 2v16l4-4h14a2 2 0 002-2V4a2 2 0 01-2-2zM6 9h8v2H6V9zm0-4h12v2H6V5z"/>
     </svg>
   </a>
 
+  <!-- SCRIPTS -->
   <script>
-    // تهيئة التاريخ
-    document.addEventListener('DOMContentLoaded', function() {
-      const dateInput = document.getElementById('date');
-      if (dateInput) {
-        const today = new Date();
-        const y = today.getFullYear();
-        const m = String(today.getMonth() + 1).padStart(2, '0');
-        const d = String(today.getDate()).padStart(2, '0');
-        dateInput.min = `${y}-${m}-${d}`;
-      }
+    // small dropdown code
+    (function(){
+      const dropdown = document.getElementById("issueDropdown");
+      if(!dropdown) return;
+      const input = dropdown.querySelector("input");
+      const list = dropdown.querySelector(".dropdown-list");
+      input.addEventListener("focus", () => list.style.display = "block");
+      input.addEventListener("input", () => {
+        const filter = input.value.toLowerCase();
+        const items = list.querySelectorAll("li");
+        items.forEach(li => {
+          li.style.display = li.textContent.toLowerCase().includes(filter) ? "block" : "none";
+        });
+      });
+      list.querySelectorAll("li").forEach(li => {
+        li.addEventListener("click", () => {
+          input.value = li.textContent;
+          list.style.display = "none";
+        });
+      });
+      document.addEventListener("click", e => {
+        if (!dropdown.contains(e.target)) list.style.display = "none";
+      });
+    })();
+  </script>
 
-      // تهيئة وضع زر SMS
-      initSmsFab();
-    });
-
-    // إدارة Modal Hussein
+  <script>
+  // Modal handling
+  document.addEventListener('DOMContentLoaded', function() {
+    // Creator modal
     const creatorModal = document.getElementById('creatorModal');
     const openCreator = document.getElementById('openCreator');
     const closeCreator = document.getElementById('closeCreator');
-
     if (openCreator && creatorModal) {
       openCreator.addEventListener('click', function(e) {
         e.preventDefault();
         creatorModal.classList.add('show');
+        creatorModal.setAttribute('aria-hidden','false');
         document.body.classList.add('scroll-lock');
       });
     }
-
     if (closeCreator && creatorModal) {
       closeCreator.addEventListener('click', function(e) {
         e.preventDefault();
         creatorModal.classList.remove('show');
+        creatorModal.setAttribute('aria-hidden','true');
         document.body.classList.remove('scroll-lock');
       });
     }
+    creatorModal && creatorModal.addEventListener('click', function(e) {
+      if (e.target === creatorModal) {
+        creatorModal.classList.remove('show');
+        creatorModal.setAttribute('aria-hidden','true');
+        document.body.classList.remove('scroll-lock');
+      }
+    });
 
-    // إغلاق Modal بالنقر خارج المحتوى
-    if (creatorModal) {
-      creatorModal.addEventListener('click', function(e) {
-        if (e.target === creatorModal) {
-          creatorModal.classList.remove('show');
-          document.body.classList.remove('scroll-lock');
-        }
-      });
+    // chooser modal
+    const chooserModal = document.getElementById('chooserModal');
+    const chooserClose = document.getElementById('chooserClose');
+    const smsFab = document.getElementById('smsFab');
+    const chooserSms = document.getElementById('chooserSms');
+    const chooserMail = document.getElementById('chooserMail');
+    function getSmsHref() {
+      const base = 'sms:+46720040936';
+      const body = encodeURIComponent('Hej! Jag skulle vilja be om hjälp med min bil, den verkar ha ett problem och jag behöver rådgivning.');
+      const ua = navigator.userAgent.toLowerCase();
+      return (ua.includes('iphone') || ua.includes('ipad')) ? `${base}&body=${body}` : `${base}?body=${body}`;
     }
-
-    // إرسال نموذج الاتصال
-    const contactForm = document.getElementById('contactForm');
-    const contactStatus = document.getElementById('contactStatus');
-
-    if (contactForm) {
-      contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        
-        // تعطيل الزر وعرض التحميل
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Skickar...';
-        contactStatus.style.display = 'none';
-        
-        try {
-          const formData = new FormData(contactForm);
-          
-          const response = await fetch(contactForm.action, {
-            method: 'POST',
-            headers: { 'Accept': 'application/json' },
-            body: formData
-          });
-          
-          if (response.ok) {
-            // نجاح
-            contactStatus.textContent = 'Tack! Ditt meddelande har skickats. Vi återkommer så snart som möjligt.';
-            contactStatus.className = 'success';
-            contactStatus.style.display = 'block';
-            contactForm.reset();
-          } else {
-            throw new Error('Något gick fel');
-          }
-        } catch (error) {
-          // خطأ
-          contactStatus.textContent = 'Något gick fel. Vänligen försök igen eller ring oss direkt.';
-          contactStatus.className = 'error';
-          contactStatus.style.display = 'block';
-        } finally {
-          // إعادة تمكين الزر
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalText;
-        }
-      });
+    function openChooser(e){
+      e && e.preventDefault();
+      if(!chooserModal) return;
+      chooserModal.classList.add('show');
+      chooserModal.setAttribute('aria-hidden','false');
+      document.body.classList.add('scroll-lock');
+      chooserSms.href = getSmsHref();
     }
+    function closeChooser(e){
+      e && e.preventDefault();
+      if(!chooserModal) return;
+      chooserModal.classList.remove('show');
+      chooserModal.setAttribute('aria-hidden','true');
+      document.body.classList.remove('scroll-lock');
+    }
+    smsFab && smsFab.addEventListener('click', openChooser);
+    chooserClose && chooserClose.addEventListener('click', closeChooser);
+    chooserModal && chooserModal.addEventListener('click', function(e){
+      if (e.target === chooserModal) closeChooser();
+    });
 
-    // إرسال نموذج الحجز
-    const bookingForm = document.getElementById('bookingForm');
+    // thanks modal close
     const thanksModal = document.getElementById('thanksModal');
     const thanksClose = document.getElementById('thanksClose');
-
-    if (bookingForm) {
-      bookingForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        if (!bookingForm.checkValidity()) {
-          bookingForm.reportValidity();
-          return;
-        }
-
-        const submitBtn = document.getElementById('submitBtn');
-        const originalText = submitBtn.textContent;
-        
-        // تعطيل الزر وعرض التحميل
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Skickar...';
-        
-        // محاكاة الإرسال
-        setTimeout(() => {
-          // عرض رسالة النجاح
-          thanksModal.classList.add('show');
-          document.body.classList.add('scroll-lock');
-          
-          // إعادة تعيين النموذج
-          bookingForm.reset();
-          
-          // إعادة تمكين الزر
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalText;
-        }, 1500);
-      });
-    }
-
-    // إغلاق modal الشكر
-    if (thanksClose && thanksModal) {
-      thanksClose.addEventListener('click', function(e) {
-        e.preventDefault();
+    thanksClose && thanksClose.addEventListener('click', function(e){
+      e.preventDefault();
+      thanksModal.classList.remove('show');
+      thanksModal.setAttribute('aria-hidden','true');
+      document.body.classList.remove('scroll-lock');
+    });
+    thanksModal && thanksModal.addEventListener('click', function(e){
+      if (e.target === thanksModal) {
         thanksModal.classList.remove('show');
-        document.body.classList.remove('scroll-lock');
-      });
-      
-      thanksModal.addEventListener('click', function(e) {
-        if (e.target === thanksModal) {
-          thanksModal.classList.remove('show');
-          document.body.classList.remove('scroll-lock');
-        }
-      });
-    }
-
-    // إدارة زر SMS مع اختيار الطريقة
-    function initSmsFab() {
-      const smsFab = document.getElementById('smsFab');
-      const chooserModal = document.getElementById('chooserModal');
-      const chooserSms = document.getElementById('chooserSms');
-      const chooserMail = document.getElementById('chooserMail');
-      const chooserClose = document.getElementById('chooserClose');
-
-      if (!smsFab || !chooserModal) return;
-
-      // بناء رابط SMS بناءً على النظام الأساسي
-      function getSmsHref() {
-        const base = 'sms:+46720040936';
-        const body = encodeURIComponent('Hej! Jag skulle vilja be om hjälp med min bil, den verkar ha ett problem och jag behöver rådgivning.');
-        const ua = navigator.userAgent.toLowerCase();
-        // iOS يستخدم &body، Android والأنظمة الأخرى تستخدم ?body
-        return (ua.includes('iphone') || ua.includes('ipad')) ? 
-          `${base}&body=${body}` : `${base}?body=${body}`;
-      }
-
-      // فتح modal اختيار الطريقة
-      function openChooser(e) {
-        e.preventDefault();
-        chooserModal.classList.add('show');
-        document.body.classList.add('scroll-lock');
-        
-        // تعيين رابط SMS
-        chooserSms.href = getSmsHref();
-      }
-
-      // إغلاق modal اختيار الطريقة
-      function closeChooser(e) {
-        e.preventDefault();
-        chooserModal.classList.remove('show');
+        thanksModal.setAttribute('aria-hidden','true');
         document.body.classList.remove('scroll-lock');
       }
+    });
 
-      // إضافة event listeners
-      smsFab.addEventListener('click', openChooser);
-      chooserClose.addEventListener('click', closeChooser);
-      chooserModal.addEventListener('click', function(e) {
-        if (e.target === chooserModal) closeChooser(e);
-      });
-
-      // جعل زر SMS قابل للسحب
-      makeSmsFabDraggable(smsFab);
-    }
-
-    // جعل زر SMS قابل للسحب
-    function makeSmsFabDraggable(el) {
+    // make SMS FAB draggable (pointer events)
+    (function makeSmsFabDraggable(el){
+      if(!el) return;
       const MARGIN_X = 14, MARGIN_Y = 8, CLICK_TOL = 6;
       let dragging = false, startX = 0, startY = 0, startLeft = 0, startTop = 0, pointerId = null;
-
-      // استعادة الموضع المحفوظ
-      function restorePosition() {
-        try {
+      function restorePosition(){
+        try{
           const saved = JSON.parse(localStorage.getItem('smsFabPosition') || 'null');
-          if (saved && (saved.side === 'left' || saved.side === 'right') && Number.isFinite(saved.top)) {
+          if(saved && (saved.side === 'left' || saved.side === 'right') && Number.isFinite(saved.top)){
             el.style.top = Math.max(MARGIN_Y, saved.top) + 'px';
-            if (saved.side === 'left') {
-              el.style.left = MARGIN_X + 'px';
-              el.style.right = 'auto';
-            } else {
-              el.style.right = MARGIN_X + 'px';
-              el.style.left = 'auto';
-            }
+            if(saved.side === 'left'){ el.style.left = MARGIN_X + 'px'; el.style.right = 'auto'; }
+            else { el.style.right = MARGIN_X + 'px'; el.style.left = 'auto'; }
           }
-        } catch (_) {}
+        }catch(_){}
       }
-
-      function ensureLeftTop() {
+      function ensureLeftTop(){
         const rect = el.getBoundingClientRect();
         el.style.left = rect.left + 'px';
         el.style.top = rect.top + 'px';
         el.style.right = 'auto';
         el.style.bottom = 'auto';
       }
-
-      function clampTop(top) {
+      function clampTop(top){
         const rect = el.getBoundingClientRect();
         const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
         return Math.min(vh - rect.height - MARGIN_Y, Math.max(MARGIN_Y, top));
       }
-
-      function onPointerDown(e) {
+      function onPointerDown(e){
         if (pointerId !== null && e.pointerId !== pointerId) return;
         pointerId = e.pointerId;
-        try { e.target.setPointerCapture(pointerId); } catch (_) {}
+        try { e.target.setPointerCapture(pointerId); } catch (_){}
         dragging = true;
         startX = e.clientX;
         startY = e.clientY;
         ensureLeftTop();
-        startLeft = parseFloat(el.style.left);
-        startTop = parseFloat(el.style.top);
+        startLeft = parseFloat(el.style.left) || 0;
+        startTop = parseFloat(el.style.top) || 0;
         el.style.transition = 'none';
         e.preventDefault();
       }
-
-      function onPointerMove(e) {
-        if (!dragging || e.pointerId !== pointerId) return;
+      function onPointerMove(e){
+        if(!dragging || e.pointerId !== pointerId) return;
         const dx = e.clientX - startX, dy = e.clientY - startY;
         el.style.left = Math.round(startLeft + dx) + 'px';
         el.style.top = Math.round(startTop + dy) + 'px';
         e.preventDefault();
       }
-
-      function onPointerUp(e) {
-        if (e.pointerId !== pointerId) return;
-        try { e.target.releasePointerCapture(pointerId); } catch (_) {}
+      function onPointerUp(e){
+        if(e.pointerId !== pointerId) return;
+        try { e.target.releasePointerCapture(pointerId); } catch(_){}
         const dx = e.clientX - startX, dy = e.clientY - startY;
         const moved = Math.hypot(dx, dy);
         dragging = false;
         pointerId = null;
-
         const rect = el.getBoundingClientRect();
         const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-        const side = (rect.left + rect.width / 2 < vw / 2) ? 'left' : 'right';
+        const side = (rect.left + rect.width/2 < vw/2) ? 'left' : 'right';
         const top = clampTop(parseFloat(el.style.top || rect.top));
         el.style.top = Math.round(top) + 'px';
-
-        if (side === 'left') {
-          el.style.left = MARGIN_X + 'px';
-          el.style.right = 'auto';
-        } else {
-          el.style.right = MARGIN_X + 'px';
-          el.style.left = 'auto';
-        }
-
-        try {
-          localStorage.setItem('smsFabPosition', JSON.stringify({ side, top }));
-        } catch (_) {}
-
-        if (moved > CLICK_TOL) {
-          el.addEventListener('click', function once(ev) {
-            ev.stopImmediatePropagation();
-            ev.preventDefault();
-          }, { once: true, capture: true });
+        if(side === 'left'){ el.style.left = MARGIN_X + 'px'; el.style.right = 'auto'; }
+        else { el.style.right = MARGIN_X + 'px'; el.style.left = 'auto'; }
+        try { localStorage.setItem('smsFabPosition', JSON.stringify({ side, top })); } catch(_){}
+        if(moved > CLICK_TOL){
+          el.addEventListener('click', function once(ev){ ev.stopImmediatePropagation(); ev.preventDefault(); }, { once:true, capture:true });
         }
       }
-
-      // استعادة الموضع وإضافة event listeners
       restorePosition();
-      el.addEventListener('pointerdown', onPointerDown, { passive: false });
-      window.addEventListener('pointermove', onPointerMove, { passive: false });
-      window.addEventListener('pointerup', onPointerUp, { passive: false });
-      window.addEventListener('pointercancel', onPointerUp, { passive: false });
+      el.addEventListener('pointerdown', onPointerDown, { passive:false });
+      window.addEventListener('pointermove', onPointerMove, { passive:false });
+      window.addEventListener('pointerup', onPointerUp, { passive:false });
+      window.addEventListener('pointercancel', onPointerUp, { passive:false });
+    })(smsFab);
+
+    // initialize date min
+    const dateInput = document.getElementById('date');
+    if (dateInput) {
+      const today = new Date();
+      const y = today.getFullYear();
+      const m = String(today.getMonth() + 1).padStart(2, '0');
+      const d = String(today.getDate()).padStart(2, '0');
+      dateInput.min = `${y}-${m}-${d}`;
     }
+  });
   </script>
-</body> 
-</html>   
+
+  <script>
+  // Contact form submission — AJAX to FormSubmit + fallback
+  (function(){
+    const contactForm = document.getElementById('contactForm');
+    const contactStatus = document.getElementById('contactStatus');
+    const submitBtn = document.getElementById('contactSubmit');
+    if(!contactForm) return;
+
+    contactForm.addEventListener('submit', async function handler(e){
+      e.preventDefault();
+      // basic HTML5 check
+      if(!contactForm.checkValidity()){
+        contactForm.reportValidity();
+        return;
+      }
+      submitBtn.disabled = true;
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Skickar...';
+      contactStatus.style.display = 'none';
+      contactStatus.className = '';
+
+      try {
+        const formData = new FormData(contactForm);
+        // ensure this matches the action email above
+        const email = 'snabbservise@hotmail.com';
+        const ajaxEndpoint = 'https://formsubmit.co/ajax/' + encodeURIComponent(email);
+
+        const res = await fetch(ajaxEndpoint, { method: 'POST', body: formData });
+        if(res.ok){
+          let msg = 'Tack! Ditt meddelande har skickats. Vi återkommer så snart som möjligt.';
+          try {
+            const data = await res.json();
+            if (data && data.message) msg = data.message;
+          } catch(_) {}
+          contactStatus.textContent = msg;
+          contactStatus.className = 'success';
+          contactStatus.style.display = 'block';
+          contactForm.reset();
+          // show thanks modal as extra feedback
+          const thanksModal = document.getElementById('thanksModal');
+          if(thanksModal){ thanksModal.classList.add('show'); thanksModal.setAttribute('aria-hidden','false'); document.body.classList.add('scroll-lock'); }
+        } else {
+          contactStatus.textContent = 'Något gick fel med AJAX-förfrågan. Nu försöker vi vanlig inskickning.';
+          contactStatus.className = 'error';
+          contactStatus.style.display = 'block';
+          // fallback to normal post (browser navigate)
+          setTimeout(() => {
+            contactForm.removeEventListener('submit', handler);
+            contactForm.submit();
+          }, 900);
+        }
+      } catch(err){
+        contactStatus.textContent = 'Nätverksfel eller CORS. Försöker vanlig inskickning...';
+        contactStatus.className = 'error';
+        contactStatus.style.display = 'block';
+        setTimeout(() => {
+          contactForm.removeEventListener('submit', handler);
+          contactForm.submit();
+        }, 900);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    });
+  })();
+  </script>
+
+  <script>
+  // Particle background with pointer interaction
+  (function(){
+    const canvas = document.getElementById('bgCanvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: true });
+    let DPR = Math.max(1, window.devicePixelRatio || 1);
+    let W = innerWidth, H = innerHeight;
+    function resize(){ DPR = Math.max(1, window.devicePixelRatio || 1); W = innerWidth; H = innerHeight; canvas.width = Math.floor(W*DPR); canvas.height = Math.floor(H*DPR); canvas.style.width = W+'px'; canvas.style.height = H+'px'; ctx.setTransform(DPR,0,0,DPR,0,0); initParticles(); }
+    window.addEventListener('resize', debounce(resize, 120));
+    resize();
+
+    // config
+    const CONFIG = {
+      particleBaseDensity: 70000,
+      minParticles: 40,
+      maxParticles: 420,
+      sizeMin: 0.8,
+      sizeMax: 3.6,
+      speedYMin: -0.12,
+      speedYMax: -0.5,
+      speedXRange: 0.18,
+      glowMin: 0.8,
+      glowMax: 3.2,
+      alphaMin: 0.06,
+      alphaMax: 0.36,
+      pointerRepelRadius: 160,
+      pointerActive: true
+    };
+
+    function rand(a,b){ return Math.random()*(b-a)+a; }
+    function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+
+    function Particle(onScreen){
+      this.reset(onScreen);
+    }
+    Particle.prototype.reset = function(onScreen){
+      this.x = rand(-W*0.05, W*1.05);
+      this.y = onScreen ? rand(0, H) : H + rand(4, 120);
+      this.vx = rand(-CONFIG.speedXRange, CONFIG.speedXRange);
+      this.vy = rand(CONFIG.speedYMin, CONFIG.speedYMax);
+      this.baseSize = rand(CONFIG.sizeMin, CONFIG.sizeMax);
+      this.size = this.baseSize;
+      this.life = rand(10, 30);
+      this.age = 0;
+      const tone = Math.round(rand(200, 245));
+      this.alpha = rand(CONFIG.alphaMin, CONFIG.alphaMax);
+      this.color = `rgba(${tone},${tone},${tone},${this.alpha})`;
+      this.blur = rand(CONFIG.glowMin, CONFIG.glowMax);
+      this.wob = rand(0.2, 1.4);
+    };
+    Particle.prototype.step = function(dt, mx, my, pointerActive){
+      if(pointerActive && mx !== null){
+        const dx = this.x - mx, dy = this.y - my;
+        const d2 = dx*dx + dy*dy;
+        const r = CONFIG.pointerRepelRadius;
+        if(d2 < r*r){
+          const f = (1 - Math.sqrt(d2)/r) * 0.9;
+          this.vx += (dx / (Math.sqrt(d2)+6)) * 0.08 * f;
+          this.vy += (dy / (Math.sqrt(d2)+6)) * 0.08 * f;
+        } else if(d2 < r*r*4){
+          const f = 0.01;
+          this.vx += ((mx - this.x) * f) * 0.01;
+          this.vy += ((my - this.y) * f) * 0.01;
+        }
+      }
+      this.vx += Math.sin((this.age * 0.6) + this.wob) * 0.002;
+      this.x += this.vx * dt * 60;
+      this.y += this.vy * dt * 60;
+      this.age += dt;
+      if(this.y + this.size < -40 || this.age > this.life) this.reset(false);
+      this.size = this.baseSize + Math.sin(this.age*1.5)*0.25;
+    };
+    Particle.prototype.draw = function(ctx){
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.shadowColor = this.color;
+      ctx.shadowBlur = this.blur * 6;
+      ctx.arc(this.x, this.y, Math.max(0.2,this.size), 0, Math.PI*2);
+      ctx.fill();
+      ctx.restore();
+    };
+
+    let particles = [];
+    function initParticles(){
+      const base = Math.round((W*H) / CONFIG.particleBaseDensity);
+      const count = clamp(base, CONFIG.minParticles, CONFIG.maxParticles);
+      particles.length = 0;
+      for(let i=0;i<count;i++) particles.push(new Particle(true));
+    }
+    initParticles();
+
+    // pointer
+    let mouseX = null, mouseY = null, pointerActive = false;
+    function onPointerMove(e){
+      const p = e.touches ? e.touches[0] : e;
+      mouseX = p.clientX;
+      mouseY = p.clientY;
+      pointerActive = true;
+    }
+    function onPointerLeave(){ pointerActive = false; mouseX = null; mouseY = null; }
+    if(CONFIG.pointerActive){
+      window.addEventListener('mousemove', onPointerMove, {passive:true});
+      window.addEventListener('touchmove', onPointerMove, {passive:true});
+      window.addEventListener('mouseleave', onPointerLeave);
+      window.addEventListener('touchend', onPointerLeave);
+    }
+
+    let last = performance.now();
+    function frame(now){
+      const dt = Math.min(0.09, (now-last)/1000);
+      last = now;
+      const g = ctx.createLinearGradient(0,0,0,H);
+      g.addColorStop(0, 'rgba(14,15,18,0.98)');
+      g.addColorStop(1, 'rgba(10,10,12,0.98)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0,0,W,H);
+
+      for(const p of particles){
+        p.step(dt, mouseX, mouseY, pointerActive);
+        p.draw(ctx);
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+
+    function debounce(fn, t){ let id; return function(){ clearTimeout(id); id = setTimeout(fn, t); }; }
+  })();
+  </script>
+
+</body>
+</html>

@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <meta name="color-scheme" content="dark only"/>
   <title>Utby Snabb Bilverkstad — Pålitlig bilservice i Göteborg</title>
-  <title>Utby Snabb Bilservice — Pålitlig bilservice i Göteborg</title>
   <meta name="description" content="Utby Snabb Bilverkstad i Göteborg: service, diagnos, bromsar, däck, AC och kompletta reparationer. Drop-in, vardagar 09:00–18:00, däckhotell."/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
   <style>
@@ -66,7 +65,7 @@
     .booking button,.contact-form button{margin-top:6px;padding:12px 14px;border-radius:999px;background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;font-weight:800;font-size:15px;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(218,189,102,.25)}
     .booking button[disabled],.contact-form button[disabled]{opacity:.6;cursor:not-allowed}
     .booking button:hover,.contact-form button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(218,189,102,.35)}
-
+    
     /* Contact Form Specific */
     .contact-form{padding:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px}
     .contact-form h3{text-align:center;font:800 20px/1.3 Space Grotesk;margin:0 0 15px;color:#fff}
@@ -105,7 +104,7 @@
     .action{display:block;width:100%;text-align:center;font-weight:900;border-radius:12px;padding:12px;margin:10px 0}
     .action.call{background:#111;color:#DABD66;border:1px solid rgba(255,255,255,.08)}
     .action.mail{background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;border:none}
-    .modal .meta{color:#D7DEEA;font-size:14px;margin-top:10px}
+    .modal .meta{Color:#D7DEEA;font-size:14px;margin-top:10px}
     .modal .meta strong{color:#fff}
     .modal-close{display:block;margin:14px auto 2px;text-align:center;color:#9fb0c0;cursor:pointer}
 
@@ -117,8 +116,9 @@
       position:fixed;right:14px;bottom:14px;width:54px;height:54px;border-radius:50%;
       display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;
       border:1px solid rgba(0,0,0,.2);text-decoration:none;transition:.15s;box-shadow:none !important;touch-action:none;
-      z-index:100
+      z-index:100;cursor:grab;
     }
+    .sms-fab:active{cursor:grabbing}
     .sms-fab svg{width:24px;height:24px}
 
     @media(max-width:520px){
@@ -230,25 +230,66 @@
       <!-- نموذج الاتصال -->
       <div class="contact-form">
         <h3>Kontakta oss direkt</h3>
-        <form id="contactForm" action="https://formsubmit.co/snabbservise@hotmail.com" method="POST">
+        <!-- تم تعديل الـ action ليكون AJAX endpoint -->
+        <form id="contactForm" action="https://formsubmit.co/ajax/snabbservise@hotmail.com" method="POST">
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_subject" value="Nytt meddelande — Utby Snabb Bilverkstad">
           <input type="hidden" name="_captcha" value="false">
           <input type="text" name="_honey" style="display:none">
 
- <label for="name">Namn </label>
+          <label for="contactName">Namn *</label>
+          <input id="contactName" name="name" type="text" placeholder="Ditt fullständiga namn" required>
+
+          <label for="contactEmail">E-post *</label>
+          <input id="contactEmail" name="email" type="email" placeholder="din@epost.se" required>
+
+          <label for="contactPhone">Telefon *</label>
+          <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67" required>
+
+          <label for="contactCar">Bil/Regnr *</label>
+          <input id="contactCar" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
+
+          <label for="contactService">Problem / Tjänst *</label>
+          <select id="contactService" name="service" required>
+            <option value="" disabled selected>Välj ett alternativ…</option>
+            <option>Service & olja</option>
+            <option>Bromsar</option>
+            <option>Däck & hjul</option>
+            <option>AC / klimatanläggning</option>
+            <option>El / elektronik</option>
+            <option>Diagnos / OBD</option>
+            <option>Växellåda / koppling</option>
+            <option>Motor</option>
+            <option>Annan åtgärd</option>
+            <option>Förfrågan om pris</option>
+            <option>Allmän fråga</option>
+          </select>
+
+          <label for="contactMessage">Meddelande *</label>
+          <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..." required></textarea>
+
+          <button type="submit">Skicka meddelande</button>
+          <div id="contactStatus"></div>
+        </form>
+      </div>
+
+      <!-- نموذج الحجز -->
+      <form class="booking" id="bookingForm">
+        <h3>Boka tid</h3>
+        
+        <label for="name">Namn *</label>
         <input id="name" name="name" placeholder="För- och efternamn" required>
 
-          <label for="contactPhone">Telefon (valfritt)</label>
-          <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67">
-
-        <label for="email">E-post </label>
+        <label for="email">E-post *</label>
         <input id="email" name="email" type="email" placeholder="din@epost.se" required>
 
-        <label for="car">Bil/Regnr </label>
+        <label for="phone">Telefon *</label>
+        <input id="phone" name="phone" type="tel" placeholder="072-123 45 67" required>
+
+        <label for="car">Bil/Regnr *</label>
         <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
 
-        <label for="issue">Problem / Tjänst </label>
+        <label for="issue">Problem / Tjänst *</label>
         <select id="issue" name="issue" required>
           <option value="" disabled selected>Välj ett alternativ…</option>
           <option>Service & olja</option>
@@ -260,6 +301,7 @@
           <option>Växellåda / koppling</option>
           <option>Motor</option>
           <option>Annan åtgärd</option>
+          <option>Förfrågan om pris</option>
         </select>
 
         <div class="inline-dt">
@@ -268,21 +310,16 @@
             <input id="date" name="date" type="date" required>
           </div>
           <div class="field">
-            <label for="time">Önskad tid </label>
+            <label for="time">Önskad tid *</label>
             <input id="time" name="time" type="time" required>
           </div>
         </div>
 
+        <label for="msg">Beskrivning (valfritt)</label>
+        <textarea id="msg" name="message" placeholder="Kort beskrivning eller andra önskemål…"></textarea>
 
-          <label for="contactMessage">Meddelande </label>
-          <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..." required></textarea>
-
-          <button type="submit">Skicka meddelande</button>
-          <div id="contactStatus"></div>
-        </form>
-      </div>
-
-      <!-- نموذج الحجز -->
+        <button type="submit" id="submitBtn">Skicka förfrågan</button>
+      </form>
 
       <div class="map-container" id="kontakt">
         <h3>Här hittar du oss</h3>
@@ -340,7 +377,7 @@
         </div>
       </div>
       <a class="action call" href="tel:+46790574975">Ring: 0790574975</a>
-      <a class="action mail" href="mailto:hussein.alsamli02@gmail.com">Skicka e-post</a>
+      <a class="action mail" href="mailto:hussein@example.com">Skicka e-post</a>
       <div class="meta">
         <strong>Vill du ha en professionell hemsida?</strong>
         <p>Jag bygger snabba، säkra och mobilanpassade webbplatser för företag och privatpersoner. Från idé till färdig sida — enkelt، tydligt och snyggt.</p>
@@ -433,7 +470,9 @@
       });
     }
 
-    // إرسال نموذج الاتصال
+    // ------------------------------------------------------------
+    // إرسال نموذج الاتصال (AJAX) — تم تحسينه ليتعامل مع FormSubmit AJAX
+    // ------------------------------------------------------------
     const contactForm = document.getElementById('contactForm');
     const contactStatus = document.getElementById('contactStatus');
 
@@ -442,40 +481,58 @@
         e.preventDefault();
 
         const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
+        const originalText = submitBtn ? submitBtn.textContent : 'Skickar...';
 
-        // تعطيل الزر وعرض التحميل
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Skickar...';
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Skickar...';
+        }
         contactStatus.style.display = 'none';
+        contactStatus.className = '';
 
         try {
           const formData = new FormData(contactForm);
 
-          const response = await fetch(contactForm.action, {
+          // تأكد أن ننادي endpoint الخاص بالـ AJAX
+          let endpoint = contactForm.action || '';
+          if (!endpoint.includes('/ajax/')) {
+            endpoint = endpoint.replace(/(formsubmit\.co\/)/, 'formsubmit.co/ajax/');
+          }
+
+          const response = await fetch(endpoint, {
             method: 'POST',
-            headers: { 'Accept': 'application/json' },
-            body: formData
+            body: formData,
+            headers: { 'Accept': 'application/json' }
           });
 
+          // حاول قراءة JSON من الرد
+          let data = null;
+          try { data = await response.json(); } catch (_) { data = null; }
+
           if (response.ok) {
-            // نجاح
             contactStatus.textContent = 'Tack! Ditt meddelande har skickats. Vi återkommer så snart som möjligt.';
             contactStatus.className = 'success';
             contactStatus.style.display = 'block';
             contactForm.reset();
           } else {
-            throw new Error('Något gick fel');
+            // إذا السرفر أعطى رسالة مفهومة أظهرها، وإلا أظهر رسالة عامة
+            const serverMsg = (data && (data.message || data.msg)) ? (data.message || data.msg) : 'Något gick fel';
+            contactStatus.textContent = serverMsg + '. Vänligen försök igen eller ring oss direkt.';
+            contactStatus.className = 'error';
+            contactStatus.style.display = 'block';
+            console.warn('FormSubmit response not OK:', response.status, data);
           }
         } catch (error) {
-          // خطأ
-          contactStatus.textContent = 'Något gick fel. Vänligen försök igen eller ring oss direkt.';
+          // خطأ شبكة أو CORS
+          contactStatus.textContent = 'Nätverksfel eller CORS-problem. Vänligen kontrollera din anslutning eller använd direkt e-post / telefon.';
           contactStatus.className = 'error';
           contactStatus.style.display = 'block';
+          console.error('Contact submit error:', error);
         } finally {
-          // إعادة تمكين الزر
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalText;
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+          }
         }
       });
     }
@@ -488,7 +545,7 @@
     if (bookingForm) {
       bookingForm.addEventListener('submit', function(e) {
         e.preventDefault();
-
+        
         if (!bookingForm.checkValidity()) {
           bookingForm.reportValidity();
           return;
@@ -496,20 +553,20 @@
 
         const submitBtn = document.getElementById('submitBtn');
         const originalText = submitBtn.textContent;
-
+        
         // تعطيل الزر وعرض التحميل
         submitBtn.disabled = true;
         submitBtn.textContent = 'Skickar...';
-
+        
         // محاكاة الإرسال
         setTimeout(() => {
           // عرض رسالة النجاح
           thanksModal.classList.add('show');
           document.body.classList.add('scroll-lock');
-
+          
           // إعادة تعيين النموذج
           bookingForm.reset();
-
+          
           // إعادة تمكين الزر
           submitBtn.disabled = false;
           submitBtn.textContent = originalText;
@@ -524,7 +581,7 @@
         thanksModal.classList.remove('show');
         document.body.classList.remove('scroll-lock');
       });
-
+      
       thanksModal.addEventListener('click', function(e) {
         if (e.target === thanksModal) {
           thanksModal.classList.remove('show');
@@ -533,7 +590,7 @@
       });
     }
 
-    // إدارة زر SMS مع اختيار الطريقة
+    // إلغاء التغييرات الأخرى — إدارة زر SMS مع اختيار الطريقة
     function initSmsFab() {
       const smsFab = document.getElementById('smsFab');
       const chooserModal = document.getElementById('chooserModal');
@@ -546,7 +603,7 @@
       // بناء رابط SMS بناءً على النظام الأساسي
       function getSmsHref() {
         const base = 'sms:+46720040936';
-        const body = encodeURIComponent('Hej! Jag skulle vilja be om hjälp med min bil, den verkar ha ett problem och jag behöver rådgivning.');
+        const body = encodeURIComponent('Hej! Jag behöver rådgivning om bilen.');
         const ua = navigator.userAgent.toLowerCase();
         // iOS يستخدم &body، Android والأنظمة الأخرى تستخدم ?body
         return (ua.includes('iphone') || ua.includes('ipad')) ? 
@@ -558,7 +615,7 @@
         e.preventDefault();
         chooserModal.classList.add('show');
         document.body.classList.add('scroll-lock');
-
+        
         // تعيين رابط SMS
         chooserSms.href = getSmsHref();
       }
@@ -581,10 +638,10 @@
       makeSmsFabDraggable(smsFab);
     }
 
-    // جعل زر SMS قابل للسحب
+    // جعل زر SMS قابل للسحب مع الماوس والإصبع
     function makeSmsFabDraggable(el) {
       const MARGIN_X = 14, MARGIN_Y = 8, CLICK_TOL = 6;
-      let dragging = false, startX = 0, startY = 0, startLeft = 0, startTop = 0, pointerId = null;
+      let dragging = false, startX = 0, startY = 0, startLeft = 0, startTop = 0;
 
       // استعادة الموضع المحفوظ
       function restorePosition() {
@@ -611,48 +668,72 @@
         el.style.bottom = 'auto';
       }
 
-      function clampTop(top) {
+      function clampPosition(left, top) {
         const rect = el.getBoundingClientRect();
+        const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
         const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-        return Math.min(vh - rect.height - MARGIN_Y, Math.max(MARGIN_Y, top));
+        
+        const clampedLeft = Math.max(MARGIN_X, Math.min(vw - rect.width - MARGIN_X, left));
+        const clampedTop = Math.max(MARGIN_Y, Math.min(vh - rect.height - MARGIN_Y, top));
+        
+        return { left: clampedLeft, top: clampedTop };
       }
 
-      function onPointerDown(e) {
-        if (pointerId !== null && e.pointerId !== pointerId) return;
-        pointerId = e.pointerId;
-        try { e.target.setPointerCapture(pointerId); } catch (_) {}
+      function getPosition(e) {
+        return e.touches ? {
+          clientX: e.touches[0].clientX,
+          clientY: e.touches[0].clientY
+        } : e;
+      }
+
+      function onStart(e) {
+        const pos = getPosition(e);
         dragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
+        startX = pos.clientX;
+        startY = pos.clientY;
         ensureLeftTop();
         startLeft = parseFloat(el.style.left);
         startTop = parseFloat(el.style.top);
         el.style.transition = 'none';
+        el.style.cursor = 'grabbing';
         e.preventDefault();
       }
 
-      function onPointerMove(e) {
-        if (!dragging || e.pointerId !== pointerId) return;
-        const dx = e.clientX - startX, dy = e.clientY - startY;
-        el.style.left = Math.round(startLeft + dx) + 'px';
-        el.style.top = Math.round(startTop + dy) + 'px';
+      function onMove(e) {
+        if (!dragging) return;
+        const pos = getPosition(e);
+        const dx = pos.clientX - startX;
+        const dy = pos.clientY - startY;
+        
+        const newLeft = startLeft + dx;
+        const newTop = startTop + dy;
+        
+        const clamped = clampPosition(newLeft, newTop);
+        
+        el.style.left = Math.round(clamped.left) + 'px';
+        el.style.top = Math.round(clamped.top) + 'px';
+        el.style.right = 'auto';
+        el.style.bottom = 'auto';
+        
         e.preventDefault();
       }
 
-      function onPointerUp(e) {
-        if (e.pointerId !== pointerId) return;
-        try { e.target.releasePointerCapture(pointerId); } catch (_) {}
-        const dx = e.clientX - startX, dy = e.clientY - startY;
+      function onEnd(e) {
+        if (!dragging) return;
+        const pos = getPosition(e);
+        const dx = pos.clientX - startX;
+        const dy = pos.clientY - startY;
         const moved = Math.hypot(dx, dy);
         dragging = false;
-        pointerId = null;
+        el.style.cursor = 'grab';
 
         const rect = el.getBoundingClientRect();
         const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
         const side = (rect.left + rect.width / 2 < vw / 2) ? 'left' : 'right';
-        const top = clampTop(parseFloat(el.style.top || rect.top));
-        el.style.top = Math.round(top) + 'px';
-
+        const clamped = clampPosition(parseFloat(el.style.left), parseFloat(el.style.top));
+        
+        el.style.top = Math.round(clamped.top) + 'px';
+        
         if (side === 'left') {
           el.style.left = MARGIN_X + 'px';
           el.style.right = 'auto';
@@ -662,7 +743,10 @@
         }
 
         try {
-          localStorage.setItem('smsFabPosition', JSON.stringify({ side, top }));
+          localStorage.setItem('smsFabPosition', JSON.stringify({ 
+            side, 
+            top: clamped.top 
+          }));
         } catch (_) {}
 
         if (moved > CLICK_TOL) {
@@ -675,10 +759,17 @@
 
       // استعادة الموضع وإضافة event listeners
       restorePosition();
-      el.addEventListener('pointerdown', onPointerDown, { passive: false });
-      window.addEventListener('pointermove', onPointerMove, { passive: false });
-      window.addEventListener('pointerup', onPointerUp, { passive: false });
-      window.addEventListener('pointercancel', onPointerUp, { passive: false });
+      
+      // دعم الماوس
+      el.addEventListener('mousedown', onStart);
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onEnd);
+      
+      // دعم اللمس
+      el.addEventListener('touchstart', onStart, { passive: false });
+      document.addEventListener('touchmove', onMove, { passive: false });
+      document.addEventListener('touchend', onEnd);
     }
   </script>
-</body> 
+</body>
+</html>

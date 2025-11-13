@@ -221,8 +221,7 @@
     </div>
   </section>
 
-  <!-- Boka & Kontakt -->
-  <section class="section" id="boka">
+   <section class="section" id="boka">
     <div class="container">
       <h2>Kontakt oss & Boka tid</h2>
 
@@ -235,47 +234,138 @@
           <input type="hidden" name="_captcha" value="false">
           <input type="text" name="_honey" style="display:none">
 
-          <label for="name">Namn </label>
-          <input id="name" name="name" placeholder="För- och efternamn" required>
+ <label for="name">Namn </label>
+        <input id="name" name="name" placeholder="För- och efternamn" required>
 
           <label for="contactPhone">Telefon (valfritt)</label>
           <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67">
+       
+        <label for="email">E-post </label>
+        <input id="email" name="email" type="email" placeholder="din@epost.se" required>
 
-          <label for="email">E-post </label>
-          <input id="email" name="email" type="email" placeholder="din@epost.se" required>
+        <label for="car">Bil/Regnr </label>
+        <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
+<!-- Sökbar Problem / Tjänst (ersätter <select id="issue">) -->
+<!-- Problem / Tjänst — kort lista med 'Annat' först -->
+<label for="issueInput">Problem / Tjänst</label>
+<div class="custom-dropdown" id="issueDropdown">
+  <input type="text" id="issueInput" name="issue" placeholder="Välj eller sök tjänst..." required autocomplete="off">
+  <ul class="dropdown-list">
+    <li>Annat – beskriv i meddelandet</li>
+    <li>Service & olja</li>
+    <li>Bromsar</li>
+    <li>Däck & hjul</li>
+    <li>AC / klimatanläggning</li>
+    <li>El / elektronik</li>
+    <li>Diagnos / OBD</li>
+    <li>Motor</li>
+    <li>Växellåda / koppling</li>
+    <li>Besiktning / kontroll</li>
+  </ul>
+</div>
 
-          <label for="car">Bil/Regnr </label>
-          <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
+<style>
+/* --- Dropdown-stil (mörk tema) --- */
+.custom-dropdown {
+  position: relative;
+  width: 100%;
+  margin-bottom: 14px;
+}
+.custom-dropdown input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  color: #eee;
+  font-size: 15px;
+  box-sizing: border-box;
+  outline: none;
+  cursor: pointer;
+}
+.custom-dropdown input:focus {
+  border-color: rgba(255,215,90,0.9);
+  box-shadow: 0 0 10px rgba(255,215,90,0.1);
+}
+.custom-dropdown input::placeholder {
+  color: rgba(255,255,255,0.4);
+}
 
-          <!-- Sökbar Problem / Tjänst -->
-          <label for="issueInput">Problem / Tjänst</label>
-          <div class="custom-dropdown" id="issueDropdown">
-            <input type="text" id="issueInput" name="issue" placeholder="Välj eller sök tjänst..." required autocomplete="off">
-            <ul class="dropdown-list">
-              <li>Annat – beskriv i meddelandet</li>
-              <li>Service & olja</li>
-              <li>Bromsar</li>
-              <li>Däck & hjul</li>
-              <li>AC / klimatanläggning</li>
-              <li>El / elektronik</li>
-              <li>Diagnos / OBD</li>
-              <li>Motor</li>
-              <li>Växellåda / koppling</li>
-              <li>Besiktning / kontroll</li>
-            </ul>
+/* lista */
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 6px 0;
+  list-style: none;
+  margin: 4px 0 0 0;
+  display: none;
+  z-index: 999;
+}
+.dropdown-list li {
+  padding: 10px 14px;
+  color: #ddd;
+  cursor: pointer;
+  font-size: 15px;
+}
+.dropdown-list li:hover {
+  background: rgba(255,215,90,0.15);
+  color: #fff;
+}
+
+/* liten pil för känsla som select 🔽 */
+.custom-dropdown::after {
+  content: "▾";
+  position: absolute;
+  right: 14px;
+  top: 12px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  font-size: 18px;
+}
+</style>
+
+<script>
+const dropdown = document.getElementById("issueDropdown");
+const input = dropdown.querySelector("input");
+const list = dropdown.querySelector(".dropdown-list");
+
+input.addEventListener("focus", () => list.style.display = "block");
+input.addEventListener("input", () => {
+  const filter = input.value.toLowerCase();
+  const items = list.querySelectorAll("li");
+  items.forEach(li => {
+    li.style.display = li.textContent.toLowerCase().includes(filter) ? "block" : "none";
+  });
+});
+list.querySelectorAll("li").forEach(li => {
+  li.addEventListener("click", () => {
+    input.value = li.textContent;
+    list.style.display = "none";
+  });
+});
+document.addEventListener("click", e => {
+  if (!dropdown.contains(e.target)) list.style.display = "none";
+});
+</script>
+        <div class="inline-dt">
+          <div class="field">
+            <label for="date">Önskat datum *</label>
+            <input id="date" name="date" type="date" required>
           </div>
-
-          <div class="inline-dt">
-            <div class="field">
-              <label for="date">Önskat datum *</label>
-              <input id="date" name="date" type="date" required>
-            </div>
-            <div class="field">
-              <label for="time">Önskad tid </label>
-              <input id="time" name="time" type="time" required>
-            </div>
+          <div class="field">
+            <label for="time">Önskad tid </label>
+            <input id="time" name="time" type="time" required>
           </div>
+        </div>
 
+     
           <label for="contactMessage">Meddelande </label>
           <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..." required></textarea>
 

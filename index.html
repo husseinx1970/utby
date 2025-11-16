@@ -7,14 +7,15 @@
   <title>Utby Snabb Bilservice — Pålitlig bilservice i Göteborg</title>
   <meta name="description" content="Utby Snabb Bilservice i Göteborg: service, diagnos, bromsar, däck, AC och kompletta reparationer. Drop-in, vardagar 09:00–18:00, däckhotell."/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
-   <!-- Favicons / app icons -->
+  <!-- Favicons / app icons (ändra sökvägar vid behov) -->
   <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
   <link rel="shortcut icon" href="assets/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
   <link rel="manifest" href="assets/site.webmanifest">
   <meta name="theme-color" content="#DABD66">
-   <style>
+
+  <style>
     *,*::before,*::after{box-sizing:border-box}
     html,body{margin:0;padding:0;height:100%;background:#0b0c10;color:#f6f7fb;font-family:Inter,system-ui,Segoe UI,Roboto,Arial}
     html,body{overflow-x:hidden}
@@ -147,7 +148,7 @@
   <header class="header">
     <div class="container header-inner">
       <a class="brand" href="#start"><img src="assets/logo.png" alt="logo"/><span class="brand-name">Utby Snabb Bilservice</span></a>
-      <nav class="nav">
+      <nav class="nav" role="navigation" aria-label="Huvudmeny">
         <a class="secondary" href="#tjanster">
           <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.7 19.3l-6.4-6.4a6 6 0 01-7.6-7.6l3.1 3.1 2.1-.7.7-2.1-3.1-3.1a6 6 0 007.6 7.6l6.4 6.4-2.8 2.8zM4 20a2 2 0 110-4 2 2 0 010 4z"/></svg></span>
           <span>Tjänster</span>
@@ -235,149 +236,59 @@
       <!-- نموذج الاتصال -->
       <div class="contact-form">
         <h3>Boka tid</h3>
-        <form id="contactForm" action="https://formsubmit.co/snabbservise@hotmail.com" method="POST">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_subject" value="Nytt meddelande — Utby Snabb Bilservice">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="text" name="_honey" style="display:none">
 
- <label for="name">Namn </label>
-        <input id="name" name="name" placeholder="För- och efternamn" required>
+        <!-- Här använder vi EmailJS (ingen form action) så vi undviker fetch/GET-body problem -->
+        <form id="contactForm" autocomplete="on" novalidate>
+          <!-- honeypot -->
+          <input type="text" name="_honey" style="display:none" autocomplete="off">
+
+          <label for="name">Namn </label>
+          <input id="name" name="name" type="text" placeholder="För- och efternamn" required>
 
           <label for="contactPhone">Telefon (valfritt)</label>
           <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67">
-       
-        <label for="email">E-post </label>
-        <input id="email" name="email" type="email" placeholder="din@epost.se" required>
 
-        <label for="car">Bil/Regnr </label>
-        <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
-<!-- Sökbar Problem / Tjänst (ersätter <select id="issue">) -->
-<!-- Problem / Tjänst — kort lista med 'Annat' först -->
-<label for="issueInput">Problem / Tjänst</label>
-<div class="custom-dropdown" id="issueDropdown">
-  <input type="text" id="issueInput" name="issue" placeholder="Välj eller sök tjänst..." required autocomplete="off">
-  <ul class="dropdown-list">
-    <li>Annat – beskriv i meddelandet</li>
-    <li>Service & olja</li>
-    <li>Bromsar</li>
-    <li>Däck & hjul</li>
-    <li>AC / klimatanläggning</li>
-    <li>El / elektronik</li>
-    <li>Diagnos / OBD</li>
-    <li>Motor</li>
-    <li>Växellåda / koppling</li>
-    <li>Besiktning / kontroll</li>
-  </ul>
-</div>
+          <label for="email">E-post </label>
+          <input id="email" name="email" type="email" placeholder="din@epost.se" required>
 
-<style>
-/* --- Dropdown-stil (mörk tema) --- */
-.custom-dropdown {
-  position: relative;
-  width: 100%;
-  margin-bottom: 14px;
-}
-.custom-dropdown input {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.03);
-  color: #eee;
-  font-size: 15px;
-  box-sizing: border-box;
-  outline: none;
-  cursor: pointer;
-}
-.custom-dropdown input:focus {
-  border-color: rgba(255,215,90,0.9);
-  box-shadow: 0 0 10px rgba(255,215,90,0.1);
-}
-.custom-dropdown input::placeholder {
-  color: rgba(255,255,255,0.4);
-}
+          <label for="car">Bil/Regnr </label>
+          <input id="car" name="car" type="text" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
 
-/* lista */
-.dropdown-list {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  max-height: 220px;
-  overflow-y: auto;
-  background: #111;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 10px;
-  padding: 6px 0;
-  list-style: none;
-  margin: 4px 0 0 0;
-  display: none;
-  z-index: 999;
-}
-.dropdown-list li {
-  padding: 10px 14px;
-  color: #ddd;
-  cursor: pointer;
-  font-size: 15px;
-}
-.dropdown-list li:hover {
-  background: rgba(255,215,90,0.15);
-  color: #fff;
-}
-
-/* liten pil för känsla som select 🔽 */
-.custom-dropdown::after {
-  content: "▾";
-  position: absolute;
-  right: 14px;
-  top: 12px;
-  color: rgba(255,255,255,0.4);
-  pointer-events: none;
-  font-size: 18px;
-}
-</style>
-
-<script>
-const dropdown = document.getElementById("issueDropdown");
-const input = dropdown.querySelector("input");
-const list = dropdown.querySelector(".dropdown-list");
-
-input.addEventListener("focus", () => list.style.display = "block");
-input.addEventListener("input", () => {
-  const filter = input.value.toLowerCase();
-  const items = list.querySelectorAll("li");
-  items.forEach(li => {
-    li.style.display = li.textContent.toLowerCase().includes(filter) ? "block" : "none";
-  });
-});
-list.querySelectorAll("li").forEach(li => {
-  li.addEventListener("click", () => {
-    input.value = li.textContent;
-    list.style.display = "none";
-  });
-});
-document.addEventListener("click", e => {
-  if (!dropdown.contains(e.target)) list.style.display = "none";
-});
-</script>
-        <div class="inline-dt">
-          <div class="field">
-            <label for="date">Önskat datum *</label>
-            <input id="date" name="date" type="date" required>
+          <!-- Sökbar Problem / Tjänst -->
+          <label for="issueInput">Problem / Tjänst</label>
+          <div class="custom-dropdown" id="issueDropdown">
+            <input type="text" id="issueInput" name="issue" placeholder="Välj eller sök tjänst..." required autocomplete="off" aria-haspopup="listbox" aria-expanded="false">
+            <ul class="dropdown-list" role="listbox" aria-labelledby="issueInput">
+              <li role="option">Annat – beskriv i meddelandet</li>
+              <li role="option">Service & olja</li>
+              <li role="option">Bromsar</li>
+              <li role="option">Däck & hjul</li>
+              <li role="option">TPMS – sensor / kalibrering</li>
+              <li role="option">AC / klimatanläggning</li>
+              <li role="option">El / elektronik</li>
+              <li role="option">Diagnos / OBD</li>
+              <li role="option">Motor</li>
+              <li role="option">Avgassystem</li>
+            </ul>
           </div>
-          <div class="field">
-            <label for="time">Önskad tid </label>
-            <input id="time" name="time" type="time" required>
-          </div>
-        </div>
 
-     
+          <div class="inline-dt">
+            <div class="field">
+              <label for="date">Önskat datum *</label>
+              <input id="date" name="date" type="date" required>
+            </div>
+            <div class="field">
+              <label for="time">Önskad tid </label>
+              <input id="time" name="time" type="time" required>
+            </div>
+          </div>
+
           <label for="contactMessage">Meddelande </label>
           <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..." required></textarea>
 
           <button type="submit">Skicka meddelande</button>
-          <div id="contactStatus"></div>
+
+          <div id="contactStatus" role="status" aria-live="polite"></div>
         </form>
       </div>
 
@@ -427,8 +338,8 @@ document.addEventListener("click", e => {
   </footer>
 
   <!-- Modal: Kontakta Hussein -->
-  <div class="modal" id="creatorModal">
-    <div class="modal-card">
+  <div class="modal" id="creatorModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-card" role="document">
       <div class="modal-header">
         <img src="assets/logo.png" alt="Logotyp">
         <div>
@@ -442,12 +353,12 @@ document.addEventListener("click", e => {
         <strong>Vill du ha en professionell hemsida?</strong>
         <p>Jag bygger snabba، säkra och mobilanpassade webbplatser för företag och privatpersoner. Från idé till färdig sida — enkelt، tydligt och snyggt.</p>
       </div>
-      <span class="modal-close" id="closeCreator">Stäng</span>
+      <span class="modal-close" id="closeCreator" role="button" tabindex="0">Stäng</span>
     </div>
   </div>
 
   <!-- Modal: Tack -->
-  <div class="modal" id="thanksModal">
+  <div class="modal" id="thanksModal" aria-hidden="true">
     <div class="modal-card">
       <div class="modal-header">
         <img src="assets/logo.png" alt="Logotyp">
@@ -456,12 +367,12 @@ document.addEventListener("click", e => {
           <p>Din förfrågan har skickats. Vi återkommer så snart som möjligt.</p>
         </div>
       </div>
-      <span class="modal-close" id="thanksClose">Stäng</span>
+      <span class="modal-close" id="thanksClose" role="button" tabindex="0">Stäng</span>
     </div>
   </div>
 
   <!-- Modal: Kontaktväljare (SMS eller E-post) -->
-  <div class="modal" id="chooserModal">
+  <div class="modal" id="chooserModal" aria-hidden="true">
     <div class="modal-card">
       <div class="modal-header">
         <img src="assets/logo.png" alt="Logotyp">
@@ -470,9 +381,9 @@ document.addEventListener("click", e => {
           <p>Vill du skicka SMS eller E-post?</p>
         </div>
       </div>
-      <a class="action call" id="chooserSms" href="#">Skicka SMS</a>
+      <a class="action call" id="chooserSms" href="#" target="_blank" rel="noopener">Skicka SMS</a>
       <a class="action mail" id="chooserMail" href="mailto:info@utbysnabbbilservice.se?subject=Bokningsförfrågan">Skicka e-post</a>
-      <span class="modal-close" id="chooserClose">Stäng</span>
+      <span class="modal-close" id="chooserClose" role="button" tabindex="0">Stäng</span>
     </div>
   </div>
 
@@ -483,323 +394,230 @@ document.addEventListener("click", e => {
     </svg>
   </a>
 
-  <!-- Dropdown small script (kept as-is) -->
+  <!-- EmailJS library -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
   <script>
   (function(){
-    const dropdown = document.getElementById("issueDropdown");
-    if (!dropdown) return;
-    const input = dropdown.querySelector("input");
-    const list = dropdown.querySelector(".dropdown-list");
+    /* ===== Dropdown (searchable) ===== */
+    (function(){
+      const dropdown = document.getElementById("issueDropdown");
+      if (!dropdown) return;
+      const input = dropdown.querySelector("input");
+      const list = dropdown.querySelector(".dropdown-list");
+      const items = Array.from(list.querySelectorAll('li'));
 
-    input.addEventListener("focus", () => list.style.display = "block");
-    input.addEventListener("input", () => {
-      const filter = input.value.toLowerCase();
-      const items = list.querySelectorAll("li");
-      items.forEach(li => {
-        li.style.display = li.textContent.toLowerCase().includes(filter) ? "block" : "none";
-      });
-    });
-    list.querySelectorAll("li").forEach(li => {
-      li.addEventListener("click", () => {
-        input.value = li.textContent;
-        list.style.display = "none";
-      });
-    });
-    document.addEventListener("click", e => {
-      if (!dropdown.contains(e.target)) list.style.display = "none";
-    });
-  })();
-  </script>
-
-  <!-- Main interactive behaviours (modals, SMS FAB, date min, and robust AJAX sender) -->
-  <script>
-  (function () {
-    // init date min and sms fab on DOM ready
-    document.addEventListener('DOMContentLoaded', function() {
-      const dateInput = document.getElementById('date');
-      if (dateInput) {
-        const today = new Date();
-        const y = today.getFullYear();
-        const m = String(today.getMonth() + 1).padStart(2, '0');
-        const d = String(today.getDate()).padStart(2, '0');
-        dateInput.min = `${y}-${m}-${d}`;
+      function openList() { list.style.display = 'block'; input.setAttribute('aria-expanded','true'); positionList(); }
+      function closeList(){ list.style.display = 'none'; input.setAttribute('aria-expanded','false'); }
+      function positionList(){
+        list.style.top = 'calc(100% + 8px)'; list.style.bottom = 'auto';
+        const rect = list.getBoundingClientRect();
+        const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        const bottom = dropdown.getBoundingClientRect().bottom + rect.height + 12;
+        if (bottom > vh) { list.style.top='auto'; list.style.bottom='calc(100% + 8px)'; }
       }
-      initSmsFab();
-    });
 
-    // Modal open/close for creator
+      input.addEventListener('focus', openList);
+      input.addEventListener('input', () => {
+        const v = input.value.trim().toLowerCase();
+        items.forEach(li => li.style.display = li.textContent.toLowerCase().includes(v) ? 'block' : 'none');
+        openList();
+      });
+      items.forEach(li => {
+        li.tabIndex = 0;
+        li.addEventListener('click', ()=> { input.value = li.textContent; closeList(); input.dispatchEvent(new Event('change',{bubbles:true})); });
+        li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); li.click(); }});
+      });
+      input.addEventListener('keydown', e => {
+        const visible = items.filter(i => i.style.display !== 'none');
+        if (e.key === 'ArrowDown'){ e.preventDefault(); if (visible[0]) visible[0].focus(); }
+        else if (e.key === 'Escape'){ closeList(); input.blur(); }
+      });
+      document.addEventListener('click', e => { if (!dropdown.contains(e.target)) closeList(); });
+      window.addEventListener('resize', positionList);
+      window.addEventListener('scroll', positionList, true);
+    })();
+
+    /* ===== Modals wiring ===== */
     const creatorModal = document.getElementById('creatorModal');
     const openCreator = document.getElementById('openCreator');
     const closeCreator = document.getElementById('closeCreator');
+    const chooserModal = document.getElementById('chooserModal');
+    const chooserClose = document.getElementById('chooserClose');
+    const thanksModal = document.getElementById('thanksModal');
+    const thanksClose = document.getElementById('thanksClose');
+
     if (openCreator && creatorModal) {
-      openCreator.addEventListener('click', function(e) {
-        e.preventDefault();
-        creatorModal.classList.add('show');
-        document.body.classList.add('scroll-lock');
-      });
+      openCreator.addEventListener('click', function(e){ e.preventDefault(); creatorModal.classList.add('show'); document.body.classList.add('scroll-lock'); });
     }
-    if (closeCreator && creatorModal) {
-      closeCreator.addEventListener('click', function(e) {
-        e.preventDefault();
-        creatorModal.classList.remove('show');
-        document.body.classList.remove('scroll-lock');
-      });
-    }
-    if (creatorModal) {
-      creatorModal.addEventListener('click', function(e) {
-        if (e.target === creatorModal) {
-          creatorModal.classList.remove('show');
-          document.body.classList.remove('scroll-lock');
-        }
-      });
-    }
+    if (closeCreator) closeCreator.addEventListener('click', function(e){ e.preventDefault(); creatorModal.classList.remove('show'); document.body.classList.remove('scroll-lock'); });
+    if (chooserClose) chooserClose.addEventListener('click', function(e){ e.preventDefault(); chooserModal.classList.remove('show'); document.body.classList.remove('scroll-lock'); });
+    if (thanksClose) thanksClose.addEventListener('click', function(e){ e.preventDefault(); thanksModal.classList.remove('show'); document.body.classList.remove('scroll-lock'); });
 
-    // Tiny modal close wiring (generic)
-    document.querySelectorAll('.modal .modal-close').forEach(btn => {
-      btn.addEventListener('click', function (ev) {
-        ev.preventDefault();
-        const modal = btn.closest('.modal');
-        if (modal) {
-          modal.classList.remove('show');
-          document.body.classList.remove('scroll-lock');
-        }
-      });
-    });
     document.querySelectorAll('.modal').forEach(modal => {
-      modal.addEventListener('click', function(ev) {
-        if (ev.target === modal) {
-          modal.classList.remove('show');
-          document.body.classList.remove('scroll-lock');
-        }
-      });
+      modal.addEventListener('click', function(ev){ if (ev.target === modal) { modal.classList.remove('show'); document.body.classList.remove('scroll-lock'); }});
     });
 
-    // ---------------- SMS FAB ----------------
-    function initSmsFab() {
+    /* ===== SMS FAB draggable + chooser ===== */
+    function initSmsFab(){
       const smsFab = document.getElementById('smsFab');
-      const chooserModal = document.getElementById('chooserModal');
+      if (!smsFab) return;
       const chooserSms = document.getElementById('chooserSms');
-      const chooserClose = document.getElementById('chooserClose');
-      if (!smsFab || !chooserModal) return;
+      const chooserModalEl = document.getElementById('chooserModal');
 
-      function getSmsHref() {
+      function getSmsHref(){
         const base = 'sms:+46720040936';
         const body = encodeURIComponent('Hej! Jag skulle vilja be om hjälp med min bil, den verkar ha ett problem och jag behöver rådgivning.');
         const ua = navigator.userAgent.toLowerCase();
         return (ua.includes('iphone') || ua.includes('ipad')) ? `${base}&body=${body}` : `${base}?body=${body}`;
       }
-
-      function openChooser(e) {
-        e.preventDefault();
-        chooserModal.classList.add('show');
-        document.body.classList.add('scroll-lock');
-        const chooserSmsEl = document.getElementById('chooserSms');
-        if (chooserSmsEl) chooserSmsEl.href = getSmsHref();
-      }
-      function closeChooser(e) {
-        e.preventDefault();
-        chooserModal.classList.remove('show');
-        document.body.classList.remove('scroll-lock');
-      }
-
+      function openChooser(e){ e.preventDefault(); if (chooserModalEl) { chooserModalEl.classList.add('show'); document.body.classList.add('scroll-lock'); } if (chooserSms) chooserSms.href = getSmsHref(); }
       smsFab.addEventListener('click', openChooser);
-      if (chooserClose) chooserClose.addEventListener('click', closeChooser);
-      chooserModal.addEventListener('click', function(e) { if (e.target === chooserModal) closeChooser(e); });
 
-      makeSmsFabDraggable(smsFab);
-    }
-
-    function makeSmsFabDraggable(el) {
-      const MARGIN_X = 14, MARGIN_Y = 8, CLICK_TOL = 6;
-      let dragging = false, startX = 0, startY = 0, startLeft = 0, startTop = 0, pointerId = null;
-
-      function restorePosition() {
-        try {
-          const saved = JSON.parse(localStorage.getItem('smsFabPosition') || 'null');
-          if (saved && (saved.side === 'left' || saved.side === 'right') && Number.isFinite(saved.top)) {
-            el.style.top = Math.max(MARGIN_Y, saved.top) + 'px';
-            if (saved.side === 'left') { el.style.left = MARGIN_X + 'px'; el.style.right = 'auto'; }
-            else { el.style.right = MARGIN_X + 'px'; el.style.left = 'auto'; }
-          }
-        } catch (_) {}
-      }
-      function ensureLeftTop() {
-        const rect = el.getBoundingClientRect();
-        el.style.left = rect.left + 'px';
-        el.style.top = rect.top + 'px';
-        el.style.right = 'auto';
-        el.style.bottom = 'auto';
-      }
-      function clampTop(top) {
-        const rect = el.getBoundingClientRect();
-        const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-        return Math.min(vh - rect.height - MARGIN_Y, Math.max(MARGIN_Y, top));
-      }
-      function onPointerDown(e) {
-        if (pointerId !== null && e.pointerId !== pointerId) return;
-        pointerId = e.pointerId;
-        try { e.target.setPointerCapture(pointerId); } catch (_) {}
-        dragging = true;
-        startX = e.clientX; startY = e.clientY;
-        ensureLeftTop();
-        startLeft = parseFloat(el.style.left || el.getBoundingClientRect().left);
-        startTop = parseFloat(el.style.top || el.getBoundingClientRect().top);
-        el.style.transition = 'none';
-        e.preventDefault();
-      }
-      function onPointerMove(e) {
-        if (!dragging || e.pointerId !== pointerId) return;
-        const dx = e.clientX - startX, dy = e.clientY - startY;
-        el.style.left = Math.round(startLeft + dx) + 'px';
-        el.style.top = Math.round(startTop + dy) + 'px';
-        e.preventDefault();
-      }
-      function onPointerUp(e) {
-        if (e.pointerId !== pointerId) return;
-        try { e.target.releasePointerCapture(pointerId); } catch (_) {}
-        const dx = e.clientX - startX, dy = e.clientY - startY;
-        const moved = Math.hypot(dx, dy);
-        dragging = false; pointerId = null;
-        const rect = el.getBoundingClientRect();
-        const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-        const side = (rect.left + rect.width / 2 < vw / 2) ? 'left' : 'right';
-        const top = clampTop(parseFloat(el.style.top || rect.top));
-        el.style.top = Math.round(top) + 'px';
-        if (side === 'left') { el.style.left = MARGIN_X + 'px'; el.style.right = 'auto'; }
-        else { el.style.right = MARGIN_X + 'px'; el.style.left = 'auto'; }
-        try { localStorage.setItem('smsFabPosition', JSON.stringify({ side, top })); } catch (_) {}
-        if (moved > CLICK_TOL) {
-          el.addEventListener('click', function once(ev) { ev.stopImmediatePropagation(); ev.preventDefault(); }, { once: true, capture: true });
+      // draggable
+      (function makeDraggable(el){
+        const MARGIN_X = 14, MARGIN_Y = 8, CLICK_TOL = 6;
+        let dragging=false, startX=0, startY=0, startLeft=0, startTop=0, pointerId=null;
+        function restore(){
+          try{
+            const saved = JSON.parse(localStorage.getItem('smsFabPosition') || 'null');
+            if (saved && (saved.side==='left' || saved.side==='right') && Number.isFinite(saved.top)){
+              el.style.top = Math.max(MARGIN_Y, saved.top) + 'px';
+              if (saved.side === 'left') { el.style.left = MARGIN_X + 'px'; el.style.right = 'auto'; }
+              else { el.style.right = MARGIN_X + 'px'; el.style.left = 'auto'; }
+            }
+          }catch(_){}
         }
-      }
-      restorePosition();
-      el.addEventListener('pointerdown', onPointerDown, { passive: false });
-      window.addEventListener('pointermove', onPointerMove, { passive: false });
-      window.addEventListener('pointerup', onPointerUp, { passive: false });
-      window.addEventListener('pointercancel', onPointerUp, { passive: false });
+        function ensureLeftTop(){
+          const rect = el.getBoundingClientRect();
+          el.style.left = rect.left + 'px';
+          el.style.top = rect.top + 'px';
+          el.style.right = 'auto';
+          el.style.bottom = 'auto';
+        }
+        function clampTop(top){
+          const rect = el.getBoundingClientRect();
+          const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+          return Math.min(vh - rect.height - MARGIN_Y, Math.max(MARGIN_Y, top));
+        }
+        function onDown(e){
+          if (pointerId !== null && e.pointerId !== pointerId) return;
+          pointerId = e.pointerId;
+          try{ e.target.setPointerCapture(pointerId); }catch(_){}
+          dragging=true;
+          startX = e.clientX; startY = e.clientY;
+          ensureLeftTop();
+          startLeft = parseFloat(el.style.left || el.getBoundingClientRect().left);
+          startTop = parseFloat(el.style.top || el.getBoundingClientRect().top);
+          el.style.transition = 'none';
+          e.preventDefault();
+        }
+        function onMove(e){
+          if (!dragging || e.pointerId !== pointerId) return;
+          const dx = e.clientX - startX, dy = e.clientY - startY;
+          el.style.left = Math.round(startLeft + dx) + 'px';
+          el.style.top  = Math.round(startTop + dy) + 'px';
+          e.preventDefault();
+        }
+        function onUp(e){
+          if (e.pointerId !== pointerId) return;
+          try{ e.target.releasePointerCapture(pointerId); } catch(_){}
+          const dx = e.clientX - startX, dy = e.clientY - startY;
+          const moved = Math.hypot(dx, dy);
+          dragging=false; pointerId=null;
+          const rect = el.getBoundingClientRect();
+          const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+          const side = (rect.left + rect.width/2 < vw/2) ? 'left' : 'right';
+          const top = clampTop(parseFloat(el.style.top || rect.top));
+          el.style.top = Math.round(top) + 'px';
+          if (side === 'left') { el.style.left = MARGIN_X + 'px'; el.style.right = 'auto'; }
+          else { el.style.right = MARGIN_X + 'px'; el.style.left = 'auto'; }
+          try{ localStorage.setItem('smsFabPosition', JSON.stringify({ side, top })); }catch(_){}
+          if (moved > CLICK_TOL) {
+            el.addEventListener('click', function once(ev){ ev.stopImmediatePropagation(); ev.preventDefault(); }, { once:true, capture:true });
+          }
+        }
+        restore();
+        el.addEventListener('pointerdown', onDown, { passive:false });
+        window.addEventListener('pointermove', onMove, { passive:false });
+        window.addEventListener('pointerup', onUp, { passive:false });
+        window.addEventListener('pointercancel', onUp, { passive:false });
+      })(smsFab);
     }
 
-    // ---------------- Robust AJAX form sender ----------------
-    function ensureStatusElement(form, preferredId) {
-      let el = document.getElementById(preferredId);
-      if (el) return el;
-      el = form.querySelector('#formStatus, #contactStatus');
-      if (el) return el;
-      const btn = form.querySelector('button[type="submit"], input[type="submit"]');
-      const p = document.createElement('p');
-      p.style.marginTop = '10px';
-      p.style.display = 'none';
-      p.id = preferredId || ('formStatus-' + Math.random().toString(36).slice(2,8));
-      if (btn && btn.parentNode) btn.parentNode.insertBefore(p, btn.nextSibling);
-      return p;
-    }
-
-    async function sendFormAjax(form) {
-      const statusEl = ensureStatusElement(form, form.id === 'contactForm' ? 'contactStatus' : 'formStatus');
-      const submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
-      const originalText = submitBtn ? (submitBtn.textContent || submitBtn.value || 'Skicka') : 'Skicka';
-
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        if (submitBtn.tagName.toLowerCase() === 'button') submitBtn.textContent = 'Skickar...';
-        else submitBtn.value = 'Skickar...';
+    document.addEventListener('DOMContentLoaded', function(){
+      // set min date
+      const dateInput = document.getElementById('date');
+      if (dateInput) {
+        const t = new Date(); const y=t.getFullYear(); const m=String(t.getMonth()+1).padStart(2,'0'); const d=String(t.getDate()).padStart(2,'0');
+        dateInput.min = `${y}-${m}-${d}`;
       }
-      statusEl.style.display = 'none';
-      statusEl.className = '';
+      initSmsFab();
+    });
 
-      try {
-        const data = new FormData(form);
-        const resp = await fetch(form.action, {
-          method: form.method || 'POST',
-          headers: { 'Accept': 'application/json' },
-          body: data
-        });
+    /* ===== EmailJS sendForm for #contactForm ===== */
+    (function(){
+      // konfigurera här
+      const EMAILJS_PUBLIC_KEY  = "vt_iAWB9MVGz6iT_X"; // byt till din public key
+      const EMAILJS_SERVICE_ID  = "service_6fai64h";    // byt till din service id
+      const EMAILJS_TEMPLATE_ID = "template_7tccbsi";   // byt till din template id
 
-        if (resp.ok) {
-          let okMessage = 'Tack! Ditt meddelande har skickats. Vi återkommer så snart som möjligt.';
+      if (window.emailjs && typeof emailjs.init === 'function') {
+        try { emailjs.init(EMAILJS_PUBLIC_KEY); } catch(e){ console.warn('emailjs.init failed', e); }
+      }
+
+      function setStatus(text, state){
+        const el = document.getElementById('contactStatus');
+        if (!el) return;
+        el.textContent = text || '';
+        el.className = state === 'ok' ? 'success' : (state === 'error' ? 'error' : '');
+        el.style.display = text ? 'block' : 'none';
+      }
+
+      document.addEventListener('DOMContentLoaded', function(){
+        const form = document.getElementById('contactForm');
+        if (!form) return;
+
+        form.addEventListener('submit', async function(e){
+          e.preventDefault();
+          if (!form.checkValidity()) { form.reportValidity(); return; }
+
+          const submitBtn = form.querySelector('button[type="submit"]');
+          const origText = submitBtn ? submitBtn.textContent : '';
+          if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Skickar...'; }
+          setStatus('', null);
+
           try {
-            const j = await resp.json().catch(()=>null);
-            if (j && j.success === false && j.message) {
-              throw new Error(j.message);
+            if (window.emailjs && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID) {
+              // emailjs.sendForm läser fälten direkt från form-elementet — undviker fetch-body problem
+              await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
+              setStatus('Tack! Ditt meddelande har skickats. Vi återkommer så snart som möjligt.', 'ok');
+              form.reset();
+              const thanks = document.getElementById('thanksModal');
+              if (thanks) { thanks.classList.add('show'); document.body.classList.add('scroll-lock'); }
+            } else {
+              throw new Error('EmailJS inte konfigurerad i denna sida.');
             }
-            if (j && j.message) okMessage = j.message;
-          } catch (_) {}
-          statusEl.textContent = okMessage;
-          statusEl.className = 'success';
-          statusEl.style.display = 'block';
-
-          // if booking form present, show thanks modal
-          if (form.id === 'bookingForm') {
-            const thanksModal = document.getElementById('thanksModal');
-            if (thanksModal) {
-              thanksModal.classList.add('show');
-              document.body.classList.add('scroll-lock');
-            }
+          } catch (err) {
+            console.error('EmailJS send error:', err);
+            const msg = (err && (err.text || err.message)) ? (err.text || err.message) : 'Fel: kunde inte skicka e-post.';
+            setStatus(msg, 'error');
+          } finally {
+            if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = origText; }
           }
-
-          form.reset();
-        } else {
-          let errText = 'Något gick fel. Vänligen försök igen eller ring oss direkt.';
-          try {
-            const j = await resp.json().catch(()=>null);
-            if (j && j.message) errText = j.message;
-            else {
-              const t = await resp.text().catch(()=>null);
-              if (t) errText = t;
-            }
-          } catch (_) {}
-          throw new Error(errText);
-        }
-      } catch (err) {
-        statusEl.textContent = err.message || 'Något gick fel. Vänligen försök igen.';
-        statusEl.className = 'error';
-        statusEl.style.display = 'block';
-      } finally {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          if (submitBtn.tagName.toLowerCase() === 'button') submitBtn.textContent = originalText;
-          else submitBtn.value = originalText;
-        }
-      }
-    }
-
-    // Attach handlers
-    document.addEventListener('DOMContentLoaded', function () {
-      const contactForm = document.getElementById('contactForm');
-      if (contactForm) {
-        contactForm.addEventListener('submit', function (e) {
-          e.preventDefault();
-          if (!contactForm.checkValidity()) {
-            contactForm.reportValidity();
-            return;
-          }
-          sendFormAjax(contactForm);
-        });
-      }
-      const bookingForm = document.getElementById('bookingForm');
-      if (bookingForm) {
-        bookingForm.addEventListener('submit', function (e) {
-          e.preventDefault();
-          if (!bookingForm.checkValidity()) {
-            bookingForm.reportValidity();
-            return;
-          }
-          sendFormAjax(bookingForm);
-        });
-      }
-      // any other form with data-ajax="true"
-      document.querySelectorAll('form[data-ajax="true"]').forEach(f => {
-        if (f === contactForm || f === bookingForm) return;
-        f.addEventListener('submit', function (e) {
-          e.preventDefault();
-          if (!f.checkValidity()) { f.reportValidity(); return; }
-          sendFormAjax(f);
         });
       });
+    })();
+
+    /* ===== Generic small handlers: close modal by Esc ===== */
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal.show').forEach(m => { m.classList.remove('show'); });
+        document.body.classList.remove('scroll-lock');
+      }
     });
 
   })();
   </script>
-
 </body>
 </html>

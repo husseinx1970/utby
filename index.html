@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="sv">
 <head>
@@ -139,108 +140,6 @@
     .inline-dt label{font-size:12px}
     .inline-dt input{height:32px;font-size:12px;padding:6px 8px;max-width:100%}
     @media(max-width:520px){.inline-dt{grid-template-columns:1fr}}
-
-    /* ==============  ADDED: improved mobile form appearance (keeps original structure) ============== */
-    /* make form container visually similar to screenshot: centered card with padding */
-    #boka .container { max-width: 520px; }
-
-    /* unify inputs in contact form */
-    #contactForm input,
-    #contactForm select,
-    #contactForm textarea,
-    #contactForm .custom-dropdown input {
-      display: block;
-      width: 100%;
-      height: 50px;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.03);
-      color: #F3F5F8;
-      font-size: 15px;
-      line-height: 1.2;
-      box-shadow: none;
-      margin: 6px 0 0 0;
-      transition: box-shadow .15s, border-color .12s;
-    }
-
-    /* make email field visually prominent (same style but ensure type=email rendered nicely) */
-    #contactForm input[type="email"] {
-      -webkit-appearance: none;
-      appearance: none;
-    }
-
-    /* bigger textarea */
-    #contactForm textarea { min-height: 120px; padding-top: 14px; resize: vertical; }
-
-    /* labels above fields */
-    #contactForm label { display:block; margin-top: 14px; margin-bottom:6px; font-weight:700; color:#E6E8EF; }
-
-    /* submit button large and full-width like screenshot */
-    #contactForm button[type="submit"] {
-      width: calc(100% - 14px);
-      max-width: 420px;
-      display: inline-block;
-      margin: 18px 7px 22px;
-      padding: 14px 18px;
-      font-size: 16px;
-      border-radius: 999px;
-      text-align: center;
-      box-shadow: 0 6px 20px rgba(218,189,102,.22);
-    }
-
-    /* custom-dropdown improvements */
-    .custom-dropdown { position: relative; z-index: 40; }
-    .custom-dropdown input { padding-right: 40px; }
-    .custom-dropdown::after {
-      content: "▾";
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: rgba(255,255,255,0.45);
-      pointer-events: none;
-      font-size: 14px;
-    }
-    .dropdown-list {
-      list-style: none;
-      margin: 6px 0 0 0;
-      padding: 6px;
-      background: rgba(6,7,10,0.95);
-      border: 1px solid rgba(255,255,255,0.04);
-      border-radius: 10px;
-      max-height: 220px;
-      overflow:auto;
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: calc(100% + 8px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      display: none;
-    }
-    .dropdown-list li { padding:10px 8px; color:#dbe6f1; cursor:pointer; border-radius:8px; }
-    .dropdown-list li:hover { background: rgba(218,189,102,0.06); color:#fff; }
-
-    /* placeholder color */
-    ::placeholder { color: rgba(255,255,255,0.45); }
-
-    /* responsive tweaks */
-    @media (max-width: 640px) {
-      #boka .container { padding-left: 12px; padding-right: 12px; }
-      #contactForm input, #contactForm textarea { height:48px; font-size:15px; }
-      #contactForm textarea { min-height:110px; }
-      .sms-fab { right: 12px; bottom: 88px; } /* ensure it doesn't overlap send button */
-      .inline-dt { grid-template-columns: 1fr; gap:10px; }
-    }
-
-    /* Accessibility: focus visible */
-    #contactForm input:focus, #contactForm textarea:focus {
-      outline: none;
-      border-color: #d9b954;
-      box-shadow: 0 0 0 4px rgba(218,189,102,0.12);
-    }
-
-    /* end added */
   </style>
 </head>
 <body>
@@ -335,57 +234,151 @@
       <h2>Kontakt oss & Boka tid</h2>
 
       <!-- نموذج الاتصال -->
- 
-        <!-- FORM: EmailJS only (no action attribute) -->
-        <form id="contactForm" novalidate autocomplete="on">
-          <input type="text" name="_honey" style="display:none" autocomplete="off">
+      <div class="contact-form">
+        <h3>Boka tid</h3>
+        <form id="contactForm" action="https://formsubmit.co/snabbservise@hotmail.com" method="POST">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_subject" value="Nytt meddelande — Utby Snabb Bilservice">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" name="_honey" style="display:none">
 
-          <label for="name">Namn</label>
-          <input id="name" name="name" placeholder="För- och efternamn" required>
+ <label for="name">Namn </label>
+        <input id="name" name="name" placeholder="För- och efternamn" required>
 
           <label for="contactPhone">Telefon (valfritt)</label>
           <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67">
+       
+        <label for="email">E-post </label>
+        <input id="email" name="email" type="email" placeholder="din@epost.se" required>
 
-          <label for="email">E-post</label>
-          <input id="email" name="email" type="email" placeholder="din@epost.se" required>
+        <label for="car">Bil/Regnr </label>
+        <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
+<!-- Sökbar Problem / Tjänst (ersätter <select id="issue">) -->
+<!-- Problem / Tjänst — kort lista med 'Annat' först -->
+<label for="issueInput">Problem / Tjänst</label>
+<div class="custom-dropdown" id="issueDropdown">
+  <input type="text" id="issueInput" name="issue" placeholder="Välj eller sök tjänst..." required autocomplete="off">
+  <ul class="dropdown-list">
+    <li>Annat – beskriv i meddelandet</li>
+    <li>Service & olja</li>
+    <li>Bromsar</li>
+    <li>Däck & hjul</li>
+    <li>AC / klimatanläggning</li>
+    <li>El / elektronik</li>
+    <li>Diagnos / OBD</li>
+    <li>Motor</li>
+    <li>Växellåda / koppling</li>
+    <li>Besiktning / kontroll</li>
+  </ul>
+</div>
 
-          <label for="car">Bil/Regnr</label>
-          <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017">
+<style>
+/* --- Dropdown-stil (mörk tema) --- */
+.custom-dropdown {
+  position: relative;
+  width: 100%;
+  margin-bottom: 14px;
+}
+.custom-dropdown input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  color: #eee;
+  font-size: 15px;
+  box-sizing: border-box;
+  outline: none;
+  cursor: pointer;
+}
+.custom-dropdown input:focus {
+  border-color: rgba(255,215,90,0.9);
+  box-shadow: 0 0 10px rgba(255,215,90,0.1);
+}
+.custom-dropdown input::placeholder {
+  color: rgba(255,255,255,0.4);
+}
 
-          <label for="issueInput">Problem / Tjänst</label>
-          <div class="custom-dropdown" id="issueDropdown" aria-haspopup="listbox">
-            <input type="text" id="issueInput" name="issue" placeholder="Välj eller sök tjänst..." autocomplete="off" aria-label="Problem eller tjänst">
-            <ul class="dropdown-list" role="listbox" aria-labelledby="issueInput">
-              <li role="option">Annat – beskriv i meddelandet</li>
-              <li role="option">Service & olja</li>
-              <li role="option">Bromsar</li>
-              <li role="option">Däck & hjul</li>
-              <li role="option">AC / klimatanläggning</li>
-              <li role="option">El / elektronik</li>
-              <li role="option">Diagnos / OBD</li>
-              <li role="option">Motor</li>
-              <li role="option">Växellåda / koppling</li>
-              <li role="option">Besiktning / kontroll</li>
-            </ul>
+/* lista */
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 6px 0;
+  list-style: none;
+  margin: 4px 0 0 0;
+  display: none;
+  z-index: 999;
+}
+.dropdown-list li {
+  padding: 10px 14px;
+  color: #ddd;
+  cursor: pointer;
+  font-size: 15px;
+}
+.dropdown-list li:hover {
+  background: rgba(255,215,90,0.15);
+  color: #fff;
+}
+
+/* liten pil för känsla som select 🔽 */
+.custom-dropdown::after {
+  content: "▾";
+  position: absolute;
+  right: 14px;
+  top: 12px;
+  color: rgba(255,255,255,0.4);
+  pointer-events: none;
+  font-size: 18px;
+}
+</style>
+
+<script>
+const dropdown = document.getElementById("issueDropdown");
+const input = dropdown.querySelector("input");
+const list = dropdown.querySelector(".dropdown-list");
+
+input.addEventListener("focus", () => list.style.display = "block");
+input.addEventListener("input", () => {
+  const filter = input.value.toLowerCase();
+  const items = list.querySelectorAll("li");
+  items.forEach(li => {
+    li.style.display = li.textContent.toLowerCase().includes(filter) ? "block" : "none";
+  });
+});
+list.querySelectorAll("li").forEach(li => {
+  li.addEventListener("click", () => {
+    input.value = li.textContent;
+    list.style.display = "none";
+  });
+});
+document.addEventListener("click", e => {
+  if (!dropdown.contains(e.target)) list.style.display = "none";
+});
+</script>
+        <div class="inline-dt">
+          <div class="field">
+            <label for="date">Önskat datum *</label>
+            <input id="date" name="date" type="date" required>
           </div>
-
-          <div class="inline-dt" aria-hidden="false" style="margin-top:12px;">
-            <div>
-              <label for="date">Önskat datum</label>
-              <input id="date" name="date" type="date">
-            </div>
-            <div>
-              <label for="time">Önskad tid</label>
-              <input id="time" name="time" type="time">
-            </div>
+          <div class="field">
+            <label for="time">Önskad tid </label>
+            <input id="time" name="time" type="time" required>
           </div>
+        </div>
 
-          <label for="contactMessage">Meddelande</label>
-          <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..."></textarea>
+     
+          <label for="contactMessage">Meddelande </label>
+          <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..." required></textarea>
 
           <button type="submit">Skicka meddelande</button>
-
-          <div id="contactStatus" role="status" aria-live="polite"></div>
+          <div id="contactStatus"></div>
         </form>
       </div>
 
@@ -490,62 +483,6 @@
       <path d="M20 2H4a2 2 0 00-2 2v16l4-4h14a2 2 0 002-2V4a2 2 0 01-2-2zM6 9h8v2H6V9zm0-4h12v2H6V5z"/>
     </svg>
   </a>
-<!-- EmailJS lib -->
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-
-  <script>
-  (function(){
-    /* ============================
-       EmailJS configuration
-       ============================ */
-    const EMAILJS_PUBLIC_KEY = "vt_iAWB9MVGz6iT_X";
-    const EMAILJS_SERVICE_ID = "service_6fai64h";
-    const EMAILJS_TEMPLATE_ID = "template_7tccbsi";
-
-    // expose to global so other IIFEs can use
-    window.EMAILJS_PUBLIC_KEY = EMAILJS_PUBLIC_KEY;
-    window.EMAILJS_SERVICE_ID = EMAILJS_SERVICE_ID;
-    window.EMAILJS_TEMPLATE_ID = EMAILJS_TEMPLATE_ID;
-
-    if (window.emailjs && typeof emailjs.init === 'function') {
-      try { emailjs.init(EMAILJS_PUBLIC_KEY); } catch (e) { console.warn('emailjs.init failed', e); }
-    }
-
-    /* ===== set min date for date input ===== */
-    const dateInput = document.getElementById('date');
-    if (dateInput) {
-      const today = new Date();
-      const y = today.getFullYear();
-      const m = String(today.getMonth() + 1).padStart(2,'0');
-      const d = String(today.getDate()).padStart(2,'0');
-      dateInput.min = `${y}-${m}-${d}`;
-    }
-
-    /* ===== custom dropdown (searchable) ===== */
-    const dropdown = document.getElementById('issueDropdown');
-    if (dropdown) {
-      const input = dropdown.querySelector('input');
-      const list = dropdown.querySelector('.dropdown-list');
-
-      input.addEventListener('focus', () => list.style.display = 'block');
-      input.addEventListener('input', () => {
-        const val = input.value.toLowerCase();
-        list.querySelectorAll('li').forEach(li => {
-          li.style.display = li.textContent.toLowerCase().includes(val) ? 'block' : 'none';
-        });
-      });
-      list.querySelectorAll('li').forEach(li => {
-        li.addEventListener('click', () => {
-          input.value = li.textContent;
-          list.style.display = 'none';
-        });
-      });
-      document.addEventListener("click", e => {
-        if (!dropdown.contains(e.target)) list.style.display = 'none';
-      });
-    }
-  })();
-  </script>
 
   <!-- Dropdown small script (kept as-is) -->
   <script>
@@ -772,111 +709,48 @@
       statusEl.className = '';
 
       try {
-        // If form has no action (EmailJS in use), prefer emailjs.sendForm
-        const hasAction = !!(form.action && form.action.trim());
-        const canUseEmailJS = window.emailjs && window.EMAILJS_SERVICE_ID && window.EMAILJS_TEMPLATE_ID;
+        const data = new FormData(form);
+        const resp = await fetch(form.action, {
+          method: form.method || 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: data
+        });
 
-        if (!hasAction && canUseEmailJS && form.id === 'contactForm') {
-          // Send via EmailJS using sendForm (sends all form fields)
+        if (resp.ok) {
+          let okMessage = 'Tack! Ditt meddelande har skickats. Vi återkommer så snart som möjligt.';
           try {
-            const serv = window.EMAILJS_SERVICE_ID;
-            const templ = window.EMAILJS_TEMPLATE_ID;
-            await emailjs.sendForm(serv, templ, form);
-            const okMessage = 'Tack! Ditt meddelande har skickats. Vi återkommer så snart som möjligt.';
-            statusEl.textContent = okMessage;
-            statusEl.className = 'success';
-            statusEl.style.display = 'block';
-            form.reset();
-          } catch (ejErr) {
-            const errText = (ejErr && ejErr.text) ? ejErr.text : (ejErr && ejErr.message) ? ejErr.message : 'E-post kunde inte skickas via EmailJS.';
-            throw new Error(errText);
-          }
-          return;
-        }
-
-        // If there's an action URL, determine method safely:
-        // use attribute (getAttribute) so absent attribute -> default to POST
-        const methodAttr = (form.getAttribute('method') || 'POST').toUpperCase();
-        const url = form.action || window.location.href;
-
-        if (methodAttr === 'GET') {
-          // Build query string from FormData and append to URL (no body for GET)
-          const data = new FormData(form);
-          const params = new URLSearchParams();
-          for (const [k, v] of data.entries()) {
-            params.append(k, v);
-          }
-          const fetchUrl = url + (url.includes('?') ? '&' : '?') + params.toString();
-          const resp = await fetch(fetchUrl, {
-            method: 'GET',
-            headers: { 'Accept': 'application/json' }
-          });
-
-          if (resp.ok) {
-            let okMessage = 'Tack! Ditt meddelande har skickats. Vi återkommer så snart som möjligt.';
-            try {
-              const j = await resp.json().catch(()=>null);
-              if (j && j.success === false && j.message) throw new Error(j.message);
-              if (j && j.message) okMessage = j.message;
-            } catch (_) {}
-            statusEl.textContent = okMessage;
-            statusEl.className = 'success';
-            statusEl.style.display = 'block';
-            form.reset();
-          } else {
-            let errText = 'Något gick fel. Vänligen försök igen eller ring oss direkt.';
-            try {
-              const j = await resp.json().catch(()=>null);
-              if (j && j.message) errText = j.message;
-              else {
-                const t = await resp.text().catch(()=>null);
-                if (t) errText = t;
-              }
-            } catch (_) {}
-            throw new Error(errText);
-          }
-
-        } else {
-          // Non-GET: send FormData as body (POST, PUT, etc.)
-          const data = new FormData(form);
-          const resp = await fetch(url, {
-            method: methodAttr,
-            headers: { 'Accept': 'application/json' },
-            body: data
-          });
-
-          if (resp.ok) {
-            let okMessage = 'Tack! Ditt meddelande har skickats. Vi återkommer så snart som möjligt.';
-            try {
-              const j = await resp.json().catch(()=>null);
-              if (j && j.success === false && j.message) throw new Error(j.message);
-              if (j && j.message) okMessage = j.message;
-            } catch (_) {}
-            statusEl.textContent = okMessage;
-            statusEl.className = 'success';
-            statusEl.style.display = 'block';
-            if (form.id === 'bookingForm') {
-              const thanksModal = document.getElementById('thanksModal');
-              if (thanksModal) {
-                thanksModal.classList.add('show');
-                document.body.classList.add('scroll-lock');
-              }
+            const j = await resp.json().catch(()=>null);
+            if (j && j.success === false && j.message) {
+              throw new Error(j.message);
             }
-            form.reset();
-          } else {
-            let errText = 'Något gick fel. Vänligen försök igen eller ring oss direkt.';
-            try {
-              const j = await resp.json().catch(()=>null);
-              if (j && j.message) errText = j.message;
-              else {
-                const t = await resp.text().catch(()=>null);
-                if (t) errText = t;
-              }
-            } catch (_) {}
-            throw new Error(errText);
-          }
-        }
+            if (j && j.message) okMessage = j.message;
+          } catch (_) {}
+          statusEl.textContent = okMessage;
+          statusEl.className = 'success';
+          statusEl.style.display = 'block';
 
+          // if booking form present, show thanks modal
+          if (form.id === 'bookingForm') {
+            const thanksModal = document.getElementById('thanksModal');
+            if (thanksModal) {
+              thanksModal.classList.add('show');
+              document.body.classList.add('scroll-lock');
+            }
+          }
+
+          form.reset();
+        } else {
+          let errText = 'Något gick fel. Vänligen försök igen eller ring oss direkt.';
+          try {
+            const j = await resp.json().catch(()=>null);
+            if (j && j.message) errText = j.message;
+            else {
+              const t = await resp.text().catch(()=>null);
+              if (t) errText = t;
+            }
+          } catch (_) {}
+          throw new Error(errText);
+        }
       } catch (err) {
         statusEl.textContent = err.message || 'Något gick fel. Vänligen försök igen.';
         statusEl.className = 'error';
@@ -925,105 +799,6 @@
       });
     });
 
-  })();
-  </script>
-
-  <!-- small accessibility & dropdown positioning helper -->
-  <script>
-  (function(){
-    const dropdowns = document.querySelectorAll('.custom-dropdown');
-    dropdowns.forEach(dd => {
-      const input = dd.querySelector('input');
-      const list = dd.querySelector('.dropdown-list');
-      if (!input || !list) return;
-      list.style.display = 'none';
-      list.querySelectorAll('li').forEach(li=>{
-        li.setAttribute('role','option');
-        li.setAttribute('tabindex','0');
-        li.addEventListener('keydown', (ev)=> {
-          if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); li.click(); }
-        });
-        li.addEventListener('click', ()=> {
-          input.value = li.textContent.trim();
-          list.style.display = 'none';
-        });
-      });
-      input.addEventListener('focus', ()=> { list.style.display = 'block'; positionList(); });
-      input.addEventListener('input', ()=> {
-        const val = input.value.toLowerCase();
-        let any=false;
-        list.querySelectorAll('li').forEach(li=>{
-          const ok = li.textContent.toLowerCase().includes(val);
-          li.style.display = ok ? 'block' : 'none';
-          if (ok) any=true;
-        });
-        list.style.display = any ? 'block' : 'none';
-        positionList();
-      });
-      document.addEventListener('click', e=> { if (!dd.contains(e.target)) list.style.display = 'none'; });
-      function positionList(){
-        // ensure list fits viewport: open above if not enough space
-        list.style.top = '';
-        list.style.bottom = '';
-        const rect = list.getBoundingClientRect();
-        const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-        if (rect.bottom > vh - 12) {
-          list.style.top = 'auto';
-          list.style.bottom = 'calc(100% + 8px)';
-        } else {
-          list.style.top = 'calc(100% + 8px)';
-          list.style.bottom = 'auto';
-        }
-      }
-      window.addEventListener('resize', positionList);
-      window.addEventListener('scroll', positionList, true);
-    });
-  })();
-  </script>
-
-  <!-- Final bootstrap: ensure EmailJS is initialized and show thanks modal on EmailJS success -->
-  <script>
-  (function(){
-    // ensure emailjs is initialized (in case script loaded slowly)
-    if (window.emailjs && typeof emailjs.init === 'function' && window.EMAILJS_PUBLIC_KEY) {
-      try { emailjs.init(window.EMAILJS_PUBLIC_KEY); } catch(e){ console.warn('emailjs.init failed', e); }
-    }
-
-    // Hook into sendFormAjax success for EmailJS by observing contactStatus changes
-    const statusEl = document.getElementById('contactStatus');
-    if (statusEl) {
-      const observer = new MutationObserver(muts => {
-        muts.forEach(m => {
-          if (m.type === 'attributes' || m.type === 'childList') {
-            const cls = statusEl.className || '';
-            if (cls.indexOf('success') !== -1) {
-              const thanksModal = document.getElementById('thanksModal');
-              if (thanksModal) {
-                thanksModal.classList.add('show');
-                document.body.classList.add('scroll-lock');
-              }
-            }
-          }
-        });
-      });
-      observer.observe(statusEl, { attributes: true, attributeFilter: ['class'], childList: true, subtree: false });
-    }
-
-    // Close thanks modal wiring (in case not present)
-    const thanksClose = document.getElementById('thanksClose');
-    if (thanksClose) {
-      thanksClose.addEventListener('click', function(e){
-        e.preventDefault();
-        const modal = document.getElementById('thanksModal');
-        if (modal) { modal.classList.remove('show'); document.body.classList.remove('scroll-lock'); }
-      });
-    }
-
-    // Small safety: ensure contactForm has method post if absent (avoids GET/body mismatch)
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm && !contactForm.getAttribute('method')) {
-      contactForm.setAttribute('method', 'post');
-    }
   })();
   </script>
 

@@ -21,228 +21,230 @@
     img{max-width:100%;display:block}
     a{color:#DABD66;text-decoration:none}
     .container{width:min(1100px,100%);margin:auto;padding:0 18px}
-/* Header */
-.header{position:sticky;top:0;z-index:10;background:rgba(12,13,18,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.1)}
-.header-inner{display:flex;justify-content:space-between;align-items:center;padding:10px 0}
-.brand{display:flex;align-items:center;gap:10px}
-.brand img{width:64px;height:64px;border-radius:12px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(218,189,102,.3))}
-.brand-name{font:800 18px/1 Space Grotesk;color:#fff}
-.nav{display:flex;gap:8px}
-.nav a{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:700;font-size:14px;border:1px solid rgba(255,255,255,.12);line-height:1}
-.nav a.secondary{background:rgba(255,255,255,.06);color:#fff}
-.nav a:not(.secondary){background:#DABD66;color:#111}
-.nav a .icon svg{width:16px;height:16px}
 
-/* Hero */
-.hero{text-align:center;padding:30px 0}
-h1{font-family:Space Grotesk,Inter;font-weight:800;font-size:clamp(26px,6vw,40px);background:linear-gradient(90deg,#fff,#DABD66);-webkit-background-clip:text;color:transparent;margin:.3em 0}
-.lead{color:#C9D2DE;max-width:65ch;margin:0 auto 16px}
-.cta{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-.btn{padding:9px 14px;border-radius:12px;font-weight:800;font-size:14px;border:1px solid rgba(255,255,255,.1);transition:.2s}
-.btn.primary{background:#DABD66;color:#111}
-.btn.ghost{background:rgba(255,255,255,.06);color:#fff}
-.btn:hover{transform:translateY(-2px)}
-.hero-logo{width:min(300px,60vw);margin:20px auto 0;filter:drop-shadow(0 10px 30px rgba(218,189,102,.35))}
+    /* Header */
+    .header{position:sticky;top:0;z-index:10;background:rgba(12,13,18,.7);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.1)}
+    .header-inner{display:flex;justify-content:space-between;align-items:center;padding:10px 0}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{width:64px;height:64px;border-radius:12px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(218,189,102,.3))}
+    .brand-name{font:800 18px/1 Space Grotesk;color:#fff}
+    .nav{display:flex;gap:8px}
+    .nav a{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:700;font-size:14px;border:1px solid rgba(255,255,255,.12);line-height:1}
+    .nav a.secondary{background:rgba(255,255,255,.06);color:#fff}
+    .nav a:not(.secondary){background:#DABD66;color:#111}
+    .nav a .icon svg{width:16px;height:16px}
 
-/* Sections */
-.section{padding:35px 0}
-.section h2{text-align:center;font:800 22px/1.3 Space Grotesk;margin:0 0 10px}
-.section p.muted{text-align:center;color:#C9D2DE;margin:0 0 18px}
+    /* Hero */
+    .hero{text-align:center;padding:30px 0}
+    h1{font-family:Space Grotesk,Inter;font-weight:800;font-size:clamp(26px,6vw,40px);background:linear-gradient(90deg,#fff,#DABD66);-webkit-background-clip:text;color:transparent;margin:.3em 0}
+    .lead{color:#C9D2DE;max-width:65ch;margin:0 auto 16px}
+    .cta{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+    .btn{padding:9px 14px;border-radius:12px;font-weight:800;font-size:14px;border:1px solid rgba(255,255,255,.1);transition:.2s}
+    .btn.primary{background:#DABD66;color:#111}
+    .btn.ghost{background:rgba(255,255,255,.06);color:#fff}
+    .btn:hover{transform:translateY(-2px)}
+    .hero-logo{width:min(300px,60vw);margin:20px auto 0;filter:drop-shadow(0 10px 30px rgba(218,189,102,.35))}
 
-/* Services */
-.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px}
-.card h3{margin:.1em 0 .2em;font:700 17px/1.2 Inter}
-.card p{margin:0 0 6px}
-.card img{width:100%;height:140px;object-fit:cover;border-radius:10px;margin-top:8px}
+    /* Sections */
+    .section{padding:35px 0}
+    .section h2{text-align:center;font:800 22px/1.3 Space Grotesk;margin:0 0 10px}
+    .section p.muted{text-align:center;color:#C9D2DE;margin:0 0 18px}
 
-/* Booking & Contact Forms */
-.booking,.contact-form{display:grid;gap:10px;max-width:560px;margin:20px auto}
-.booking label,.contact-form label{font-weight:600;font-size:13px;color:#e6e8ef}
-.booking input,.booking select,.booking textarea,.contact-form input,.contact-form textarea{
-  width:100%;height:42px;padding:8px 10px;border-radius:8px;
-  border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);
-  color:#fff;font-size:14px
-}
-.booking textarea,.contact-form textarea{height:auto;min-height:100px;resize:vertical}
-.booking input:focus,.booking select:focus,.booking textarea:focus,.contact-form input:focus,.contact-form textarea:focus{
-  border-color:#d9b954;outline:none;box-shadow:0 0 0 2px rgba(218,189,102,.25)
-}
-.booking button,.contact-form button{margin-top:6px;padding:12px 14px;border-radius:999px;background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;font-weight:800;font-size:15px;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(218,189,102,.25)}
-.booking button[disabled],.contact-form button[disabled]{opacity:.6;cursor:not-allowed}
-.booking button:hover,.contact-form button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(218,189,102,.35)}
+    /* Services */
+    .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+    .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px}
+    .card h3{margin:.1em 0 .2em;font:700 17px/1.2 Inter}
+    .card p{margin:0 0 6px}
+    .card img{width:100%;height:140px;object-fit:cover;border-radius:10px;margin-top:8px}
 
-/* Contact Form Specific */
-.contact-form{padding:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px}
-.contact-form h3{text-align:center;font:800 20px/1.3 Space Grotesk;margin:0 0 15px;color:#fff}
-#contactStatus{margin-top:10px;padding:10px;border-radius:8px;text-align:center;display:none}
-#contactStatus.success{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.3)}
-#contactStatus.error{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.3)}
+    /* Booking & Contact Forms */
+    .booking,.contact-form{display:grid;gap:10px;max-width:560px;margin:20px auto}
+    .booking label,.contact-form label{font-weight:600;font-size:13px;color:#e6e8ef}
+    .booking input,.booking select,.booking textarea,.contact-form input,.contact-form textarea{
+      width:100%;height:42px;padding:8px 10px;border-radius:8px;
+      border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);
+      color:#fff;font-size:14px
+    }
+    .booking textarea,.contact-form textarea{height:auto;min-height:100px;resize:vertical}
+    .booking input:focus,.booking select:focus,.booking textarea:focus,.contact-form input:focus,.contact-form textarea:focus{
+      border-color:#d9b954;outline:none;box-shadow:0 0 0 2px rgba(218,189,102,.25)
+    }
+    .booking button,.contact-form button{margin-top:6px;padding:12px 14px;border-radius:999px;background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;font-weight:800;font-size:15px;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(218,189,102,.25)}
+    .booking button[disabled],.contact-form button[disabled]{opacity:.6;cursor:not-allowed}
+    .booking button:hover,.contact-form button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(218,189,102,.35)}
 
-/* Fix native select menu colors */
-.booking select{background:#121317;color:#fff}
-.booking select option{background:#0b0c10;color:#fff}
-.booking select option[disabled]{color:#9fb0c0}
+    /* Contact Form Specific */
+    .contact-form{padding:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px}
+    .contact-form h3{text-align:center;font:800 20px/1.3 Space Grotesk;margin:0 0 15px;color:#fff}
+    #contactStatus{margin-top:10px;padding:10px;border-radius:8px;text-align:center;display:none}
+    #contactStatus.success{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.3)}
+    #contactStatus.error{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.3)}
 
-/* Map */
-.map-container{text-align:center;margin-top:22px}
-iframe{width:100%;height:240px;border:0;border-radius:12px}
+    /* Fix native select menu colors */
+    .booking select{background:#121317;color:#fff}
+    .booking select option{background:#0b0c10;color:#fff}
+    .booking select option[disabled]{color:#9fb0c0}
 
-/* Footer */
-.site-footer{margin-top:32px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.015));border-top:1px solid rgba(255,255,255,.12)}
-.footer-top{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px;padding:22px 0 12px}
-.site-footer h4{font:800 16px/1.2 Inter;color:#fff;margin:.2em 0 .5em}
-.site-footer p,.site-footer a,.site-footer li{color:#C9D2DE;font-size:14px;line-height:1.6}
-.site-footer a:hover{color:#DABD66}
-.footer-divider{height:2px;background:linear-gradient(90deg,transparent,rgba(218,189,102,.7),transparent);margin:8px 0 12px}
-.copyright-bar{text-align:center;padding:10px 0 16px;font-size:13px;color:#BFC7D4;border-top:1px solid rgba(255,255,255,.08)}
-.copyright-bar a{color:#DABD66;font-weight:700}
-.copyright-bar a:hover{color:#fff}
+    /* Map */
+    .map-container{text-align:center;margin-top:22px}
+    iframe{width:100%;height:240px;border:0;border-radius:12px}
 
-/* Modal */
-.modal{position:fixed;inset:0;Display:none;place-items:center;z-index:20;background:rgba(8,10,14,.55);backdrop-filter:blur(14px)}
-.modal.show{display:grid}
-.modal-card{width:min(620px,92vw);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px;box-shadow:0 32px 90px rgba(0,0,0,.52)}
-.modal-header{display:flex;align-items:center;gap:10px;justify-content:flex-start;margin-bottom:12px}
-.modal-header img{width:40px;height:40px;border-radius:10px;object-fit:contain;filter:drop-shadow(0 6px 18px rgba(218,189,102,.35))}
-.modal-card h3{font:800 20px/1.2 Inter;margin:.1em 0;text-align:left}
-.modal-card p{color:#C9D2DE;margin:4px 0 10px;text-align:left}
-.action{display:block;width:100%;text-align:center;font-weight:900;border-radius:12px;padding:12px;margin:10px 0}
-.action.call{background:#111;color:#DABD66;border:1px solid rgba(255,255,255,.08)}
-.action.mail{background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;border:none}
-.modal .meta{color:#D7DEEA;font-size:14px;margin-top:10px}
-.modal .meta strong{color:#fff}
-.modal-close{display:block;margin:14px auto 2px;text-align:center;color:#9fb0c0;cursor:pointer}
+    /* Footer */
+    .site-footer{margin-top:32px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.015));border-top:1px solid rgba(255,255,255,.12)}
+    .footer-top{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px;padding:22px 0 12px}
+    .site-footer h4{font:800 16px/1.2 Inter;color:#fff;margin:.2em 0 .5em}
+    .site-footer p,.site-footer a,.site-footer li{color:#C9D2DE;font-size:14px;line-height:1.6}
+    .site-footer a:hover{color:#DABD66}
+    .footer-divider{height:2px;background:linear-gradient(90deg,transparent,rgba(218,189,102,.7),transparent);margin:8px 0 12px}
+    .copyright-bar{text-align:center;padding:10px 0 16px;font-size:13px;color:#BFC7D4;border-top:1px solid rgba(255,255,255,.08)}
+    .copyright-bar a{color:#DABD66;font-weight:700}
+    .copyright-bar a:hover{color:#fff}
 
-/* lock scroll when modal open */
-body.scroll-lock{overflow:hidden}
+    /* Modal */
+    .modal{position:fixed;inset:0;Display:none;place-items:center;z-index:20;background:rgba(8,10,14,.55);backdrop-filter:blur(14px)}
+    .modal.show{display:grid}
+    .modal-card{width:min(620px,92vw);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:18px;box-shadow:0 32px 90px rgba(0,0,0,.52)}
+    .modal-header{display:flex;align-items:center;gap:10px;justify-content:flex-start;margin-bottom:12px}
+    .modal-header img{width:40px;height:40px;border-radius:10px;object-fit:contain;filter:drop-shadow(0 6px 18px rgba(218,189,102,.35))}
+    .modal-card h3{font:800 20px/1.2 Inter;margin:.1em 0;text-align:left}
+    .modal-card p{color:#C9D2DE;margin:4px 0 10px;text-align:left}
+    .action{display:block;width:100%;text-align:center;font-weight:900;border-radius:12px;padding:12px;margin:10px 0}
+    .action.call{background:#111;color:#DABD66;border:1px solid rgba(255,255,255,.08)}
+    .action.mail{background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;border:none}
+    .modal .meta{color:#D7DEEA;font-size:14px;margin-top:10px}
+    .modal .meta strong{color:#fff}
+    .modal-close{display:block;margin:14px auto 2px;text-align:center;color:#9fb0c0;cursor:pointer}
 
-/* SMS FAB draggable */
-.sms-fab{
-  position:fixed;right:14px;bottom:14px;width:54px;height:54px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;
-  border:1px solid rgba(0,0,0,.2);text-decoration:none;transition:.15s;box-shadow:none !important;touch-action:none;
-  z-index:100
-}
-.sms-fab svg{width:24px;height:24px}
+    /* lock scroll when modal open */
+    body.scroll-lock{overflow:hidden}
 
-@media(max-width:520px){
-  .footer-top{grid-template-columns:1fr}
-  .brand img{width:54px;height:54px}
-  .nav{flex-wrap:wrap}
-}
+    /* SMS FAB draggable */
+    .sms-fab{
+      position:fixed;right:14px;bottom:14px;width:54px;height:54px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#e9cf6e,#d4b848);color:#111;
+      border:1px solid rgba(0,0,0,.2);text-decoration:none;transition:.15s;box-shadow:none !important;touch-action:none;
+      z-index:100
+    }
+    .sms-fab svg{width:24px;height:24px}
 
-/* datum & tid side-by-side small */
-.inline-dt{display:grid;grid-template-columns:repeat(2,minmax(140px,1fr));gap:8px;align-items:end;margin-top:4px}
-.inline-dt .field{display:flex;flex-direction:column;gap:4px}
-.inline-dt label{font-size:12px}
-.inline-dt input{height:32px;font-size:12px;padding:6px 8px;max-width:100%}
-@media(max-width:520px){.inline-dt{grid-template-columns:1fr}}
+    @media(max-width:520px){
+      .footer-top{grid-template-columns:1fr}
+      .brand img{width:54px;height:54px}
+      .nav{flex-wrap:wrap}
+    }
 
-/* ==============  ADDED: improved mobile form appearance (keeps original structure) ============== */
-/* make form container visually similar to screenshot: centered card with padding */
-#boka .container { max-width: 520px; }
+    /* datum & tid side-by-side small */
+    .inline-dt{display:grid;grid-template-columns:repeat(2,minmax(140px,1fr));gap:8px;align-items:end;margin-top:4px}
+    .inline-dt .field{display:flex;flex-direction:column;gap:4px}
+    .inline-dt label{font-size:12px}
+    .inline-dt input{height:32px;font-size:12px;padding:6px 8px;max-width:100%}
+    @media(max-width:520px){.inline-dt{grid-template-columns:1fr}}
 
-/* unify inputs in contact form */
-#contactForm input,
-#contactForm select,
-#contactForm textarea,
-#contactForm .custom-dropdown input {
-  display: block;
-  width: 100%;
-  height: 50px;
-  padding: 12px 14px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.03);
-  color: #F3F5F8;
-  font-size: 15px;
-  line-height: 1.2;
-  box-shadow: none;
-  margin: 6px 0 0 0;
-  transition: box-shadow .15s, border-color .12s;
-}
+    /* ==============  ADDED: improved mobile form appearance (keeps original structure) ============== */
+    /* make form container visually similar to screenshot: centered card with padding */
+    #boka .container { max-width: 520px; }
 
-/* make email field visually prominent (same style but ensure type=email rendered nicely) */
-#contactForm input[type="email"] {
-  -webkit-appearance: none;
-  appearance: none;
-}
+    /* unify inputs in contact form */
+    #contactForm input,
+    #contactForm select,
+    #contactForm textarea,
+    #contactForm .custom-dropdown input {
+      display: block;
+      width: 100%;
+      height: 50px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      color: #F3F5F8;
+      font-size: 15px;
+      line-height: 1.2;
+      box-shadow: none;
+      margin: 6px 0 0 0;
+      transition: box-shadow .15s, border-color .12s;
+    }
 
-/* bigger textarea */
-#contactForm textarea { min-height: 120px; padding-top: 14px; resize: vertical; }
+    /* make email field visually prominent (same style but ensure type=email rendered nicely) */
+    #contactForm input[type="email"] {
+      -webkit-appearance: none;
+      appearance: none;
+    }
 
-/* labels above fields */
-#contactForm label { display:block; margin-top: 14px; margin-bottom:6px; font-weight:700; color:#E6E8EF; }
+    /* bigger textarea */
+    #contactForm textarea { min-height: 120px; padding-top: 14px; resize: vertical; }
 
-/* submit button large and full-width like screenshot */
-#contactForm button[type="submit"] {
-  width: calc(100% - 14px);
-  max-width: 420px;
-  display: inline-block;
-  margin: 18px 7px 22px;
-  padding: 14px 18px;
-  font-size: 16px;
-  border-radius: 999px;
-  text-align: center;
-  box-shadow: 0 6px 20px rgba(218,189,102,.22);
-}
+    /* labels above fields */
+    #contactForm label { display:block; margin-top: 14px; margin-bottom:6px; font-weight:700; color:#E6E8EF; }
 
-/* custom-dropdown improvements */
-.custom-dropdown { position: relative; z-index: 40; }
-.custom-dropdown input { padding-right: 40px; }
-.custom-dropdown::after {
-  content: "▾";
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgba(255,255,255,0.45);
-  pointer-events: none;
-  font-size: 14px;
-}
-.dropdown-list {
-  list-style: none;
-  margin: 6px 0 0 0;
-  padding: 6px;
-  background: rgba(6,7,10,0.95);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 10px;
-  max-height: 220px;
-  overflow:auto;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: calc(100% + 8px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-  display: none;
-}
-.dropdown-list li { padding:10px 8px; color:#dbe6f1; cursor:pointer; border-radius:8px; }
-.dropdown-list li:hover { background: rgba(218,189,102,0.06); color:#fff; }
+    /* submit button large and full-width like screenshot */
+    #contactForm button[type="submit"] {
+      width: calc(100% - 14px);
+      max-width: 420px;
+      display: inline-block;
+      margin: 18px 7px 22px;
+      padding: 14px 18px;
+      font-size: 16px;
+      border-radius: 999px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(218,189,102,.22);
+    }
 
-/* placeholder color */
-::placeholder { color: rgba(255,255,255,0.45); }
+    /* custom-dropdown improvements */
+    .custom-dropdown { position: relative; z-index: 40; }
+    .custom-dropdown input { padding-right: 40px; }
+    .custom-dropdown::after {
+      content: "▾";
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255,255,255,0.45);
+      pointer-events: none;
+      font-size: 14px;
+    }
+    .dropdown-list {
+      list-style: none;
+      margin: 6px 0 0 0;
+      padding: 6px;
+      background: rgba(6,7,10,0.95);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 10px;
+      max-height: 220px;
+      overflow:auto;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(100% + 8px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      display: none;
+    }
+    .dropdown-list li { padding:10px 8px; color:#dbe6f1; cursor:pointer; border-radius:8px; }
+    .dropdown-list li:hover { background: rgba(218,189,102,0.06); color:#fff; }
 
-/* responsive tweaks */
-@media (max-width: 640px) {
-  #boka .container { padding-left: 12px; padding-right: 12px; }
-  #contactForm input, #contactForm textarea { height:48px; font-size:15px; }
-  #contactForm textarea { min-height:110px; }
-  .sms-fab { right: 12px; bottom: 88px; } /* ensure it doesn't overlap send button */
-  .inline-dt { grid-template-columns: 1fr; gap:10px; }
-}
+    /* placeholder color */
+    ::placeholder { color: rgba(255,255,255,0.45); }
 
-/* Accessibility: focus visible */
-#contactForm input:focus, #contactForm textarea:focus {
-  outline: none;
-  border-color: #d9b954;
-  box-shadow: 0 0 0 4px rgba(218,189,102,0.12);
-}
+    /* responsive tweaks */
+    @media (max-width: 640px) {
+      #boka .container { padding-left: 12px; padding-right: 12px; }
+      #contactForm input, #contactForm textarea { height:48px; font-size:15px; }
+      #contactForm textarea { min-height:110px; }
+      .sms-fab { right: 12px; bottom: 88px; } /* ensure it doesn't overlap send button */
+      .inline-dt { grid-template-columns: 1fr; gap:10px; }
+    }
 
-/* end added */
+    /* Accessibility: focus visible */
+    #contactForm input:focus, #contactForm textarea:focus {
+      outline: none;
+      border-color: #d9b954;
+      box-shadow: 0 0 0 4px rgba(218,189,102,0.12);
+    }
+
+    /* end added */
   </style>
 </head>
 <body>
+
   <!-- Header -->
   <header class="header">
     <div class="container header-inner">
@@ -263,6 +265,7 @@ body.scroll-lock{overflow:hidden}
       </nav>
     </div>
   </header>
+
   <!-- Hero -->
   <section class="hero" id="start">
     <div class="container">
@@ -275,120 +278,125 @@ body.scroll-lock{overflow:hidden}
       <img class="hero-logo" src="assets/logo.png" alt="Utby Snabb Bilservice logotyp">
     </div>
   </section>
+
   <!-- Tjänster -->
   <section class="section" id="tjanster">
     <div class="container">
       <h2>Våra tjänster</h2>
       <p class="muted">Vi hanterar allt från motor och växellåda till minsta komponent. Du får alltid prisförslag innan åtgärd och tydlig återkoppling när arbetet är klart.</p>
-  <div class="services">
-    <div class="card">
-      <h3>Service</h3>
-      <p>Planerad service enligt tillverkarens intervall: byte av motorolja och filter، kontroll av vätskor، bromsar، batteri، belysning och drivlina.</p>
-      <ul style="margin:6px 0 8px 18px">
-        <li>30–40 punkters säkerhetskontroll</li>
-        <li>Provkörning och felkodsavläsning</li>
-        <li>Serviceunderlag & tydlig återkoppling</li>
-      </ul>
-      <img src="assets/photo1.jpg" alt="Service och oljebyte">
-    </div>
 
-    <div class="card">
-      <h3>Däck & hjul</h3>
-      <p>Skifte sommar/vinter، balansering och kontroll av mönsterdjup och lufttryck. Vi programmerar och kalibrerar även TPMS vid behov.</p>
-      <ul style="margin:6px 0 8px 18px">
-        <li>Däckhotell: torrt، säkert och försäkrat</li>
-        <li>Snabbt skifte med momentkontroll</li>
-        <li>Rådgivning om rätt dimension och lastindex</li>
-      </ul>
-      <img src="assets/photo3.jpg" alt="Däckhotell och hjulservice">
-    </div>
+      <div class="services">
+        <div class="card">
+          <h3>Service</h3>
+          <p>Planerad service enligt tillverkarens intervall: byte av motorolja och filter، kontroll av vätskor، bromsar، batteri، belysning och drivlina.</p>
+          <ul style="margin:6px 0 8px 18px">
+            <li>30–40 punkters säkerhetskontroll</li>
+            <li>Provkörning och felkodsavläsning</li>
+            <li>Serviceunderlag & tydlig återkoppling</li>
+          </ul>
+          <img src="assets/photo1.jpg" alt="Service och oljebyte">
+        </div>
 
-    <div class="card">
-      <h3>Kompletta reparationer</h3>
-      <p>Från bromsar، avgassystem och fjädring till motor، koppling/växellåda och el. Vi felsöker systematiskt med moderna diagnosverktyg.</p>
-      <ul style="margin:6px 0 8px 18px">
-        <li>Kamrem/kedja، vattenpump och packningar</li>
-        <li>Bromsskivor/-belägg، ok & handbroms</li>
-        <li>AC-service: läcktest & påfyllning</li>
-      </ul>
-      <img src="assets/photo2.jpg" alt="Kompletta reparationer">
-    </div>
-  </div>
+        <div class="card">
+          <h3>Däck & hjul</h3>
+          <p>Skifte sommar/vinter، balansering och kontroll av mönsterdjup och lufttryck. Vi programmerar och kalibrerar även TPMS vid behov.</p>
+          <ul style="margin:6px 0 8px 18px">
+            <li>Däckhotell: torrt، säkert och försäkrat</li>
+            <li>Snabbt skifte med momentkontroll</li>
+            <li>Rådgivning om rätt dimension och lastindex</li>
+          </ul>
+          <img src="assets/photo3.jpg" alt="Däckhotell och hjulservice">
+        </div>
 
-  <div class="card" style="margin-top:14px">
-    <h3>Vanliga frågor (FAQ)</h3>
-    <p><strong>Behöver jag boka tid?</strong> Drop-in vardagar 09:00–18:00. För större jobb rekommenderar vi bokning.</p>
-    <p><strong>Uppdaterar ni servicehistorik?</strong> Ja، där digital bok finns uppdaterar vi den. Annars får du underlag/stämpel.</p>
-    <p><strong>Vilka delar använder ni?</strong> Original eller OEM-kvalitet enligt tillverkarens specifikationer.</p>
-    <p><strong>Garanti på arbete?</strong> Ja، vi lämnar garanti på både delar och arbete enligt branschpraxis.</p>
-  </div>
-</div>
+        <div class="card">
+          <h3>Kompletta reparationer</h3>
+          <p>Från bromsar، avgassystem och fjädring till motor، koppling/växellåda och el. Vi felsöker systematiskt med moderna diagnosverktyg.</p>
+          <ul style="margin:6px 0 8px 18px">
+            <li>Kamrem/kedja، vattenpump och packningar</li>
+            <li>Bromsskivor/-belägg، ok & handbroms</li>
+            <li>AC-service: läcktest & påfyllning</li>
+          </ul>
+          <img src="assets/photo2.jpg" alt="Kompletta reparationer">
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <h3>Vanliga frågor (FAQ)</h3>
+        <p><strong>Behöver jag boka tid?</strong> Drop-in vardagar 09:00–18:00. För större jobb rekommenderar vi bokning.</p>
+        <p><strong>Uppdaterar ni servicehistorik?</strong> Ja، där digital bok finns uppdaterar vi den. Annars får du underlag/stämpel.</p>
+        <p><strong>Vilka delar använder ni?</strong> Original eller OEM-kvalitet enligt tillverkarens specifikationer.</p>
+        <p><strong>Garanti på arbete?</strong> Ja، vi lämnar garanti på både delar och arbete enligt branschpraxis.</p>
+      </div>
+    </div>
   </section>
+
    <section class="section" id="boka">
     <div class="container">
       <h2>Kontakt oss & Boka tid</h2>
-  <!-- نموذج الاتصال -->
 
-    <!-- FORM: EmailJS only (no action attribute) -->
-    <form id="contactForm" novalidate autocomplete="on">
-      <input type="text" name="_honey" style="display:none" autocomplete="off">
+      <!-- نموذج الاتصال -->
+ 
+        <!-- FORM: EmailJS only (no action attribute) -->
+        <form id="contactForm" novalidate autocomplete="on">
+          <input type="text" name="_honey" style="display:none" autocomplete="off">
 
-      <label for="name">Namn</label>
-      <input id="name" name="name" placeholder="För- och efternamn" required>
+          <label for="name">Namn</label>
+          <input id="name" name="name" placeholder="För- och efternamn" required>
 
-      <label for="contactPhone">Telefon (valfritt)</label>
-      <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67">
+          <label for="contactPhone">Telefon (valfritt)</label>
+          <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67">
 
-      <label for="email">E-post</label>
-      <input id="email" name="email" type="email" placeholder="din@epost.se" required>
+          <label for="email">E-post</label>
+          <input id="email" name="email" type="email" placeholder="din@epost.se" required>
 
-      <label for="car">Bil/Regnr</label>
-      <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017">
+          <label for="car">Bil/Regnr</label>
+          <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017">
 
-      <label for="issueInput">Problem / Tjänst</label>
-      <div class="custom-dropdown" id="issueDropdown" aria-haspopup="listbox">
-        <input type="text" id="issueInput" name="issue" placeholder="Välj eller sök tjänst..." autocomplete="off" aria-label="Problem eller tjänst">
-        <ul class="dropdown-list" role="listbox" aria-labelledby="issueInput">
-          <li role="option">Annat – beskriv i meddelandet</li>
-          <li role="option">Service & olja</li>
-          <li role="option">Bromsar</li>
-          <li role="option">Däck & hjul</li>
-          <li role="option">AC / klimatanläggning</li>
-          <li role="option">El / elektronik</li>
-          <li role="option">Diagnos / OBD</li>
-          <li role="option">Motor</li>
-          <li role="option">Växellåda / koppling</li>
-          <li role="option">Besiktning / kontroll</li>
-        </ul>
+          <label for="issueInput">Problem / Tjänst</label>
+          <div class="custom-dropdown" id="issueDropdown" aria-haspopup="listbox">
+            <input type="text" id="issueInput" name="issue" placeholder="Välj eller sök tjänst..." autocomplete="off" aria-label="Problem eller tjänst">
+            <ul class="dropdown-list" role="listbox" aria-labelledby="issueInput">
+              <li role="option">Annat – beskriv i meddelandet</li>
+              <li role="option">Service & olja</li>
+              <li role="option">Bromsar</li>
+              <li role="option">Däck & hjul</li>
+              <li role="option">AC / klimatanläggning</li>
+              <li role="option">El / elektronik</li>
+              <li role="option">Diagnos / OBD</li>
+              <li role="option">Motor</li>
+              <li role="option">Växellåda / koppling</li>
+              <li role="option">Besiktning / kontroll</li>
+            </ul>
+          </div>
+
+          <div class="inline-dt" aria-hidden="false" style="margin-top:12px;">
+            <div>
+              <label for="date">Önskat datum</label>
+              <input id="date" name="date" type="date">
+            </div>
+            <div>
+              <label for="time">Önskad tid</label>
+              <input id="time" name="time" type="time">
+            </div>
+          </div>
+
+          <label for="contactMessage">Meddelande</label>
+          <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..."></textarea>
+
+          <button type="submit">Skicka meddelande</button>
+
+          <div id="contactStatus" role="status" aria-live="polite"></div>
+        </form>
       </div>
 
-      <div class="inline-dt" aria-hidden="false" style="margin-top:12px;">
-        <div>
-          <label for="date">Önskat datum</label>
-          <input id="date" name="date" type="date">
-        </div>
-        <div>
-          <label for="time">Önskad tid</label>
-          <input id="time" name="time" type="time">
-        </div>
+      <div class="map-container" id="kontakt">
+        <h3>Här hittar du oss</h3>
+        <p>Vagnmakaregatan 2, 415 72 Göteborg</p>
+        <iframe src="https://www.google.com/maps?q=57.74025,12.07864&hl=sv&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer"></iframe>
       </div>
-
-      <label for="contactMessage">Meddelande</label>
-      <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..."></textarea>
-
-      <button type="submit">Skicka meddelande</button>
-
-      <div id="contactStatus" role="status" aria-live="polite"></div>
-    </form>
-  </div>
-
-  <div class="map-container" id="kontakt">
-    <h3>Här hittar du oss</h3>
-    <p>Vagnmakaregatan 2, 415 72 Göteborg</p>
-    <iframe src="https://www.google.com/maps?q=57.74025,12.07864&hl=sv&z=15&output=embed" loading="lazy" referrerpolicy="no-referrer"></iframe>
-  </div>
-</div>
+    </div>
   </section>
+
   <!-- Footer -->
   <footer class="site-footer">
     <div class="container footer-top">
@@ -417,13 +425,15 @@ body.scroll-lock{overflow:hidden}
         <p style="margin-top:6px"><a href="https://maps.google.com/?q=57.74025,12.07864" target="_blank" rel="noopener">Hitta oss på Google Maps</a></p>
       </div>
     </div>
-<div class="footer-divider"></div>
 
-<div class="container copyright-bar">
-  <span>© 2023 Utby Snabb Bilservice</span> |
-  <span>Design by <a href="#" id="openCreator">Hussein</a></span>
-</div>
+    <div class="footer-divider"></div>
+
+    <div class="container copyright-bar">
+      <span>© 2023 Utby Snabb Bilservice</span> |
+      <span>Design by <a href="#" id="openCreator">Hussein</a></span>
+    </div>
   </footer>
+
   <!-- Modal: Kontakta Hussein -->
   <div class="modal" id="creatorModal">
     <div class="modal-card">
@@ -443,6 +453,7 @@ body.scroll-lock{overflow:hidden}
       <span class="modal-close" id="closeCreator">Stäng</span>
     </div>
   </div>
+
   <!-- Modal: Tack -->
   <div class="modal" id="thanksModal">
     <div class="modal-card">
@@ -456,6 +467,7 @@ body.scroll-lock{overflow:hidden}
       <span class="modal-close" id="thanksClose">Stäng</span>
     </div>
   </div>
+
   <!-- Modal: Kontaktväljare (SMS eller E-post) -->
   <div class="modal" id="chooserModal">
     <div class="modal-card">
@@ -471,6 +483,7 @@ body.scroll-lock{overflow:hidden}
       <span class="modal-close" id="chooserClose">Stäng</span>
     </div>
   </div>
+
   <!-- SMS floating button -->
   <a id="smsFab" class="sms-fab" href="#" aria-label="Skicka SMS eller e-post">
     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -479,6 +492,7 @@ body.scroll-lock{overflow:hidden}
   </a>
 <!-- EmailJS lib -->
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
   <script>
   (function(){
     /* ============================
@@ -532,6 +546,7 @@ body.scroll-lock{overflow:hidden}
     }
   })();
   </script>
+
   <!-- Dropdown small script (kept as-is) -->
   <script>
   (function(){
@@ -559,6 +574,7 @@ body.scroll-lock{overflow:hidden}
     });
   })();
   </script>
+
   <!-- Main interactive behaviours (modals, SMS FAB, date min, and robust AJAX sender) -->
   <script>
   (function () {
@@ -911,6 +927,7 @@ body.scroll-lock{overflow:hidden}
 
   })();
   </script>
+
   <!-- small accessibility & dropdown positioning helper -->
   <script>
   (function(){
@@ -963,5 +980,52 @@ body.scroll-lock{overflow:hidden}
     });
   })();
   </script>
+
+  <!-- Final bootstrap: ensure EmailJS is initialized and show thanks modal on EmailJS success -->
+  <script>
+  (function(){
+    // ensure emailjs is initialized (in case script loaded slowly)
+    if (window.emailjs && typeof emailjs.init === 'function' && window.EMAILJS_PUBLIC_KEY) {
+      try { emailjs.init(window.EMAILJS_PUBLIC_KEY); } catch(e){ console.warn('emailjs.init failed', e); }
+    }
+
+    // Hook into sendFormAjax success for EmailJS by observing contactStatus changes
+    const statusEl = document.getElementById('contactStatus');
+    if (statusEl) {
+      const observer = new MutationObserver(muts => {
+        muts.forEach(m => {
+          if (m.type === 'attributes' || m.type === 'childList') {
+            const cls = statusEl.className || '';
+            if (cls.indexOf('success') !== -1) {
+              const thanksModal = document.getElementById('thanksModal');
+              if (thanksModal) {
+                thanksModal.classList.add('show');
+                document.body.classList.add('scroll-lock');
+              }
+            }
+          }
+        });
+      });
+      observer.observe(statusEl, { attributes: true, attributeFilter: ['class'], childList: true, subtree: false });
+    }
+
+    // Close thanks modal wiring (in case not present)
+    const thanksClose = document.getElementById('thanksClose');
+    if (thanksClose) {
+      thanksClose.addEventListener('click', function(e){
+        e.preventDefault();
+        const modal = document.getElementById('thanksModal');
+        if (modal) { modal.classList.remove('show'); document.body.classList.remove('scroll-lock'); }
+      });
+    }
+
+    // Small safety: ensure contactForm has method post if absent (avoids GET/body mismatch)
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm && !contactForm.getAttribute('method')) {
+      contactForm.setAttribute('method', 'post');
+    }
+  })();
+  </script>
+
 </body>
 </html>

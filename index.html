@@ -139,6 +139,108 @@
     .inline-dt label{font-size:12px}
     .inline-dt input{height:32px;font-size:12px;padding:6px 8px;max-width:100%}
     @media(max-width:520px){.inline-dt{grid-template-columns:1fr}}
+
+    /* ==============  ADDED: improved mobile form appearance (keeps original structure) ============== */
+    /* make form container visually similar to screenshot: centered card with padding */
+    #boka .container { max-width: 520px; }
+
+    /* unify inputs in contact form */
+    #contactForm input,
+    #contactForm select,
+    #contactForm textarea,
+    #contactForm .custom-dropdown input {
+      display: block;
+      width: 100%;
+      height: 50px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      color: #F3F5F8;
+      font-size: 15px;
+      line-height: 1.2;
+      box-shadow: none;
+      margin: 6px 0 0 0;
+      transition: box-shadow .15s, border-color .12s;
+    }
+
+    /* make email field visually prominent (same style but ensure type=email rendered nicely) */
+    #contactForm input[type="email"] {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    /* bigger textarea */
+    #contactForm textarea { min-height: 120px; padding-top: 14px; resize: vertical; }
+
+    /* labels above fields */
+    #contactForm label { display:block; margin-top: 14px; margin-bottom:6px; font-weight:700; color:#E6E8EF; }
+
+    /* submit button large and full-width like screenshot */
+    #contactForm button[type="submit"] {
+      width: calc(100% - 14px);
+      max-width: 420px;
+      display: inline-block;
+      margin: 18px 7px 22px;
+      padding: 14px 18px;
+      font-size: 16px;
+      border-radius: 999px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(218,189,102,.22);
+    }
+
+    /* custom-dropdown improvements */
+    .custom-dropdown { position: relative; z-index: 40; }
+    .custom-dropdown input { padding-right: 40px; }
+    .custom-dropdown::after {
+      content: "▾";
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255,255,255,0.45);
+      pointer-events: none;
+      font-size: 14px;
+    }
+    .dropdown-list {
+      list-style: none;
+      margin: 6px 0 0 0;
+      padding: 6px;
+      background: rgba(6,7,10,0.95);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 10px;
+      max-height: 220px;
+      overflow:auto;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(100% + 8px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      display: none;
+    }
+    .dropdown-list li { padding:10px 8px; color:#dbe6f1; cursor:pointer; border-radius:8px; }
+    .dropdown-list li:hover { background: rgba(218,189,102,0.06); color:#fff; }
+
+    /* placeholder color */
+    ::placeholder { color: rgba(255,255,255,0.45); }
+
+    /* responsive tweaks */
+    @media (max-width: 640px) {
+      #boka .container { padding-left: 12px; padding-right: 12px; }
+      #contactForm input, #contactForm textarea { height:48px; font-size:15px; }
+      #contactForm textarea { min-height:110px; }
+      .sms-fab { right: 12px; bottom: 88px; } /* ensure it doesn't overlap send button */
+      .inline-dt { grid-template-columns: 1fr; gap:10px; }
+    }
+
+    /* Accessibility: focus visible */
+    #contactForm input:focus, #contactForm textarea:focus {
+      outline: none;
+      border-color: #d9b954;
+      box-shadow: 0 0 0 4px rgba(218,189,102,0.12);
+    }
+
+    /* end added */
   </style>
 </head>
 <body>
@@ -149,7 +251,7 @@
       <a class="brand" href="#start"><img src="assets/logo.png" alt="logo"/><span class="brand-name">Utby Snabb Bilservice</span></a>
       <nav class="nav">
         <a class="secondary" href="#tjanster">
-          <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.7 19.3l-6.4-6.4a6 6 0 01-7.6-7.6l3.1 3.1 2.1-.7.7-2.1-3.1-3.1a6 6 0 007.6 7.6l6.4 6.4-2.8 2.8z"/></svg></span>
+          <span class="icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.7 19.3l-6.4-6.4a6 6 0 01-7.6-7.6l3.1 3.1 2.1-.7.7-2.1-3.1-3.1a6 6 0 007.6 7.6l6.4 6.4-2.8 2.8zM4 20a2 2 0 110-4 2 2 0 010 4z"/></svg></span>
           <span>Tjänster</span>
         </a>
         <a class="secondary" href="#kontakt">
@@ -234,7 +336,7 @@
 
       <!-- نموذج الاتصال -->
  
-‏        <!-- FORM: EmailJS only (no action attribute) -->
+        <!-- FORM: EmailJS only (no action attribute) -->
         <form id="contactForm" novalidate autocomplete="on">
           <input type="text" name="_honey" style="display:none" autocomplete="off">
 
@@ -267,7 +369,7 @@
             </ul>
           </div>
 
-          <div class="inline-dt" aria-hidden="false">
+          <div class="inline-dt" aria-hidden="false" style="margin-top:12px;">
             <div>
               <label for="date">Önskat datum</label>
               <input id="date" name="date" type="date">
@@ -400,6 +502,11 @@
     const EMAILJS_SERVICE_ID = "service_6fai64h";
     const EMAILJS_TEMPLATE_ID = "template_7tccbsi";
 
+    // expose to global so other IIFEs can use
+    window.EMAILJS_PUBLIC_KEY = EMAILJS_PUBLIC_KEY;
+    window.EMAILJS_SERVICE_ID = EMAILJS_SERVICE_ID;
+    window.EMAILJS_TEMPLATE_ID = EMAILJS_TEMPLATE_ID;
+
     if (window.emailjs && typeof emailjs.init === 'function') {
       try { emailjs.init(EMAILJS_PUBLIC_KEY); } catch (e) { console.warn('emailjs.init failed', e); }
     }
@@ -437,88 +544,10 @@
         if (!dropdown.contains(e.target)) list.style.display = 'none';
       });
     }
-
-    /* ===== EmailJS form submission ===== */
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-      contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const statusEl = document.getElementById('contactStatus');
-        const originalText = submitBtn ? submitBtn.textContent : 'Skicka';
-        
-        // Validate form
-        if (!contactForm.checkValidity()) {
-          contactForm.reportValidity();
-          return;
-        }
-
-        // Disable button and show loading
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Skickar...';
-        }
-        
-        statusEl.style.display = 'none';
-        statusEl.className = '';
-
-        try {
-          // Prepare form data
-          const formData = new FormData(contactForm);
-          const templateParams = {
-            name: formData.get('name'),
-            phone: formData.get('phone'),
-            email: formData.get('email'),
-            car: formData.get('car'),
-            issue: formData.get('issue'),
-            date: formData.get('date'),
-            time: formData.get('time'),
-            message: formData.get('message')
-          };
-
-          // Send email using EmailJS
-          const response = await emailjs.send(
-            EMAILJS_SERVICE_ID,
-            EMAILJS_TEMPLATE_ID,
-            templateParams
-          );
-
-          if (response.status === 200) {
-            statusEl.textContent = 'Tack! Ditt meddelande har skickats. Vi återkommer så snart som möjligt.';
-            statusEl.className = 'success';
-            statusEl.style.display = 'block';
-            
-            // Show thanks modal
-            const thanksModal = document.getElementById('thanksModal');
-            if (thanksModal) {
-              thanksModal.classList.add('show');
-              document.body.classList.add('scroll-lock');
-            }
-            
-            // Reset form
-            contactForm.reset();
-          } else {
-            throw new Error('Kunde inte skicka meddelandet');
-          }
-        } catch (error) {
-          console.error('EmailJS error:', error);
-          statusEl.textContent = 'Något gick fel. Vänligen försök igen eller ring oss direkt.';
-          statusEl.className = 'error';
-          statusEl.style.display = 'block';
-        } finally {
-          // Re-enable button
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
-          }
-        }
-      });
-    }
   })();
   </script>
 
-  <!-- Dropdown small script -->
+  <!-- Dropdown small script (kept as-is) -->
   <script>
   (function(){
     const dropdown = document.getElementById("issueDropdown");
@@ -546,7 +575,7 @@
   })();
   </script>
 
-  <!-- Main interactive behaviours (modals, SMS FAB, date min) -->
+  <!-- Main interactive behaviours (modals, SMS FAB, date min, and robust AJAX sender) -->
   <script>
   (function () {
     // init date min and sms fab on DOM ready
@@ -563,7 +592,7 @@
     });
 
     // Modal open/close for creator
-const creatorModal = document.getElementById('creatorModal');
+    const creatorModal = document.getElementById('creatorModal');
     const openCreator = document.getElementById('openCreator');
     const closeCreator = document.getElementById('closeCreator');
     if (openCreator && creatorModal) {
@@ -713,6 +742,204 @@ const creatorModal = document.getElementById('creatorModal');
       window.addEventListener('pointerup', onPointerUp, { passive: false });
       window.addEventListener('pointercancel', onPointerUp, { passive: false });
     }
+
+    // ---------------- Robust AJAX form sender ----------------
+    function ensureStatusElement(form, preferredId) {
+      let el = document.getElementById(preferredId);
+      if (el) return el;
+      el = form.querySelector('#formStatus, #contactStatus');
+      if (el) return el;
+      const btn = form.querySelector('button[type="submit"], input[type="submit"]');
+      const p = document.createElement('p');
+      p.style.marginTop = '10px';
+      p.style.display = 'none';
+      p.id = preferredId || ('formStatus-' + Math.random().toString(36).slice(2,8));
+      if (btn && btn.parentNode) btn.parentNode.insertBefore(p, btn.nextSibling);
+      return p;
+    }
+
+    async function sendFormAjax(form) {
+      const statusEl = ensureStatusElement(form, form.id === 'contactForm' ? 'contactStatus' : 'formStatus');
+      const submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
+      const originalText = submitBtn ? (submitBtn.textContent || submitBtn.value || 'Skicka') : 'Skicka';
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        if (submitBtn.tagName.toLowerCase() === 'button') submitBtn.textContent = 'Skickar...';
+        else submitBtn.value = 'Skickar...';
+      }
+      statusEl.style.display = 'none';
+      statusEl.className = '';
+
+      try {
+        // If form has no action (EmailJS in use), prefer emailjs.sendForm
+        const hasAction = !!(form.action && form.action.trim());
+        const canUseEmailJS = window.emailjs && window.EMAILJS_SERVICE_ID && window.EMAILJS_TEMPLATE_ID;
+
+        if (!hasAction && canUseEmailJS && form.id === 'contactForm') {
+          // Send via EmailJS using sendForm (sends all form fields)
+          try {
+            const serv = window.EMAILJS_SERVICE_ID;
+            const templ = window.EMAILJS_TEMPLATE_ID;
+            const resp = await emailjs.sendForm(serv, templ, form);
+            // EmailJS resolves even on some partial failures; treat as success here
+            const okMessage = 'Tack! Ditt meddelande har skickats. Vi återkommer så snart som möjligt.';
+            statusEl.textContent = okMessage;
+            statusEl.className = 'success';
+            statusEl.style.display = 'block';
+            form.reset();
+          } catch (ejErr) {
+            // EmailJS error
+            const errText = (ejErr && ejErr.text) ? ejErr.text : (ejErr && ejErr.message) ? ejErr.message : 'E-post kunde inte skickas via EmailJS.';
+            throw new Error(errText);
+          }
+          return;
+        }
+
+        // Otherwise, fall back to original fetch flow (for forms with action URL)
+        const data = new FormData(form);
+        const resp = await fetch(form.action, {
+          method: form.method || 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: data
+        });
+
+        if (resp.ok) {
+          let okMessage = 'Tack! Ditt meddelande har skickats. Vi återkommer så snart som möjligt.';
+          try {
+            const j = await resp.json().catch(()=>null);
+            if (j && j.success === false && j.message) {
+              throw new Error(j.message);
+            }
+            if (j && j.message) okMessage = j.message;
+          } catch (_) {}
+          statusEl.textContent = okMessage;
+          statusEl.className = 'success';
+          statusEl.style.display = 'block';
+
+          // if booking form present, show thanks modal
+          if (form.id === 'bookingForm') {
+            const thanksModal = document.getElementById('thanksModal');
+            if (thanksModal) {
+              thanksModal.classList.add('show');
+              document.body.classList.add('scroll-lock');
+            }
+          }
+
+          form.reset();
+        } else {
+          let errText = 'Något gick fel. Vänligen försök igen eller ring oss direkt.';
+          try {
+            const j = await resp.json().catch(()=>null);
+            if (j && j.message) errText = j.message;
+            else {
+              const t = await resp.text().catch(()=>null);
+              if (t) errText = t;
+            }
+          } catch (_) {}
+          throw new Error(errText);
+        }
+      } catch (err) {
+        statusEl.textContent = err.message || 'Något gick fel. Vänligen försök igen.';
+        statusEl.className = 'error';
+        statusEl.style.display = 'block';
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          if (submitBtn.tagName.toLowerCase() === 'button') submitBtn.textContent = originalText;
+          else submitBtn.value = originalText;
+        }
+      }
+    }
+
+    // Attach handlers
+    document.addEventListener('DOMContentLoaded', function () {
+      const contactForm = document.getElementById('contactForm');
+      if (contactForm) {
+        contactForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          if (!contactForm.checkValidity()) {
+            contactForm.reportValidity();
+            return;
+          }
+          sendFormAjax(contactForm);
+        });
+      }
+      const bookingForm = document.getElementById('bookingForm');
+      if (bookingForm) {
+        bookingForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          if (!bookingForm.checkValidity()) {
+            bookingForm.reportValidity();
+            return;
+          }
+          sendFormAjax(bookingForm);
+        });
+      }
+      // any other form with data-ajax="true"
+      document.querySelectorAll('form[data-ajax="true"]').forEach(f => {
+        if (f === contactForm || f === bookingForm) return;
+        f.addEventListener('submit', function (e) {
+          e.preventDefault();
+          if (!f.checkValidity()) { f.reportValidity(); return; }
+          sendFormAjax(f);
+        });
+      });
+    });
+
+  })();
+  </script>
+
+  <!-- small accessibility & dropdown positioning helper -->
+  <script>
+  (function(){
+    const dropdowns = document.querySelectorAll('.custom-dropdown');
+    dropdowns.forEach(dd => {
+      const input = dd.querySelector('input');
+      const list = dd.querySelector('.dropdown-list');
+      if (!input || !list) return;
+      list.style.display = 'none';
+      list.querySelectorAll('li').forEach(li=>{
+        li.setAttribute('role','option');
+        li.setAttribute('tabindex','0');
+        li.addEventListener('keydown', (ev)=> {
+          if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); li.click(); }
+        });
+        li.addEventListener('click', ()=> {
+          input.value = li.textContent.trim();
+          list.style.display = 'none';
+        });
+      });
+      input.addEventListener('focus', ()=> { list.style.display = 'block'; positionList(); });
+      input.addEventListener('input', ()=> {
+        const val = input.value.toLowerCase();
+        let any=false;
+        list.querySelectorAll('li').forEach(li=>{
+          const ok = li.textContent.toLowerCase().includes(val);
+          li.style.display = ok ? 'block' : 'none';
+          if (ok) any=true;
+        });
+        list.style.display = any ? 'block' : 'none';
+        positionList();
+      });
+      document.addEventListener('click', e=> { if (!dd.contains(e.target)) list.style.display = 'none'; });
+      function positionList(){
+        // ensure list fits viewport: open above if not enough space
+        list.style.top = '';
+        list.style.bottom = '';
+        const rect = list.getBoundingClientRect();
+        const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        if (rect.bottom > vh - 12) {
+          list.style.top = 'auto';
+          list.style.bottom = 'calc(100% + 8px)';
+        } else {
+          list.style.top = 'calc(100% + 8px)';
+          list.style.bottom = 'auto';
+        }
+      }
+      window.addEventListener('resize', positionList);
+      window.addEventListener('scroll', positionList, true);
+    });
   })();
   </script>
 

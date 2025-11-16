@@ -232,154 +232,215 @@
     <div class="container">
       <h2>Kontakt oss & Boka tid</h2>
 
-      <!-- نموذج الاتصال -->
-      <div class="contact-form">
-        <h3>Boka tid</h3>
-        <form id="contactForm" action="https://formsubmit.co/snabbservise@hotmail.com" method="POST">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_subject" value="Nytt meddelande — Utby Snabb Bilservice">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="text" name="_honey" style="display:none">
+      <!-- نموذج الاتصال <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="#start"><img src="assets/logo.png" alt="logo"/><span class="brand-name">Utby Snabb Bilservice</span></a>
+      <nav class="nav">
+        <a class="secondary" href="#tjanster">Tjänster</a>
+        <a class="secondary" href="#kontakt">Kontakt</a>
+        <a href="#boka">Boka tid</a>
+      </nav>
+    </div>
+  </header>
 
- <label for="name">Namn </label>
-        <input id="name" name="name" placeholder="För- och efternamn" required>
+  <main>
+    <section class="section" id="start">
+      <div class="container">
+        <h1>Professionell bilservice i Göteborg</h1>
+        <p class="lead">Komplett service, reparation och diagnos för alla bilmärken. Drop-in välkommen — vardagar 09:00–18:00.</p>
+      </div>
+    </section>
 
-          <label for="contactPhone">Telefon (valfritt)</label>
-          <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67">
-       
-        <label for="email">E-post </label>
-        <input id="email" name="email" type="email" placeholder="din@epost.se" required>
+    <section class="section" id="boka">
+      <div class="container">
+        <h2 style="text-align:center;color:#fff;margin-bottom:12px">Kontakt oss & Boka tid</h2>
 
-        <label for="car">Bil/Regnr </label>
-        <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017" required>
-<!-- Sökbar Problem / Tjänst (ersätter <select id="issue">) -->
-<!-- Problem / Tjänst — kort lista med 'Annat' först -->
-<label for="issueInput">Problem / Tjänst</label>
-<div class="custom-dropdown" id="issueDropdown">
-  <input type="text" id="issueInput" name="issue" placeholder="Välj eller sök tjänst..." required autocomplete="off">
-  <ul class="dropdown-list">
-    <li>Annat – beskriv i meddelandet</li>
-    <li>Service & olja</li>
-    <li>Bromsar</li>
-    <li>Däck & hjul</li>
-    <li>AC / klimatanläggning</li>
-    <li>El / elektronik</li>
-    <li>Diagnos / OBD</li>
-    <li>Motor</li>
-    <li>Växellåda / koppling</li>
-    <li>Besiktning / kontroll</li>
-  </ul>
-</div>
+        <div class="contact-form">
+          <h3>Boka tid</h3>
 
-<style>
-/* --- Dropdown-stil (mörk tema) --- */
-.custom-dropdown {
-  position: relative;
-  width: 100%;
-  margin-bottom: 14px;
-}
-.custom-dropdown input {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.03);
-  color: #eee;
-  font-size: 15px;
-  box-sizing: border-box;
-  outline: none;
-  cursor: pointer;
-}
-.custom-dropdown input:focus {
-  border-color: rgba(255,215,90,0.9);
-  box-shadow: 0 0 10px rgba(255,215,90,0.1);
-}
-.custom-dropdown input::placeholder {
-  color: rgba(255,255,255,0.4);
-}
+          <!-- FORM: using EmailJS only -->
+          <form id="contactForm" novalidate>
+            <input type="text" name="_honey" style="display:none" autocomplete="off">
 
-/* lista */
-.dropdown-list {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  max-height: 220px;
-  overflow-y: auto;
-  background: #111;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 10px;
-  padding: 6px 0;
-  list-style: none;
-  margin: 4px 0 0 0;
-  display: none;
-  z-index: 999;
-}
-.dropdown-list li {
-  padding: 10px 14px;
-  color: #ddd;
-  cursor: pointer;
-  font-size: 15px;
-}
-.dropdown-list li:hover {
-  background: rgba(255,215,90,0.15);
-  color: #fff;
-}
+            <label for="name">Namn</label>
+            <input id="name" name="name" placeholder="För- och efternamn" required>
 
-/* liten pil för känsla som select 🔽 */
-.custom-dropdown::after {
-  content: "▾";
-  position: absolute;
-  right: 14px;
-  top: 12px;
-  color: rgba(255,255,255,0.4);
-  pointer-events: none;
-  font-size: 18px;
-}
-</style>
+            <label for="contactPhone">Telefon (valfritt)</label>
+            <input id="contactPhone" name="phone" type="tel" placeholder="072-123 45 67">
 
-<script>
-const dropdown = document.getElementById("issueDropdown");
-const input = dropdown.querySelector("input");
-const list = dropdown.querySelector(".dropdown-list");
+            <label for="email">E-post</label>
+            <input id="email" name="email" type="email" placeholder="din@epost.se" required>
 
-input.addEventListener("focus", () => list.style.display = "block");
-input.addEventListener("input", () => {
-  const filter = input.value.toLowerCase();
-  const items = list.querySelectorAll("li");
-  items.forEach(li => {
-    li.style.display = li.textContent.toLowerCase().includes(filter) ? "block" : "none";
-  });
-});
-list.querySelectorAll("li").forEach(li => {
-  li.addEventListener("click", () => {
-    input.value = li.textContent;
-    list.style.display = "none";
-  });
-});
-document.addEventListener("click", e => {
-  if (!dropdown.contains(e.target)) list.style.display = "none";
-});
-</script>
-        <div class="inline-dt">
-          <div class="field">
-            <label for="date">Önskat datum *</label>
-            <input id="date" name="date" type="date" required>
-          </div>
-          <div class="field">
-            <label for="time">Önskad tid </label>
-            <input id="time" name="time" type="time" required>
-          </div>
+            <label for="car">Bil/Regnr</label>
+            <input id="car" name="car" placeholder="Ex: ABC123 eller Volvo V60 2017">
+
+            <label for="issueInput">Problem / Tjänst</label>
+            <input type="text" id="issueInput" name="issue" placeholder="Välj eller sök tjänst..." autocomplete="off">
+
+            <div class="inline-dt">
+              <div>
+                <label for="date">Önskat datum</label>
+                <input id="date" name="date" type="date">
+              </div>
+              <div>
+                <label for="time">Önskad tid</label>
+                <input id="time" name="time" type="time">
+              </div>
+            </div>
+
+            <label for="contactMessage">Meddelande</label>
+            <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..."></textarea>
+
+            <button type="submit">Skicka meddelande</button>
+
+            <!-- Status element: only updated by our JS (no raw fetch errors shown) -->
+            <div id="contactStatus" role="status" aria-live="polite"></div>
+          </form>
         </div>
 
-     
-          <label for="contactMessage">Meddelande </label>
-          <textarea id="contactMessage" name="message" placeholder="Berätta vad du behöver hjälp med..." required></textarea>
-
-          <button type="submit">Skicka meddelande</button>
-          <div id="contactStatus"></div>
-        </form>
+        <div style="text-align:center;margin-top:18px;color:#C9D2DE">
+          <p>Vagnmakaregatan 2, 415 72 Göteborg</p>
+        </div>
       </div>
+    </section>
+  </main>
+
+  <!-- EmailJS library -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+  <script>
+  /************************************************
+   *  IMPORTANT: Replace these with your EmailJS values
+   *  - EMAILJS_PUBLIC_KEY:   your user/public key
+   *  - EMAILJS_SERVICE_ID:   your service id (e.g. service_xxx)
+   *  - EMAILJS_TEMPLATE_ID:  your template id (e.g. template_xxx)
+   ************************************************/
+  const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+  const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+  const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+
+  // Init EmailJS (if library loaded)
+  if (window.emailjs && typeof emailjs.init === 'function') {
+    try { emailjs.init(EMAILJS_PUBLIC_KEY); } catch (e) { console.warn('emailjs.init failed', e); }
+  } else {
+    console.warn('EmailJS library not available yet.');
+  }
+
+  // helper: set min date
+  (function setMinDate() {
+    const dateInput = document.getElementById('date');
+    if (!dateInput) return;
+    const today = new Date();
+    const y = today.getFullYear();
+    const m = String(today.getMonth() + 1).padStart(2, '0');
+    const d = String(today.getDate()).padStart(2, '0');
+    dateInput.min = `${y}-${m}-${d}`;
+  })();
+
+  /**
+   * showStatus(type, text)
+   * type: 'info' | 'success' | 'error' | ''
+   */
+  function showStatus(type, text) {
+    const el = document.getElementById('contactStatus');
+    if (!el) return;
+    el.style.display = 'block';
+    el.className = '';
+    if (type === 'success') el.classList.add('success');
+    else if (type === 'error') el.classList.add('error');
+    else el.classList.add('info');
+    el.textContent = text;
+  }
+
+  /**
+   * prepareTemplateParams(form)
+   * maps form fields to template variables used in EmailJS template
+   */
+  function prepareTemplateParams(form) {
+    const name = (form.querySelector('[name="name"]') || {}).value || '';
+    const email = (form.querySelector('[name="email"]') || {}).value || '';
+    const phone = (form.querySelector('[name="phone"]') || {}).value || '';
+    const regnr = (form.querySelector('[name="car"]') || {}).value || '';
+    const problem = (form.querySelector('[name="issue"]') || {}).value || '';
+    const date = (form.querySelector('[name="date"]') || {}).value || '';
+    const time = (form.querySelector('[name="time"]') || {}).value || '';
+    const message = (form.querySelector('[name="message"]') || {}).value || '';
+
+    return {
+      from_name: name,
+      email: email,
+      phone: phone,
+      regnr: regnr,
+      problem: problem,
+      date: date,
+      time: time,
+      message: message
+    };
+  }
+
+  /**
+   * sendWithEmailJS(form)
+   * Use EmailJS only. Returns Promise.
+   */
+  function sendWithEmailJS(form) {
+    return new Promise((resolve, reject) => {
+      // honeypot check
+      const honey = form.querySelector('input[name="_honey"]');
+      if (honey && honey.value.trim() !== '') {
+        return reject(new Error('Bot suspected'));
+      }
+
+      // ensure keys set
+      if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
+        return reject(new Error('EmailJS keys not configured'));
+      }
+
+      const params = prepareTemplateParams(form);
+      showStatus('info', 'Skickar e-post...');
+
+      // call EmailJS
+      if (!window.emailjs || typeof emailjs.send !== 'function') {
+        return reject(new Error('EmailJS library missing'));
+      }
+
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params)
+        .then(function(resp) {
+          resolve(resp);
+        }, function(err) {
+          reject(err);
+        });
+    });
+  }
+
+  // Attach submit handler (EmailJS only; no fetch)
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      // HTML5 validation
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      try {
+        await sendWithEmailJS(form);
+        showStatus('success', 'Tack! Ditt meddelande har skickats. Vi återkommer så snart som möjligt.');
+        form.reset();
+      } catch (err) {
+        console.error('EmailJS send error:', err);
+        // Friendly error message - NO raw "Failed to fetch" shown to user
+        const msg = (err && err.text) ? ('Fel: ' + err.text) : 'Kunde inte skicka meddelandet just nu. Försök igen senare eller ring oss.';
+        showStatus('error', msg);
+        // optional: do NOT attempt fetch backup automatically (to avoid "Failed to fetch")
+        // if you want a backup, implement server-side proxy or enable FormSubmit on server.
+      }
+    });
+  });
+  </script>
 
       <div class="map-container" id="kontakt">
         <h3>Här hittar du oss</h3>
